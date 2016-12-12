@@ -6,6 +6,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.Permission;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -22,7 +25,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -37,71 +40,128 @@ import com.kinvey.java.User;
 import com.kinvey.java.model.UserLookup;
 import com.kinvey.nativejava.Client;
 import com.kinvey.nativejava.UserDiscovery;
+import com.smsaware.model.Address;
 import com.smsaware.model.Login;
-
-
-
+import com.smsaware.model.Registration;
+import com.smsaware.utils.Database;
 
 public class LoginServlet extends HttpServlet {
-	
-	 public UserLookup userLookup() {
-			return new UserLookup();
-		}
-	 
+
 	/**
 	 * SMSAWARE
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// reading the user input
-		BufferedReader in = null;
-		//StringBuffer responseBuffer = null;
-		String inputLine;
-		ObjectMapper mapper= new ObjectMapper();
+		System.out.println("inside login servlt#######::");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		Login login = new Login();
 		login.setPassword(password);
 		login.setUserName(username);
 		String postingString = new Gson().toJson(login);
-		
-		String responseKinvey=getLoginStatus(login);
-		if(responseKinvey!=null){
-			System.out.println("response::"+responseKinvey);
-			 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/success.html");
-	         dispatcher.forward(request, response);
+
+		boolean responseStatus = getLoginStatus(login);
+		if (responseStatus) {
+			System.out.println("response::" + responseStatus);
 			
+			Registration registrationObject=getUserDetails(login.getUserName());
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("email", login.getUserName());
+			session.setAttribute("name", registrationObject.getFname()+registrationObject.getLname());
+			session.setAttribute("mobile", registrationObject.getMobileNumber());
+			session.setAttribute("gender", registrationObject.getGender());
+			session.setAttribute("address", registrationObject.getAddress());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/profile.jsp");
+			dispatcher.forward(request, response);
+
+		} else {
+			request.getRequestDispatcher("smsawarelogin.html").include(request, response);
 		}
-		
-		
-		
-		
-		
+
 	}
-	
-	
-	private String getLoginStatus(Login login) {
-		System.out.println("inside method");
-		String returnObject=null;
+
+	private Registration getUserDetails(String userName) {
+		Registration regi=null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		Connection conn = null;
 		
-		final Client mKinveyClient = new Client.Builder("kid_ryCIwkku", "b44d69d74707466e973d7a5f7c9aca7f").build();
-		System.out.println("mKinveyClient==>>"+mKinveyClient);
-		User result = null;
 		try {
-			result = (User) mKinveyClient.user().loginBlocking(login.getUserName(), login.getPassword()).execute();
-			returnObject=new Gson().toJson(result);
-			System.out.println("Response  :--->>"+new Gson().toJson(result));
-			
+			conn = Database.getInstance().getConnection();
+			String user = "select * from registration where email =?";
+			statement = conn.prepareStatement(user);
+			statement.setString(1, userName);
+			result = statement.executeQuery();
+
+			while (result.next()) {
+				System.out.print(result.getString(5));
+				System.out.print("\t" + result.getString(7));
+				if (result.getString(5).equalsIgnoreCase(userName)) {
+					regi=new Registration();
+					Address address= new Address();
+					address.setAddress1(result.getString(4));
+					address.setAddress2(result.getString(8));
+					address.setCity(result.getString(9));
+					address.setState(result.getString(11));
+					address.setZipCode(result.getString(10));
+					regi.setAddress(address);
+					regi.setGender(result.getString(6));
+					regi.setEmail(result.getString(5));
+					regi.setFname(result.getString(2));
+					regi.setLname(result.getString(3));
+					
+					regi.setMobileNumber(Integer.parseInt(result.getString(1)));
+					break;
+				}
+
+			}
+
 		} catch (Exception e) {
-			System.out.println("exception"+e);
+			System.out.println("exception" + e);
 		}
-		
-		return returnObject;
-		
+
+		return regi;
 	}
 
+	private boolean getLoginStatus(Login login) {
+		System.out.println("inside method");
+		boolean returnObject = false;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		Connection conn = null;
 
-	
+		try {
+			conn = Database.getInstance().getConnection();
+			String user = "select * from registration where email =? and password=?";
+			statement = conn.prepareStatement(user);
+			statement.setString(1, login.getUserName());
+			statement.setString(2, login.getPassword());
+			result = statement.executeQuery();
+
+			while (result.next()) {
+				System.out.print(result.getString(5));
+				System.out.print("\t" + result.getString(7));
+				// System.out.print("\t"+rs.getInt(3));
+				// System.out.print("\t"+rs.getFloat(4));
+				if (result.getString(5).equalsIgnoreCase(login.getUserName())
+						&& result.getString(7).equalsIgnoreCase(login.getPassword())) {
+					returnObject = true;
+					break;
+				}
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("exception" + e);
+		}
+
+		return returnObject;
+
+	}
+
+	// Connection con = Database.getInstance().getConnection();
+
 }

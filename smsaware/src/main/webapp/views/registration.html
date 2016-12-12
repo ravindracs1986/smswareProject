@@ -56,14 +56,14 @@
 		</div>
  <div class="center_content_pages" >
  <h1 class="regi">Registration </h1><br><br>
-	   <form>
+	   <form action="RegistrationServlet" method="post">
 			<table style="border-collapse: collapse">
 				<tr class="form_row">
 					<td >
 						<label>First Name:</label>
 					</td>
 					<td>
-						<input type="text" name="firstname" placeholder="Ex: Mosleh" class="main_input" />
+						<input type="text" id="fname" name="fname" placeholder="Ex: Mosleh" class="main_input" />
 					</td>
 					
 					<td>
@@ -71,7 +71,7 @@
 						<label>Last Name:</label>
 					</td>
 					<td>
-						<input type="text" name="lastname" placeholder="Ex: Mosleh" class="main_input" />
+						<input type="text" id="lname" name="lname" placeholder="Ex: Mosleh" class="main_input" />
 					</td>
 					
 				</tr>
@@ -82,7 +82,7 @@
 						<label>Email:</label>
 					</td>
 					<td>
-						<input type="email" name="email" placeholder="Ex: example@example.com" class="main_input"/>
+						<input type="text" id="email" name="email" placeholder="Ex: example@example.com" class="main_input"/>
 					</td>
 					
 					<td>
@@ -90,7 +90,7 @@
 						<label>Phone:</label>
 					</td>
 					<td>
-						<input type="phone" name="phone" placeholder="111111111" class="main_input"/>
+						<input type="text" id="mobileNumber" name="mobileNumber" placeholder="111111111" class="main_input"/>
 					</td>
 					
 				</tr>
@@ -100,14 +100,14 @@
 						<label>Address1:</label>
 					</td>
 					<td>
-						<input type="text" name="Address1" class="main_input"/>
+						<input type="text" id="address1" name="address1" class="main_input"/>
 					</td>
 					<td>
 						
 						<label>Address2:</label>
 					</td>
 					<td>
-						<input type="text" name="Address2" class="main_input"/>
+						<input type="text" id="address2" name="address2" class="main_input"/>
 					</td>
 				</tr>
 				
@@ -117,14 +117,14 @@
 						<label>City:</label>
 					</td>
 					<td>
-						<input type="text" name="city" class="main_input"/>
+						<input type="text" id="city" name="city" class="main_input"/>
 					</td>
 					<td>
 						
 						<label>ZipCode:</label>
 					</td>
 					<td>
-						<input type="text" name="pin" class="main_input"/>
+						<input type="text" id="zipCode" name="zipCode" class="main_input"/>
 					</td>
 				</tr>
 				
@@ -133,14 +133,14 @@
 						<label>State:</label>
 					</td>
 					<td>
-						<input type="text" name="state" placeholder="" class="main_input"/>
+						<input type="text" id="state" name="state" placeholder="" class="main_input"/>
 					</td>
 					
 					<td>
 						<label>Gender:</label>
 					</td>
 					<td class="option_input">
-						<select name="gender" class="option_input">
+						<select name="gender" id="gender" class="option_input">
 							<option value="male">Male</option>
 							<option value="female">Female</option>
 							<option value="unknown">Others</option>
@@ -149,6 +149,23 @@
 					
 				</tr>
 				
+				<tr class="form_row">
+					<td>
+						
+						<label>Password:</label>
+					</td>
+					<td>
+						<input type="password" id="password" name="password" class="main_input"/>
+					</td>
+					<td>
+						
+						<label>Confirmed Password:</label>
+					</td>
+					<td>
+						<input type="password" id="cpassword" name="cpassword" class="main_input"/>
+					</td>
+				</tr>
+			
 				<tr>
 				    <td>
 						<div class="Cancel">
