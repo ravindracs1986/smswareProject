@@ -359,6 +359,7 @@ color: #2A1C11;
 }
 
 .search-container {
+background:url(../images/search-icon.gif) no-repeat right;
 	display:inline-block;
 	vertical-align:top;
 	margin-top:1px;
@@ -366,6 +367,13 @@ color: #2A1C11;
 	width:194px;
 	height: 2px;
 }
+.searchImage {
+
+	
+	margin:3px 0 0 860px;
+	
+}
+
 .lineClass {
 color:#AAAAAA;
 background-color:#AAAAAA;
@@ -374,9 +382,13 @@ background-color:#AAAAAA;
 color:red;
 }
 .regi{
-color:red;
 background-color:#DCDCDC;
-text-align: center;
+color: red;
+text-align: left;
+font-size: 7px;
+float: left;
+width: 960px;
+padding:px 10px 2px 10px;
 }
 
 .cancelButtom{
@@ -422,4 +434,33 @@ padding: 5px;
 border: 0;
 box-shadow: 0;
 display: inline;
+}
+a {
+    color: #B52025;
+    text-decoration: none;
+}
+a:hover{
+    color: #abda0f;
+    text-decoration: none;
+}
+
+.ser{
+    height:30px;
+    width:300px;
+    position:relative;
+}
+
+.serId {
+    height:15px;
+    position:absolute;
+    right:0;
+    top:5px;
+	cursor:pointer;
+}
+
+.serInput {
+    width:100%;
+}
+input:focus, select:focus{
+    background-color: #efffe0;
 }

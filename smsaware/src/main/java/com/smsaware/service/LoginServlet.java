@@ -1,24 +1,9 @@
 package com.smsaware.service;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.Permission;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileReader;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,20 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.glassfish.jersey.client.ClientProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
-import com.kinvey.java.User;
-import com.kinvey.java.model.UserLookup;
-import com.kinvey.nativejava.Client;
-import com.kinvey.nativejava.UserDiscovery;
+import com.google.gson.Gson;
 import com.smsaware.model.Address;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;

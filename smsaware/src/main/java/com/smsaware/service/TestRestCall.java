@@ -1,4 +1,4 @@
-package com.smsaware.service;
+/*package com.smsaware.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,12 +58,12 @@ public class TestRestCall {
 		//Response response = webTarget.request().header("Authorization", authValue).accept(MediaType.APPLICATION_JSON).get();
 		//int codeResponse=response.getStatus();
 		//System.out.println("codeResponse-->"+codeResponse);
-		/*System.out.println("Response befor :--->>"+new Gson().toJson(serviceResponse));
+		System.out.println("Response befor :--->>"+new Gson().toJson(serviceResponse));
 		if(serviceResponse.getStatus()==200){
 			System.out.println("Response:--->>"+new Gson().toJson(serviceResponse));
 			System.out.println("Login Success");
 			
-		}*/
+		}
 		
 		
 		
@@ -80,7 +80,7 @@ public class TestRestCall {
 		}
 		
 	
-		/*URL urls = new URL(serviceUrl);
+		URL urls = new URL(serviceUrl);
 		HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
 		conn.setRequestMethod("POST");
 	     conn.setDoOutput(true);
@@ -108,7 +108,7 @@ public class TestRestCall {
 	         InputStream responseContent = (InputStream) conn.getContent();
 	         
 	         
-	     }*/
+	     }
 		
 		
 		
@@ -143,3 +143,4 @@ public class TestRestCall {
 	 }
 
 }
+*/
