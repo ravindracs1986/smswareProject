@@ -17,7 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.smsaware.dao.RegistrationDao;
+import com.smsaware.model.Address;
 import com.smsaware.model.Login;
+import com.smsaware.model.Registration;
 import com.smsaware.utils.Database;
 
 public class RegistrationServlet extends HttpServlet {
@@ -45,48 +48,65 @@ public class RegistrationServlet extends HttpServlet {
 		 * response); } out.close();
 		 */
 
-		String mobileNumber = request.getParameter("mobileNumber");
-		Integer mobile = Integer.parseInt(mobileNumber);
-		String fname = request.getParameter("fname");
-		String lname = request.getParameter("lname");
-		String email = request.getParameter("email");
-		String username = request.getParameter("email");
-		String gender = request.getParameter("gender");
-
-		String password = request.getParameter("password");
-		String address1 = request.getParameter("address1");
-		String address2 = request.getParameter("address2");
-		String city = request.getParameter("city");
-		String zipCode = request.getParameter("zipCode");
-		String state = request.getParameter("state");
-
-		System.out.println("mobileNumber==>" + mobileNumber + "fname==>" + fname + "lname==>" + lname);
-		System.out.println(
-				"username==>" + username + "gender==>" + gender + "password==>" + password + "email==>" + email);
-
+		Registration registration=setRegistrationRequest(request);
+		
+		
 		try {
-			int dbResponse = saveUser(mobile, fname, lname, email, username, gender, password, address1, address2, city,
-					zipCode, state);
-			System.out.println("return3333333===>>" + dbResponse);
+			RegistrationDao dao=new RegistrationDao();
+			int dbResponse=dao.saveUser(registration);
+			
+			System.out.println("dbResponse===>>" + dbResponse);
 			if (dbResponse == 1) {
 
 				HttpSession session = request.getSession();
-				session.setAttribute("email", email);
-				session.setAttribute("fname", fname);
-				session.setAttribute("lname", lname);
-				session.setAttribute("mobile", mobile);
+				session.setAttribute("email", registration.getEmail());
+				session.setAttribute("name", registration.getName());
+				session.setAttribute("phone", registration.getPhone());
 				request.getRequestDispatcher("profile.jsp").include(request, response);
 			} else {
 
 				request.getRequestDispatcher("smsawarelogin.html").include(request, response);
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			// System.out.println("sql exception",e.getMessage());
+			System.out.println("sql exception"+e.getMessage());
 		}
 
+	}
+
+	private Registration setRegistrationRequest(HttpServletRequest request) {
+		Registration registration =new Registration();
+		Address address=new Address();
+		String mobileNumber = request.getParameter("phone");
+		long  mobile = Long.parseLong(mobileNumber);
+		
+		registration.setPhone(mobile);
+		registration.setEmail(request.getParameter("email"));
+		
+		address.setUserAddress(request.getParameter("userAddress"));
+		address.setStreet(request.getParameter("street"));
+		address.setCity(request.getParameter("city"));
+		address.setState(request.getParameter("state"));
+		address.setZipCode(request.getParameter("zipCode"));
+		
+		registration.setAddress(address);
+		
+		String date = request.getParameter("date");
+		String month = request.getParameter("month");
+		String year = request.getParameter("year");
+		String dateOfBirth=date+"/"+month+"/"+year;
+		
+		
+		registration.setBirthdate(dateOfBirth);
+		registration.setGender(request.getParameter("gender"));
+		registration.setName(request.getParameter("name"));
+		registration.setNationality(request.getParameter("nationality"));
+		registration.setPassword(request.getParameter("password"));
+		registration.setWebsite(request.getParameter("website"));
+		
+		return registration;
 	}
 
 	private int saveUser(Integer mobile, String fname, String lname, String email, String username, String gender,

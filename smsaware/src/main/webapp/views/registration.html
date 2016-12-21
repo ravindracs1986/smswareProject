@@ -57,7 +57,7 @@
 		</div>
  <div class="center_content_pages" >
 
- <form action="" class="register">
+ <form action="RegistrationServlet" class="register" method="post">
             <h1 class="regiClass">Registration</h1><br>
             <fieldset class="row1">
                 <legend>Account Details
@@ -65,18 +65,18 @@
                 <p>
                     <label>Email *
                     </label>
-                    <input type="text"/>
+                    <input type="text" id="email" name="email"/>
                     <label>Phone Number *
                     </label>
-                    <input type="text"/>
+                    <input type="text" id="phone" name="phone"/>
                 </p>
                 <p>
                     <label>Password*
                     </label>
-                    <input type="text"/>
-                    <label>Repeat Password*
+                    <input type="password" id="password" name="password"/>
+                    <label>Confirmed Password*
                     </label>
-                    <input type="text"/>
+                    <input type="password" id="Cpassword" name="Cpassword"/>
                    
                 </p>
             </fieldset>
@@ -86,37 +86,40 @@
                 <p>
                     <label>Name *
                     </label>
-                    <input type="text" class="long"/>
+                    <input type="text" class="long" id="name" name="name"/>
                 </p>
                 <p>
                     <label>Address *
                     </label>
-                    <input type="text" maxlength="10"/>
+                    <input type="text" class="long" id="userAddress" name="userAddress"/>
                 </p>
                 <p>
                     <label class="optional">Street
                     </label>
-                    <input type="text" class="long"/>
+                    <input type="text" class="long" id="street" name="street"/>
                 </p>
                 <p>
                     <label>City *
                     </label>
-                    <input type="text" class="long"/>
+                    <input type="text" class="long" id="city" name="city"/>
                 </p>
-                <p>
-                    <label>Country *
+				<p>
+                    <label>state *
                     </label>
-                    <select>
-                        <option>
-                        </option>
-                        <option value="1">United States
-                        </option>
-                    </select>
+                    <input type="text" class="long" id="state" name="state"/>
                 </p>
+				<p>
+                    <label>ZipCode *
+                    </label>
+                    <input type="text" class="long" id="zipCode" name="zipCode"/>
+                </p>
+				
+				
+                
                 <p>
                     <label class="optional">Website
                     </label>
-                    <input class="long" type="text" value="http://"/>
+                    <input class="long" type="text" value="http://" id="website" name="website"/>
 
                 </p>
             </fieldset>
@@ -125,15 +128,15 @@
                 </legend>
                 <p>
                     <label>Gender *</label>
-                    <input type="radio" value="radio"/>
+                    <input type="radio" value="M" id="gender" name="gender"/>
                     <label class="gender">Male</label>
-                    <input type="radio" value="radio"/>
+                    <input type="radio" value="F" id="gender" name="gender"/>
                     <label class="gender">Female</label>
                 </p>
                 <p>
-                    <label>Birthdate *
+                    <label>Date of Birth *
                     </label>
-                    <select class="date">
+                    <select class="date" id="date" name="date">
                         <option value="1">01
                         </option>
                         <option value="2">02
@@ -197,7 +200,7 @@
                         <option value="31">31
                         </option>
                     </select>
-                    <select>
+                    <select id="month" name="month">
                         <option value="1">January
                         </option>
                         <option value="2">February
@@ -223,15 +226,13 @@
                         <option value="12">December
                         </option>
                     </select>
-                    <input class="year" type="text" size="4" maxlength="4"/>e.g 1976
+                    <input class="year" type="text" size="4" maxlength="4" id="year" name="year"/>e.g 1976
                 </p>
                 <p>
                     <label>Nationality *
                     </label>
-                    <select>
-                        <option value="0">
-                        </option>
-                        <option value="1">United States
+                    <select id="nationality" name="nationality">
+                       <option value="Indian">Indian
                         </option>
                     </select>
                 </p>

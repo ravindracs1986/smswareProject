@@ -1,14 +1,26 @@
 package com.smsaware.model;
 
-public class Login {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+
+public class Login implements Serializable{
 	
-	private String userName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8330557027642483424L;
+	//@Column(name="EMAIL")
+	private String email;
+	//@Column(name="PASSWORD")
 	private String password;
-	public String getUserName() {
-		return userName;
+	//@Column(name="PHONE")
+	private Long phone;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
@@ -16,6 +28,13 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Long getPhone() {
+		return phone;
+	}
+	public void setPhone(Long phone) {
+		this.phone = phone;
+	}
+	
 	
 
 }

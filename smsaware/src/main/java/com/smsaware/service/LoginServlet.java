@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import com.google.gson.Gson;
 import com.smsaware.model.Address;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
+import com.smsaware.utils.DataBaseQuerys;
 import com.smsaware.utils.Database;
 
 public class LoginServlet extends HttpServlet {
@@ -30,23 +33,34 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("inside login servlt#######::");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		
 		Login login = new Login();
 		login.setPassword(password);
-		login.setUserName(username);
-		String postingString = new Gson().toJson(login);
-
-		boolean responseStatus = getLoginStatus(login);
-		if (responseStatus) {
+		login.setEmail(username);
+		if(!username.contains("@")){
+			login.setPhone(Long.parseLong(username));
+		}
+		//String postingString = new Gson().toJson(login);
+		Map<Boolean,Registration> responseStatus = getLoginStatus(login);
+		Boolean isUserFound =false;
+		Registration registration=null;
+		for ( Map.Entry<Boolean, Registration> entry : responseStatus.entrySet()) {
+			isUserFound = entry.getKey();
+			if(isUserFound){
+				registration= entry.getValue();	
+			}
+			
+		}
+		
+		
+		if (isUserFound) {
 			System.out.println("response::" + responseStatus);
-			
-			Registration registrationObject=getUserDetails(login.getUserName());
-			
 			HttpSession session = request.getSession();
-			session.setAttribute("email", login.getUserName());
-			session.setAttribute("name", registrationObject.getFname()+registrationObject.getLname());
-			session.setAttribute("mobile", registrationObject.getMobileNumber());
-			session.setAttribute("gender", registrationObject.getGender());
-			session.setAttribute("address", registrationObject.getAddress());
+			session.setAttribute("email", registration.getEmail());
+			session.setAttribute("name", registration.getName());
+			session.setAttribute("phone", registration.getPhone());
+			session.setAttribute("gender", registration.getGender());
+			//session.setAttribute("address", registration.getAddress());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/profile.jsp");
 			dispatcher.forward(request, response);
 
@@ -55,75 +69,67 @@ public class LoginServlet extends HttpServlet {
 		}
 
 	}
-
-	private Registration getUserDetails(String userName) {
-		Registration regi=null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		Connection conn = null;
-		
-		try {
-			conn = Database.getInstance().getConnection();
-			String user = "select * from registration where email =?";
-			statement = conn.prepareStatement(user);
-			statement.setString(1, userName);
-			result = statement.executeQuery();
-
-			while (result.next()) {
-				System.out.print(result.getString(5));
-				System.out.print("\t" + result.getString(7));
-				if (result.getString(5).equalsIgnoreCase(userName)) {
-					regi=new Registration();
-					Address address= new Address();
-					address.setAddress1(result.getString(4));
-					address.setAddress2(result.getString(8));
-					address.setCity(result.getString(9));
-					address.setState(result.getString(11));
-					address.setZipCode(result.getString(10));
-					regi.setAddress(address);
-					regi.setGender(result.getString(6));
-					regi.setEmail(result.getString(5));
-					regi.setFname(result.getString(2));
-					regi.setLname(result.getString(3));
-					
-					regi.setMobileNumber(Integer.parseInt(result.getString(1)));
-					break;
-				}
-
-			}
-
-		} catch (Exception e) {
-			System.out.println("exception" + e);
-		}
-
-		return regi;
-	}
-
-	private boolean getLoginStatus(Login login) {
+	private Map<Boolean,Registration> getLoginStatus(Login login) {
 		System.out.println("inside method");
-		boolean returnObject = false;
+		Map<Boolean,Registration> userObject=new HashMap<Boolean,Registration>();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		Connection conn = null;
 
 		try {
 			conn = Database.getInstance().getConnection();
-			String user = "select * from registration where email =? and password=?";
-			statement = conn.prepareStatement(user);
-			statement.setString(1, login.getUserName());
-			statement.setString(2, login.getPassword());
+			String user = "";
+			if(login.getEmail()!=null&& !(login.getEmail().isEmpty())){
+				statement = conn.prepareStatement(DataBaseQuerys.getUserByEmail);
+				statement.setString(1, login.getEmail());
+				statement.setString(2, login.getPassword());
+			}else{
+				statement = conn.prepareStatement(DataBaseQuerys.getUserByPhone);
+				statement.setLong(1, login.getPhone());
+				statement.setString(2, login.getPassword());
+			}
+			
+			
 			result = statement.executeQuery();
 
 			while (result.next()) {
-				System.out.print(result.getString(5));
-				System.out.print("\t" + result.getString(7));
-				// System.out.print("\t"+rs.getInt(3));
-				// System.out.print("\t"+rs.getFloat(4));
-				if (result.getString(5).equalsIgnoreCase(login.getUserName())
-						&& result.getString(7).equalsIgnoreCase(login.getPassword())) {
-					returnObject = true;
-					break;
+				System.out.print(result.getString(7));
+				System.out.print("\t" + result.getString(9));
+				if(login.getEmail()!=null&& !(login.getEmail().isEmpty())){
+					if (result.getString(7).equalsIgnoreCase(login.getEmail())
+							&& result.getString(7).equalsIgnoreCase(login.getPassword())) {
+						Registration regi= new Registration ();
+						regi.setId(result.getLong("id"));
+						regi.setName(result.getString("NAME"));
+						regi.setBirthdate(result.getString("BIRTH_DATE"));
+						regi.setGender(result.getString("GENDER"));
+						regi.setNationality(result.getString("NATIONALITY"));
+						regi.setWebsite(result.getString("WEBSITE"));
+						regi.setNoOfSms(result.getInt("NO_OF_SMS"));
+						regi.setEmail(result.getString("EMAIL"));
+						regi.setPhone(result.getLong("PHONE"));
+						userObject.put(true, regi);
+						break;
+					}
+					
+				}else{
+					if (result.getLong(9)==login.getPhone() && result.getString(7).equalsIgnoreCase(login.getPassword())) {
+						Registration regi= new Registration ();
+						regi.setId(result.getLong("id"));
+						regi.setName(result.getString("NAME"));
+						regi.setBirthdate(result.getString("BIRTH_DATE"));
+						regi.setGender(result.getString("GENDER"));
+						regi.setNationality(result.getString("NATIONALITY"));
+						regi.setWebsite(result.getString("WEBSITE"));
+						regi.setNoOfSms(result.getInt("NO_OF_SMS"));
+						regi.setEmail(result.getString("EMAIL"));
+						regi.setPhone(result.getLong("PHONE"));
+						userObject.put(true, regi);
+						break;
+					}
+					
 				}
+				
 
 			}
 
@@ -131,7 +137,7 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("exception" + e);
 		}
 
-		return returnObject;
+		return userObject;
 
 	}
 

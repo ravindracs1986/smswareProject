@@ -1,23 +1,55 @@
 package com.smsaware.model;
 
-public class Address {
+import java.io.Serializable;
 
-	private String address1;
-	private String address2;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/*@Entity
+@Table(name="ADDRESS")*/
+public class Address implements Serializable{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8411036809386764861L;
+	/*@Id
+	@GeneratedValue*/
+	//@Column(name="ADDRESS_ID")
+	private Long id;
+	//@Column(name="USER_ADDRESS")
+	private String userAddress;
+	//@Column(name="STREET")
+	private String street;
+	//@Column(name="CITY")
 	private String city;
-	private String zipCode;
+	//@Column(name="STATE")
 	private String state;
-	public String getAddress1() {
-		return address1;
+	//@Column(name="ZIP")
+	private String zipCode;
+	
+	
+	public Long getId() {
+		return id;
 	}
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getAddress2() {
-		return address2;
+	public String getUserAddress() {
+		return userAddress;
 	}
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
 	}
 	public String getCity() {
 		return city;
@@ -25,18 +57,20 @@ public class Address {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getZipCode() {
-		return zipCode;
-	}
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
 	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	
+	
 	
 	
 	

@@ -20,17 +20,24 @@ public class Database {
 		return dbIsntance;
 	}
 
-	public Connection getConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public Connection getConnection(){
 
 		if (con == null) {
 			try {
-				//jdbc:mysql://localhost:3307/dbname
-				System.out.println("database class connection^%%%%%%");
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				String host = "jdbc:mysql://localhost:3306/smsaware";
-				String username = "root";
-				String password = "smsaware";
-				con = DriverManager.getConnection(host, username, password);
+				
+				try {
+					Class.forName(PropertiesManager.getInstance().getValue("JDBCDriver")).newInstance();
+				} catch (InstantiationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				con = DriverManager.getConnection(PropertiesManager.getInstance().getValue("DbHost"), PropertiesManager.getInstance().getValue("DbUserName"), PropertiesManager.getInstance().getValue("DbPassword"));
 			} catch (SQLException ex) {
 				System.out.println(ex);
 			}
