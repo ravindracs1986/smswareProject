@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class Database {
 
 	private static Database dbIsntance;
-	private static Connection con;
+	private Connection con;
 
-	private Database() {
+	/*private Database() {
 		// private constructor //
 	}
 
@@ -18,7 +18,7 @@ public class Database {
 			dbIsntance = new Database();
 		}
 		return dbIsntance;
-	}
+	}*/
 
 	public Connection getConnection(){
 

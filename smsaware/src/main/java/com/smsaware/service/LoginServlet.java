@@ -75,9 +75,9 @@ public class LoginServlet extends HttpServlet {
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		Connection conn = null;
-
+		Database dataBase = new Database();
 		try {
-			conn = Database.getInstance().getConnection();
+			conn = dataBase.getConnection();
 			String user = "";
 			if(login.getEmail()!=null&& !(login.getEmail().isEmpty())){
 				statement = conn.prepareStatement(DataBaseQuerys.getUserByEmail);
@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
 					if (result.getString(7).equalsIgnoreCase(login.getEmail())
 							&& result.getString(7).equalsIgnoreCase(login.getPassword())) {
 						Registration regi= new Registration ();
-						regi.setId(result.getLong("id"));
+						//regi.setId(result.getLong("id"));
 						regi.setName(result.getString("NAME"));
 						regi.setBirthdate(result.getString("BIRTH_DATE"));
 						regi.setGender(result.getString("GENDER"));
@@ -115,7 +115,7 @@ public class LoginServlet extends HttpServlet {
 				}else{
 					if (result.getLong(9)==login.getPhone() && result.getString(7).equalsIgnoreCase(login.getPassword())) {
 						Registration regi= new Registration ();
-						regi.setId(result.getLong("id"));
+						//regi.setId(result.getLong("id"));
 						regi.setName(result.getString("NAME"));
 						regi.setBirthdate(result.getString("BIRTH_DATE"));
 						regi.setGender(result.getString("GENDER"));

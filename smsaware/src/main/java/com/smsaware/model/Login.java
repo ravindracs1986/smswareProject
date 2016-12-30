@@ -2,7 +2,7 @@ package com.smsaware.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+
 
 public class Login implements Serializable{
 	

@@ -109,46 +109,4 @@ public class RegistrationServlet extends HttpServlet {
 		return registration;
 	}
 
-	private int saveUser(Integer mobile, String fname, String lname, String email, String username, String gender,
-			String password, String address1, String address2, String city, String zipCode, String state)
-			throws SQLException {
-
-		PreparedStatement statement = null;
-		ResultSet resultado = null;
-		Connection conn = null;
-		int res = 0;
-		System.out.println(" @@@@@@@@@@@@  $$$$$$$$$$$$");
-		try {
-			conn = Database.getInstance().getConnection();
-			System.out.println("after con$$$$$$$$$$$$" + conn);
-			String insertUser = "insert into registration(mobile_Number,f_name,l_name,address1,email,gender,password,address2,city,zipCode,state) values(?,?,?,?,?,?,?,?,?,?,?)";
-			statement = conn.prepareStatement(insertUser);
-			statement.setInt(1, mobile);
-			statement.setString(2, fname);
-			statement.setString(3, lname);
-			statement.setString(4, address1);
-			statement.setString(5, email);
-			statement.setString(6, gender);
-			statement.setString(7, password);
-			statement.setString(8, address2);
-			statement.setString(9, city);
-			statement.setString(10, zipCode);
-			statement.setString(11, state);
-
-			res = statement.executeUpdate();
-
-			System.out.println("insert return value-->" + res);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("El porque del cascar: " + e.getMessage());
-		} finally {
-			conn.close();
-
-		}
-
-		return res;
-
-	}
-
 }
