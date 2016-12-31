@@ -164,7 +164,7 @@ ul#menu li a:hover
 #sidebar_container
 { float: right;
   width: 250px;
-  margin: 25px 0;}
+  margin: 1px  0;}
 
 .sidebar
 { float: right;
@@ -323,3 +323,15 @@ table
   margin: 0;
   border: 1px solid #ddd;}
   
+h2.textMessage
+{ 
+font: normal 129% 'Yanone Kaffeesatz', arial, sans-serif;
+color: #808080;
+margin: 0;
+padding:0 0 4px 0;
+font-family: Impact, Charcoal, sans-serif;
+  }
+  h3.idForAdv{
+	font-size: 153%;
+	font-family: Impact, Charcoal, sans-serif;
+  }
