@@ -93,11 +93,11 @@ public class LoginServlet extends HttpServlet {
 			result = statement.executeQuery();
 
 			while (result.next()) {
-				System.out.print(result.getString(7));
+				System.out.print(result.getString(8));
 				System.out.print("\t" + result.getString(9));
 				if(login.getEmail()!=null&& !(login.getEmail().isEmpty())){
-					if (result.getString(7).equalsIgnoreCase(login.getEmail())
-							&& result.getString(7).equalsIgnoreCase(login.getPassword())) {
+					if (result.getString(8).equalsIgnoreCase(login.getEmail())
+							&& result.getString(9).equalsIgnoreCase(login.getPassword())) {
 						Registration regi= new Registration ();
 						//regi.setId(result.getLong("id"));
 						regi.setName(result.getString("NAME"));
@@ -113,7 +113,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					
 				}else{
-					if (result.getLong(9)==login.getPhone() && result.getString(7).equalsIgnoreCase(login.getPassword())) {
+					if (result.getLong(10)==login.getPhone() && result.getString(9).equalsIgnoreCase(login.getPassword())) {
 						Registration regi= new Registration ();
 						//regi.setId(result.getLong("id"));
 						regi.setName(result.getString("NAME"));

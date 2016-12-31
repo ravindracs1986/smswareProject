@@ -104,8 +104,8 @@ $('form').children('input:not(#submit)').val('')
 							<br>
 							<form action="LoginServlet" method="post" name="loginForm"
 								onsubmit="return(regvalidate())">
-								<input type="text" name="username" placeholder="Username">
-								<input type="password" name="password" placeholder="Password">
+								<input type="text" name="username" placeholder="Email/Phone">
+								<input type="password" name="password" placeholder="Password" size="4" maxlength="8">
 								<input type="submit" name="Login"
 									class="message_submit login login-submit" value="Login">
 							</form>
