@@ -204,7 +204,7 @@ form.register input[type=text].year
 {
     border: 1px solid #E1E1E1;
     height: 18px;
-    width:30px;
+    width:57px;
 }
 form.register input[type=checkbox] {
     width:14px;
@@ -213,7 +213,7 @@ form.register input[type=checkbox] {
 form.register select
 {
     border: 1px solid #E1E1E1;
-    width: 130px;
+    width: 92px;
     float:left;
     margin-bottom:3px;
     color: #505050;
@@ -221,7 +221,7 @@ form.register select
 }
 form.register select.date
 {
-    width: 40px;
+    width: 56px;
 }
 input:focus, select:focus{
     background-color: #efffe0;
@@ -247,4 +247,18 @@ color: #B52025;
 .serInput1 {
     width:100%;
 	height: 25px;
+}
+.RegiError {
+   color: red;
+	text-align: right;
+	margin-right: 440px;
+}
+.strength{
+background: #FF00FF;
+font-weight: bold;
+font-size: 10px;
+float: left;
+margin-bottom: -3px;
+color: #505050;
+margin: -2px 20px 11px 246px;
 }

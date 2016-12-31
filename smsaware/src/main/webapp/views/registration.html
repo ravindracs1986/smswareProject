@@ -11,6 +11,11 @@
 <script type="text/javascript" src="js/jquery.jcarousel.pack.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src="js/jquery.scripts.js"></script>
+<script>
+$(window).load(function() {
+$('form').children('input:not(#submit)').val('')
+}
+</script>
 </head>
 
 <body>
@@ -57,8 +62,9 @@
 		</div>
  <div class="center_content_pages" >
 
- <form action="RegistrationServlet" class="register" method="post">
+ <form action="RegistrationServlet" name="registrationForm" class="register" method="post" onsubmit="return(regvalidate())">
             <h1 class="regiClass">Registration</h1><br>
+			<div class="message RegiError" id="message"></div>
             <fieldset class="row1">
                 <legend>Account Details
                 </legend>
@@ -68,17 +74,17 @@
                     <input type="text" id="email" name="email"/>
                     <label>Phone Number *
                     </label>
-                    <input type="text" id="phone" name="phone"/>
+                    <input type="text" id="phone" name="phone" maxlength="10"/>
                 </p>
                 <p>
                     <label>Password*
                     </label>
-                    <input type="password" id="password" name="password"/>
+                    <input type="password" id="password" name="password" size="4" maxlength="8"/>
                     <label>Confirmed Password*
                     </label>
-                    <input type="password" id="Cpassword" name="Cpassword"/>
+                    <input type="password" id="Cpassword" name="Cpassword" size="4" maxlength="8"/>
                    
-                </p>
+                </p><br/><span id="strength" class="strength"></span>
             </fieldset>
             <fieldset class="row2">
                 <legend>Personal Details
@@ -137,7 +143,9 @@
                     <label>Date of Birth *
                     </label>
                     <select class="date" id="date" name="date">
-                        <option value="1">01
+                        <option value="0">Date
+                        </option>
+						<option value="1">01
                         </option>
                         <option value="2">02
                         </option>
@@ -201,7 +209,9 @@
                         </option>
                     </select>
                     <select id="month" name="month">
-                        <option value="1">January
+                        <option value="0">Month
+                        </option>
+						<option value="1">January
                         </option>
                         <option value="2">February
                         </option>
@@ -232,7 +242,9 @@
                     <label>Nationality *
                     </label>
                     <select id="nationality" name="nationality">
-                       <option value="Indian">Indian
+                       <option value="Select">Select
+                        </option>
+					   <option value="Indian">Indian
                         </option>
                     </select>
                 </p>
@@ -245,15 +257,15 @@
                 <legend>Terms and Mailing
                 </legend>
                 <p class="agreement">
-                    <input type="checkbox" value=""/>
+                    <input type="checkbox" value="" name="termCheckBox" id="termCheckBox"/>
                     <label>*  I accept the <a href="#">Terms and Conditions</a></label>
                 </p>
                 <p class="agreement">
-                    <input type="checkbox" value=""/>
+                    <input type="checkbox" value="" name="offerCheckBox" id="offerCheckBox"/>
                     <label>I want to receive personalized offers by your site</label>
                 </p>
                 <p class="agreement">
-                    <input type="checkbox" value=""/>
+                    <input type="checkbox" value="" name="servicesCheckBox" id="servicesCheckBox"/>
                     <label>Allow partners to send me personalized offers and related services</label>
                 </p>
             </fieldset>
@@ -262,7 +274,134 @@
  
 </div>					
 					
+		</tr>
+			</table>
+			</tr>
+
+
+			<SCRIPT type="Text/JavaScript">
+				function regvalidate() {
+				 var illegalChars = /[\W_]/; // allow only letters and numbers
+				 var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$", "g");
+				 var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+				 var enoughRegex = new RegExp("(?=.{4,}).*", "g");
+				 if ((document.registrationForm.email.value == "")) {
+						document.getElementById('message').innerHTML = " *Email should not be Empty";
+						registrationForm.email.focus();
+						return (false);
+					} else if (document.registrationForm.email.value != "") {
+						var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+						if (!filter.test(document.registrationForm.email.value)) {
+							document.getElementById('message').innerHTML = " *Email id not Correct";
+							registrationForm.email.focus();
+							return (false);
+						}
+
+					}
+					if ((document.registrationForm.phone.value == "")) {
+						document.getElementById('message').innerHTML = " *Phone should not be Empty";
+						registrationForm.phone.focus();
+						return (false);
+					}
+					if ((document.registrationForm.password.value == "")) {
+						document.getElementById('message').innerHTML = " *Password should not be Empty";
+						registrationForm.password.focus();
+						return (false);
+					}else if (false == enoughRegex.test(document.registrationForm.password.value)) {
+						//strength.innerHTML = "More Characters";
+						document.getElementById('message').innerHTML = " *Password lenght minimum should 4 to 8 Character";
+						registrationForm.password.focus();
+						return (false);
+						} else if (strongRegex.test(document.registrationForm.password.value)) {
+						//strength.innerHTML = "<span style="color:green">Strong!</span>";
+						document.getElementById('strength').innerHTML = "<span>Strong Password!</span>";
+						} else if (mediumRegex.test(document.registrationForm.password.value)) {
+						strength.innerHTML = "<span>Medium Password!</span>";
+						} else {
+						document.getElementById('strength').innerHTML = "<span>Weak Password!</span>";
+						}
+					if ((document.registrationForm.Cpassword.value == "")) {
+						document.getElementById('message').innerHTML = " *Confirmed Password should not be Empty";
+						registrationForm.Cpassword.focus();
+						return (false);
+					}
+					if ((document.registrationForm.password.value != document.registrationForm.Cpassword.value)) {
+						document.getElementById('message').innerHTML = " *Password and Confirmed password should be Same";
+						registrationForm.Cpassword.focus();
+						return (false);
+					}if ((document.registrationForm.name.value == "")) {
+						document.getElementById('message').innerHTML = " *Name should not be Empty";
+						registrationForm.name.focus();
+						return (false);
+					}
+					if ((document.registrationForm.userAddress.value == "")) {
+						document.getElementById('message').innerHTML = " *Address should not be Empty";
+						registrationForm.userAddress.focus();
+						return (false);
+					}if ((document.registrationForm.city.value == "")) {
+						document.getElementById('message').innerHTML = " *City should not be Empty";
+						registrationForm.city.focus();
+						return (false);
+					}if ((document.registrationForm.state.value == "")) {
+						document.getElementById('message').innerHTML = " *State should not be Empty";
+						registrationForm.state.focus();
+						return (false);
+					}if ((document.registrationForm.zipCode.value == "")) {
+						document.getElementById('message').innerHTML = " *Zip Code should not be Empty";
+						registrationForm.zipCode.focus();
+						return (false);
+					}
+					if ((document.registrationForm.gender.value == "")) {
+						var gender = document.getElementsByName('gender');
+						var genValue = false;
+
+						for(var i=0; i<gender.length;i++){
+							if(gender[i].checked == true){
+								genValue = true;    
+							}
+						}
+						if(!genValue){
+							document.getElementById('message').innerHTML = " *Please Choose the gender";
+							return false;
+						}
 					
+					       document.getElementById('message').innerHTML = " *Please Choose the gender";
+							return false;
+					}
+					if ((document.registrationForm.date.value == "0")) {
+						document.getElementById('message').innerHTML = " *Please select a Date";
+						return (false);
+					}if ((document.registrationForm.month.value == "0")) {
+						document.getElementById('message').innerHTML = " *Please select a Month";
+						return (false);
+					}if ((document.registrationForm.year.value == "")) {
+						document.getElementById('message').innerHTML = " *Year should not be Empty";
+						registrationForm.year.focus();
+						return (false);
+					}if ((document.registrationForm.nationality.value == "Select")) {
+						document.getElementById('message').innerHTML = " *Please select a Nationality";
+						return (false);
+					}
+					if(!document.getElementById('termCheckBox').checked) {
+						document.getElementById('message').innerHTML = " *Please checked Term and Conditions";
+						return false; 
+					
+					}else if(!document.getElementById('offerCheckBox').checked){
+						document.getElementById('message').innerHTML = " *Please checked Offer CheckBox";
+						return false;
+					}else if(!document.getElementById('servicesCheckBox').checked){
+						document.getElementById('message').innerHTML = " *Please checked Services CheckBox";
+						return false;
+					}else{
+					 return true;
+					}
+					
+				}
+			</SCRIPT>
+			</td>
+			</tr>
+			</table>
+			</center>			
 			
 	</div>
 	</div>

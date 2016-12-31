@@ -1,250 +1,293 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Smsaware Login | smsaware.in</title>
 <link rel="icon" href="../images/logo2.gif">
-<link rel="stylesheet" type="text/css" href="../css/style.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../css/profile.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../css/login.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../css/news.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/style.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/profile.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/login.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="../css/news.css"
+	media="screen" />
 <script type="text/javascript" src="js/jquery.core.js"></script>
 <script type="text/javascript" src="js/jquery.superfish.js"></script>
 <script type="text/javascript" src="js/jquery.jcarousel.pack.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src="js/jquery.scripts.js"></script>
+<script>
+$(window).load(function() {
+$('form').children('input:not(#submit)').val('')
+}
+</script>
 </head>
 
 <body>
 
-<div class="top_bottom">
-		<marquee behavior="scroll" direction="left" class="scrolClass">Welcome to Smsaware FREE messaging Service.. </marquee>
-</div>
-	
+	<div class="top_bottom">
+		<marquee behavior="scroll" direction="left" class="scrolClass">Welcome
+		to Smsaware FREE messaging Service.. </marquee>
+	</div>
+
 	<div id="wrap">
 		<div class="top_corner"></div>
 		<div id="main_container">
 
 			<div id="header">
-			<div id="logo">
-				<a href="home.html"><img src="../images/logo2.gif" alt="" title=""
-					border="0" height="80" width="200" /></a>
+				<div id="logo">
+					<a href="home.html"><img src="../images/logo2.gif" alt=""
+						title="" border="0" height="80" width="200" /></a>
+				</div>
+
+				<a href="make-a-donation.html" class="make_donation"></a>
+
+				<div id="menu">
+					<ul>
+						<li><a href="../home.html" title="">Home</a></li>
+						<li><a href="../about.html" title="">About Company</a></li>
+						<li><a href="../projects.html" title="">Projects</a></li>
+						<li><a href="../clients.html" title="">Clients</a></li>
+						<li><a href="../testimonials.html" title="">Testimonials</a></li>
+						<li><a href="../contact.html" title="">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="regiSearch1">
+				<table>
+					<tr>
+
+						<th class="th1">Welcome to FREE messaging destination</th>
+						<th>
+							<div class="serLoc">
+								<img src="../images/location.png" class="serLocId" alt="">
+								<input type="text" class="serLocInput"
+									placeholder="Find Mobile Location">
+							</div>
+						</th>
+						<th><input class="message_submit br2up" value="Locate"
+							onclick="javascript:showLocation();" type="button"></th>
+					</tr>
+
+				</table>
 			</div>
 
-			<a href="make-a-donation.html" class="make_donation"></a>
+			<div class="center_contents">
+				<div class="profile_section_left">
+					<h2 class="profile_title">New User?join now</h2>
+					<p>
+						<div class="register-card">
+							<h1>Text your friends & family</h1>
+							<br>100% SMS delivery
+							<form id="register" action="registration.html">
+								<input type="submit" name="Login"
+									class="message_submit login login-submit" value="Register">
+							</form>
+						</div>
+					</p>
+				</div>
 
-			<div id="menu">
-				<ul>
-					<li><a href="../home.html" title="">Home</a></li>
-					<li><a href="../about.html" title="">About Company</a></li>
-					<li><a href="../projects.html" title="">Projects</a></li>
-					<li><a href="../clients.html" title="">Clients</a></li>
-					<li><a href="../testimonials.html" title="">Testimonials</a></li>
-					<li><a href="../contact.html" title="">Contact</a></li>
-				</ul>
+				<div class="profile_section_left">
+					<h2 class="profile_title">Login to SMSAWARE</h2>
+
+					<p>
+						<div class="login-card">
+							<div class="message error" id="message"></div>
+							<h1>Log-in</h1>
+							<br>
+							<form action="LoginServlet" method="post" name="loginForm"
+								onsubmit="return(regvalidate())">
+								<input type="text" name="username" placeholder="Username">
+								<input type="password" name="password" placeholder="Password">
+								<input type="submit" name="Login"
+									class="message_submit login login-submit" value="Login">
+							</form>
+
+							<div class="login-help">
+								<a href="#">Forgot Password</a>
+							</div>
+						</div>
+					</p>
+
+				</div>
+
+				<div class="profile_section_left">
+					<h2 class="profile_title">News</h2>
+					<p>
+						<div id="sidebar_container">
+							<img class="paperclip" src="../images/paperclip.png"
+								alt="paperclip" />
+							<div class="sidebar">
+								<!-- insert your sidebar items here -->
+								<h3>Latest News</h3>
+								<h4>What's the News?</h4>
+								<h5>1st July 2011</h5>
+								<p>
+									Put your latest news item here, or anything else you would like
+									in the sidebar!<br />
+									<a href="#">Read more</a>
+								</p>
+							</div>
+							<img class="paperclip" src="../images/paperclip.png"
+								alt="paperclip" />
+							<div class="sidebar">
+								<h3>Newsletter</h3>
+								<p>If you would like to receive our newletter, please enter
+									your email address and click 'Subscribe'.</p>
+
+							</div>
+							<img class="paperclip" src="../images/paperclip.png"
+								alt="paperclip" />
+							<div class="sidebar">
+								<h3>Latest Blog</h3>
+								<h4>Website Goes Live</h4>
+								<h5>1st July 2011</h5>
+								<p>
+									We have just launched our new website. Take a look around, we'd
+									love to know what you think.....<br />
+									<a href="#">read more</a>
+								</p>
+							</div>
+						</div>
+					</p>
+				</div>
+			<div class="clear"></div>
 			</div>
+			</tr>
+			</table>
+			</tr>
+			<SCRIPT type="Text/JavaScript">
+				function regvalidate() {
+					if ((document.loginForm.username.value == "")) {
+						document.getElementById('message').innerHTML = "*Username should not be Empty";
+						loginForm.username.focus();
+						return (false);
+					}if ((document.loginForm.password.value == "")) {
+						document.getElementById('message').innerHTML = "*Password should not be Empty";
+						loginForm.password.focus();
+						return (false);
+
+					}
+
+				}
+			</SCRIPT>
+			</td>
+			</tr>
+			</table>
+			</center>
 
 
 		</div>
-		
-		
-		 
-		 
-		<div class="regiSearch1">
-		
-		 <table>
-		  <tr>
-			
-			<th class="th1">Welcome to FREE messaging destination</th>
-			<th>
-			<div class="serLoc">
-				<img src="../images/location.png" class="serLocId"alt="">
-				<input type="text" class="serLocInput" placeholder="Find Mobile Location">
-			</div>
-			</th>
-			<th> <input class="message_submit br2up" value="Locate" onclick="javascript:showLocation();" type="button"></th>
-		  </tr>
-		  
-		</table> 
-		
-		 
-		 
-		
-		 </div>
-		 
-		  
-				
-			   
-						
-			
-<div class="center_contents">
-
-
-          <div class="profile_section_left">
-				<h2 class="profile_title">New User?join now</h2>
-				<p>
-				<div class="register-card">
-						<h1>Text your friends & family</h1><br>100% SMS delivery
-						<form id="register" action="registration.html">
-						<input type="submit" name="Login" class="message_submit login login-submit" value="Register">
-					  </form>  
-				</div>
-				</p>
-		  </div>
-
-          <div class="profile_section_left">
-				<h2 class="profile_title">Login to SMSAWARE</h2>
-				
-				<p>
-				<div class="login-card">
-						<h1>Log-in</h1><br>
-					  <form action="LoginServlet" method="post">
-						<input type="text" name="username" placeholder="Username">
-						<input type="password" name="password" placeholder="Password">
-						<input type="submit" name="Login" class="message_submit login login-submit" value="Login">
-					  </form>
-
-					  <div class="login-help">
-						 <a href="#">Forgot Password</a>
-					  </div>
-				</div>
-				</p>
-				
-			</div>
-
-			 <div class="profile_section_left">
-				<h2 class="profile_title">News</h2>
-				<p>
-				
-					
-				 <div id="sidebar_container">
-					<img class="paperclip" src="../images/paperclip.png" alt="paperclip" />
-					<div class="sidebar">
-					<!-- insert your sidebar items here -->
-					<h3>Latest News</h3>
-					<h4>What's the News?</h4>
-					<h5>1st July 2011</h5>
-					<p>Put your latest news item here, or anything else you would like in the sidebar!<br /><a href="#">Read more</a></p>
-					</div>
-					<img class="paperclip" src="../images/paperclip.png" alt="paperclip" />
-					<div class="sidebar">
-					  <h3>Newsletter</h3>
-					  <p>If you would like to receive our newletter, please enter your email address and click 'Subscribe'.</p>
-					  
-					</div>
-					<img class="paperclip" src="../images/paperclip.png" alt="paperclip" />
-					<div class="sidebar">
-					  <h3>Latest Blog</h3>
-					  <h4>Website Goes Live</h4>
-					  <h5>1st July 2011</h5>
-					  <p>We have just launched our new website. Take a look around, we'd love to know what you think.....<br /><a href="#">read more</a></p>
-					</div>
-               </div>
-
-
-
-				</p>
-		  </div>
-
-
-
-
-<div class="clear"></div>
-</div>
-
-
-
-	</div>
 	</div>
 	<div>
-	<div class="footer_bottom">
-		<div class="copyright">
-			<a href="http://csstemplatesmarket.com/" target="_blank">Smsaware © 2016 Privacy Policy Terms Of Use</a>
-		</div>
-		<div class="footer_links">
-			<a class="current" href="../home.html" title="">Home</a> <a
-				class="current" href="../about.html" title="">About Company</a> <a
-				class="current" href="../projects.html" title="">Projects</a> <a
-				class="current" href="../clients.html" title="">Clients</a> <a
-				class="current" href="../testimonials.html" title="">Testimonials</a>
-			<a class="current" href="../contact.html" title="">Contact</a>
-		</div>
-		
-		<div class="share-buttons"><br><br><br><br><br>
-    
-		<!-- Buffer -->
-		<a href="https://bufferapp.com/add?url=http://smsaware.in&amp;text=Simple Share Buttons" target="_blank">
-			<img src="../images/buffer.png" alt="Buffer" />
-		</a>
-		
-		<!-- Digg -->
-		<a href="http://www.digg.com/submit?url=http://smsaware.in" target="_blank">
-			<img src="../images/diggit.png" alt="Digg" />
-		</a>
-		
-		<!-- Email -->
-		<a href="mailto:?Subject=Simple Share Buttons&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://smsaware.in">
-			<img src="../images/email.png" alt="Email" />
-		</a>
-	 
-		<!-- Facebook -->
-		<a href="http://www.facebook.com/sharer.php?u=http://smsaware.in" target="_blank">
-			<img src="../images/facebook.png" alt="Facebook" />
-		</a>
-		
-		<!-- Google+ -->
-		<a href="https://plus.google.com/share?url=http://smsaware.in" target="_blank">
-			<img src="../images/google.png" alt="Google" />
-		</a>
-		
-		<!-- LinkedIn -->
-		<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://smsaware.in" target="_blank">
-			<img src="../images/linkedin.png" alt="LinkedIn" />
-		</a>
-		
-		<!-- Pinterest -->
-		<a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
-			<img src="../images/pinterest.png" alt="Pinterest" />
-		</a>
-		
-		<!-- Print -->
-		<a href="javascript:;" onclick="window.print()">
-			<img src="../images/print.png" alt="Print" />
-		</a>
-		
-		<!-- Reddit -->
-		<a href="http://reddit.com/submit?url=http://smsaware.in&amp;title=Simple Share Buttons" target="_blank">
-			<img src="../images/reddit.png" alt="Reddit" />
-		</a>
-		
-		<!-- StumbleUpon-->
-		<a href="http://www.stumbleupon.com/submit?url=http://smsaware.in&amp;title=Simple Share Buttons" target="_blank">
-			<img src="../images/stumbleupon.png" alt="StumbleUpon" />
-		</a>
-		
-		<!-- Tumblr-->
-		<a href="http://www.tumblr.com/share/link?url=http://smsaware.in&amp;title=Simple Share Buttons" target="_blank">
-			<img src="../images/tumblr.png" alt="Tumblr" />
-		</a>
-		 
-		<!-- Twitter -->
-		<a href="https://twitter.com/share?url=http://smsaware.in&amp;text=Simple%20Share%20Buttons&amp;hashtags=simplesharebuttons" target="_blank">
-			<img src="../images/twitter.png" alt="Twitter" />
-		</a>
-		
-		<!-- VK -->
-		<a href="http://vkontakte.ru/share.php?url=http://smsaware.in" target="_blank">
-			<img src="../images/vk.png" alt="VK" />
-		</a>
-		
-		<!-- Yummly -->
-		<a href="http://www.yummly.com/urb/verify?url=http://smsaware.in&amp;title=Simple Share Buttons" target="_blank">
-			<img src="../images/yummly.png" alt="Yummly" />
-		</a>
+		<div class="footer_bottom">
+			<div class="copyright">
+				<a href="http://csstemplatesmarket.com/" target="_blank">Smsaware
+					© 2016 Privacy Policy Terms Of Use</a>
+			</div>
+			<div class="footer_links">
+				<a class="current" href="../home.html" title="">Home</a> <a
+					class="current" href="../about.html" title="">About Company</a> <a
+					class="current" href="../projects.html" title="">Projects</a> <a
+					class="current" href="../clients.html" title="">Clients</a> <a
+					class="current" href="../testimonials.html" title="">Testimonials</a>
+				<a class="current" href="../contact.html" title="">Contact</a>
+			</div>
 
-	</div>
+			<div class="share-buttons">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 
-	</div>
+				<!-- Buffer -->
+				<a
+					href="https://bufferapp.com/add?url=http://smsaware.in&amp;text=Simple Share Buttons"
+					target="_blank"> <img src="../images/buffer.png" alt="Buffer" />
+				</a>
+
+				<!-- Digg -->
+				<a href="http://www.digg.com/submit?url=http://smsaware.in"
+					target="_blank"> <img src="../images/diggit.png" alt="Digg" />
+				</a>
+
+				<!-- Email -->
+				<a
+					href="mailto:?Subject=Simple Share Buttons&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 http://smsaware.in">
+					<img src="../images/email.png" alt="Email" />
+				</a>
+
+				<!-- Facebook -->
+				<a href="http://www.facebook.com/sharer.php?u=http://smsaware.in"
+					target="_blank"> <img src="../images/facebook.png"
+					alt="Facebook" />
+				</a>
+
+				<!-- Google+ -->
+				<a href="https://plus.google.com/share?url=http://smsaware.in"
+					target="_blank"> <img src="../images/google.png" alt="Google" />
+				</a>
+
+				<!-- LinkedIn -->
+				<a
+					href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://smsaware.in"
+					target="_blank"> <img src="../images/linkedin.png"
+					alt="LinkedIn" />
+				</a>
+
+				<!-- Pinterest -->
+				<a
+					href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+					<img src="../images/pinterest.png" alt="Pinterest" />
+				</a>
+
+				<!-- Print -->
+				<a href="javascript:;" onclick="window.print()"> <img
+					src="../images/print.png" alt="Print" />
+				</a>
+
+				<!-- Reddit -->
+				<a
+					href="http://reddit.com/submit?url=http://smsaware.in&amp;title=Simple Share Buttons"
+					target="_blank"> <img src="../images/reddit.png" alt="Reddit" />
+				</a>
+
+				<!-- StumbleUpon-->
+				<a
+					href="http://www.stumbleupon.com/submit?url=http://smsaware.in&amp;title=Simple Share Buttons"
+					target="_blank"> <img src="../images/stumbleupon.png"
+					alt="StumbleUpon" />
+				</a>
+
+				<!-- Tumblr-->
+				<a
+					href="http://www.tumblr.com/share/link?url=http://smsaware.in&amp;title=Simple Share Buttons"
+					target="_blank"> <img src="../images/tumblr.png" alt="Tumblr" />
+				</a>
+
+				<!-- Twitter -->
+				<a
+					href="https://twitter.com/share?url=http://smsaware.in&amp;text=Simple%20Share%20Buttons&amp;hashtags=simplesharebuttons"
+					target="_blank"> <img src="../images/twitter.png" alt="Twitter" />
+				</a>
+
+				<!-- VK -->
+				<a href="http://vkontakte.ru/share.php?url=http://smsaware.in"
+					target="_blank"> <img src="../images/vk.png" alt="VK" />
+				</a>
+
+				<!-- Yummly -->
+				<a
+					href="http://www.yummly.com/urb/verify?url=http://smsaware.in&amp;title=Simple Share Buttons"
+					target="_blank"> <img src="../images/yummly.png" alt="Yummly" />
+				</a>
+
+			</div>
+
+		</div>
 	</div>
 
 </body>
