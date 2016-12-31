@@ -418,8 +418,8 @@ display:inline-block;
 vertical-align:top;
 height:25px;
 margin: 0px 0 0 800px;
-font-family: "Times New Roman", Times, serif;
-font-size: 20px;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 18px;
 	
 }
 
@@ -463,4 +463,13 @@ a:hover{
 }
 input:focus, select:focus{
     background-color: #efffe0;
+}
+.homeRegister {
+display: inline-block;
+vertical-align: top;
+height: 202px;
+margin: -24px 17px 62px 722px;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 18px;
+	
 }
