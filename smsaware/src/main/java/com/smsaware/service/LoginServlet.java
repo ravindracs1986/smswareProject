@@ -33,12 +33,22 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("inside login servlt#######::");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String encryPassword=null;
+		try {
+			encryPassword=com.smsaware.utils.AESCryptUtil.encrypt(password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Encryption exception "+e.getMessage());
+			e.printStackTrace();
+		}
 		
 		Login login = new Login();
-		login.setPassword(password);
-		login.setEmail(username);
+		login.setPassword(encryPassword);
+		
 		if(!username.contains("@")){
 			login.setPhone(Long.parseLong(username));
+		}else{
+			login.setEmail(username);
 		}
 		//String postingString = new Gson().toJson(login);
 		Map<Boolean,Registration> responseStatus = getLoginStatus(login);

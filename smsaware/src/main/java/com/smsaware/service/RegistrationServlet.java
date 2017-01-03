@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+
 import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Address;
 import com.smsaware.model.Login;
@@ -78,6 +79,7 @@ public class RegistrationServlet extends HttpServlet {
 
 	private Registration setRegistrationRequest(HttpServletRequest request) {
 		Registration registration =new Registration();
+		String encryPassword=null;
 		Address address=new Address();
 		String mobileNumber = request.getParameter("phone");
 		long  mobile = Long.parseLong(mobileNumber);
@@ -97,13 +99,19 @@ public class RegistrationServlet extends HttpServlet {
 		String month = request.getParameter("month");
 		String year = request.getParameter("year");
 		String dateOfBirth=date+"/"+month+"/"+year;
-		
+		try {
+			encryPassword=com.smsaware.utils.AESCryptUtil.encrypt(request.getParameter("password"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Encryption exception "+e.getMessage());
+			e.printStackTrace();
+		}
 		
 		registration.setBirthdate(dateOfBirth);
 		registration.setGender(request.getParameter("gender"));
 		registration.setName(request.getParameter("name"));
 		registration.setNationality(request.getParameter("nationality"));
-		registration.setPassword(request.getParameter("password"));
+		registration.setPassword(encryPassword);
 		registration.setWebsite(request.getParameter("website"));
 		
 		return registration;
