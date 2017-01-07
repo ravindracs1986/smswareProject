@@ -54,21 +54,24 @@ public class RegistrationServlet extends HttpServlet {
 		
 		try {
 			RegistrationDao dao=new RegistrationDao();
+			boolean userExist=dao.checkUser(registration.getEmail(),registration.getPhone());
+			if(!userExist){
 			int dbResponse=dao.saveUser(registration);
 			
 			System.out.println("dbResponse===>>" + dbResponse);
 			if (dbResponse == 1) {
-
 				HttpSession session = request.getSession();
 				session.setAttribute("email", registration.getEmail());
 				session.setAttribute("name", registration.getName());
 				session.setAttribute("phone", registration.getPhone());
 				request.getRequestDispatcher("profile.jsp").include(request, response);
 			} else {
-
 				request.getRequestDispatcher("smsawarelogin.html").include(request, response);
 			}
-
+			}else{
+				request.setAttribute("userExist", "User already Registered");
+				request.getRequestDispatcher("/views/registration.jsp").forward(request, response);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

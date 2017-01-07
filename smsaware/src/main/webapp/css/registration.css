@@ -261,4 +261,9 @@ float: left;
 margin-bottom: -3px;
 color: #505050;
 margin: -2px 20px 11px 246px;
+}.userExist {
+   color: #FF00FF;
+	text-align: right;
+	margin-right: 440px;
+	font-size: 20px;
 }

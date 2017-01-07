@@ -128,9 +128,44 @@ public class RegistrationDao implements IRegistrationDao{
 	}
 
 	@Override
-	public Registration getUser(Login login) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean checkUser(String email, Long phone) {
+		boolean isUser=false;
+		ResultSet result = null;
+		PreparedStatement statement = null;
+		Database dataBase = new Database();
+		Connection conn=null;
+		conn = dataBase.getConnection();
+		try{
+			statement = conn.prepareStatement(com.smsaware.utils.DataBaseQuerys.checkUser);
+			statement.setString(1, email);
+			statement.setLong(2, phone);
+			result = statement.executeQuery();
+			while (result.next()) {
+				System.out.print("Old UserId Found while registation"+result.getString(1));
+				Long userId=result.getLong(1);
+				if(userId!=null && userId!=0)
+					isUser=true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			 System.out.println("exception while checking user");
+		}finally{
+			 
+			 try {
+				 conn.close();
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		 }
+		
+		
+		return isUser;
 	}
+
+	
 
 }

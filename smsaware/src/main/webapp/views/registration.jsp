@@ -1,5 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Smsaware | smsaware.in</title>
@@ -65,6 +70,8 @@ $('form').children('input:not(#submit)').val('')
  <form action="RegistrationServlet" name="registrationForm" class="register" method="post" onsubmit="return(regvalidate())">
             <h1 class="regiClass">Registration</h1><br>
 			<div class="message RegiError" id="message"></div>
+			<div class="message userExist" id="message"><c:out value="${userExist}"/></div>
+            
             <fieldset class="row1">
                 <legend>Account Details
                 </legend>
@@ -408,7 +415,7 @@ $('form').children('input:not(#submit)').val('')
 	<div>
 	<div class="footer_bottom">
 		<div class="copyright">
-			<a href="http://csstemplatesmarket.com/" target="_blank">Smsaware Â© 2016 Privacy Policy Terms Of Use</a>
+			<a href="http://csstemplatesmarket.com/" target="_blank">Smsaware © 2016 Privacy Policy Terms Of Use</a>
 		</div>
 		<div class="footer_links">
 			<a class="current" href="../home.html" title="">Home</a> <a
