@@ -15,6 +15,31 @@
 <script type="text/javascript" src="js/jquery.scripts.js"></script>
 </head>
 
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+
+
 <body>
 
 <div class="top_bottom">
@@ -26,8 +51,19 @@ WellCome <c:out value="${name}"/>
 		<div class="search-container-profile">
 			<div>
 			
-			<a href="LogoutServlet" style="font-size: 20px; text-decoration: none">Logout</a>
+			
 			</div>
+			
+			<div class="dropdown">
+				<button onclick="myFunction()" class="dropbtn"><c:out value="${name}"/> <img src="../images/UserArrow.png" alt="" title=""
+					border="0" height="34" width="48" /></button>
+				  <div id="myDropdown" class="dropdown-content">
+					<a href="#home">Home</a>
+					<a href="#about">About</a>
+					<a href="LogoutServlet" style="font-size: 20px; text-decoration: none">Logout</a>
+				  </div>
+			</div>
+			
 			 
 		</div>
 

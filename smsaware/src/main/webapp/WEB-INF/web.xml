@@ -6,8 +6,19 @@
 
     <welcome-file-list>
         <welcome-file>home.html</welcome-file>
-       
     </welcome-file-list>
+    
+    <!-- servlet definition -->
+	<servlet>
+	        <servlet-name>ExceptionHandler</servlet-name>
+	        <servlet-class>com.smsaware.exception.ExceptionHandler</servlet-class>
+	</servlet>
+	<!-- servlet mappings -->
+	<servlet-mapping>
+	        <servlet-name>ExceptionHandler</servlet-name>
+	        <url-pattern>/views/ExceptionHandler</url-pattern>
+	</servlet-mapping>
+    
     
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -35,5 +46,32 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/views/LogoutServlet</url-pattern>
     </servlet-mapping>
+    
+    <!-- error-code related error pages -->
+	<error-page>
+	<error-code>404</error-code>
+	<location>/ExceptionHandler</location>
+	</error-page>
+	<error-page>
+	<error-code>403</error-code>
+	<location>/ExceptionHandler</location>
+	</error-page>
+	 
+	<!-- exception-type related error pages -->
+	<error-page>
+	<exception-type>java.lang.Throwable</exception-type>
+	<location>/ExceptionHandler</location>
+	</error-page>
+	<error-page>
+    <exception-type>
+          javax.servlet.ServletException
+    </exception-type >
+    <location>/ExceptionHandler</location>
+  </error-page>
+
+	<error-page>
+	    <exception-type>java.io.IOException</exception-type >
+	    <location>/ExceptionHandler</location>
+	</error-page>
 	
 </web-app>
