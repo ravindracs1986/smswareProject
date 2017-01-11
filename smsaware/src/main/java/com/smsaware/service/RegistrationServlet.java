@@ -1,12 +1,7 @@
 package com.smsaware.service;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -14,16 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Address;
-import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
-import com.smsaware.utils.Database;
 
 public class RegistrationServlet extends HttpServlet {
 

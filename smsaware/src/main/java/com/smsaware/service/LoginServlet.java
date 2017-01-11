@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.smsaware.model.Address;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
 import com.smsaware.utils.DataBaseQuerys;
