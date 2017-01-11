@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.HashMap;
+import java.util.Map;
 
 import com.smsaware.model.Address;
 import com.smsaware.model.Login;
@@ -19,13 +20,13 @@ public class RegistrationDao implements IRegistrationDao{
 	
 	
 	@Override
-	public int saveUser(Registration registration) {
+	public Long saveUser(Registration registration) {
 		Database dataBase = new Database();
 		Connection conn=null;
 		ResultSet result = null;
 		PreparedStatement statement = null;
 		Boolean isInserted=false;
-		Long idForAddress;
+		Long idForAddress =null;
 		System.out.println(" @@@@@@@@@@@@  $$$$$$$$$$$$");
 		conn =dataBase.getConnection();
 		//SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -81,7 +82,7 @@ public class RegistrationDao implements IRegistrationDao{
 		
 		//sessionFactory.getCurrentSession().save(registration);
 		
-		return 1;
+		return idForAddress;
 	}
 
 	private void saveAddrees(Address address,Long ids) {
@@ -128,8 +129,9 @@ public class RegistrationDao implements IRegistrationDao{
 	}
 
 	@Override
-	public boolean checkUser(String email, Long phone) {
-		boolean isUser=false;
+	public Map<Boolean,Long> checkUser(String email, Long phone) {
+		Map<Boolean,Long> isUser = new HashMap<Boolean,Long>();
+		//boolean isUser=false;
 		ResultSet result = null;
 		PreparedStatement statement = null;
 		Database dataBase = new Database();
@@ -143,8 +145,11 @@ public class RegistrationDao implements IRegistrationDao{
 			while (result.next()) {
 				System.out.print("Old UserId Found while registation"+result.getString(1));
 				Long userId=result.getLong(1);
-				if(userId!=null && userId!=0)
-					isUser=true;
+				if(userId!=null && userId!=0){
+					isUser.put(true, userId);
+				}else{
+					isUser.put(false, 0l);
+				}
 			}
 			
 		}catch(Exception e){
@@ -166,6 +171,72 @@ public class RegistrationDao implements IRegistrationDao{
 		return isUser;
 	}
 
-	
+
+
+	@Override
+	public Map<Boolean, Registration> checkOTP(Long userId, String email,Long phone,String userOTP) {
+		Map<Boolean, Registration> userOTPObject= new HashMap<Boolean, Registration>();
+		ResultSet result = null;
+		PreparedStatement statement = null;
+		Database dataBase = new Database();
+		Connection conn=null;
+		conn = dataBase.getConnection();
+		
+		try{
+			//SELECT table1.field1,table1.field2, table2.field3,table2.field8 from table1,table2 where table1.field2 = something and table2.field3 = somethingelse
+			String query="SELECT user_registration.NAME,user_registration.EMAIL,user_registration.PHONE,user_registration.BIRTH_DATE,user_registration.GENDER,user_registration.NATIONALITY,"
+					+ "user_registration.WEBSITE,user_registration.NO_OF_SMS,"
+					+ " user_otp.userId,user_otp.OTP from user_registration,user_otp where user_registration.id = user_otp.userId and user_otp.OTP ="+userOTP+"";
+			//statement = conn.prepareStatement(com.smsaware.utils.DataBaseQuerys.userOTPCheck);
+			statement = conn.prepareStatement(query);
+			//statement.setString(1, userOTP);
+			//statement.setLong(2, phone);
+			result = statement.executeQuery();
+			while (result.next()) {
+				System.out.print("Old UserId Found while registation"+result.getString(1));
+				Long dbuUserId=result.getLong(9);
+				String dbOTP=result.getString(10);
+				if(userId!=null && userId!=0 && userId==dbuUserId && dbOTP.equalsIgnoreCase(userOTP)){
+					userOTPObject.put(true, setDBResponse(result));
+				}else{
+					userOTPObject.put(false, null);
+				}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			 System.out.println("exception while checking user");
+		}finally{
+			 
+			 try {
+				 conn.close();
+				statement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		 }
+		
+		
+		
+		return userOTPObject;
+	}
+
+	private Registration setDBResponse(ResultSet result) throws SQLException {
+		Registration regi= new Registration ();
+		if(result!=null){
+		regi.setId(result.getLong("userId"));
+		regi.setName(result.getString("NAME"));
+		regi.setBirthdate(result.getString("BIRTH_DATE"));
+		regi.setGender(result.getString("GENDER"));
+		regi.setNationality(result.getString("NATIONALITY"));
+		regi.setWebsite(result.getString("WEBSITE"));
+		regi.setNoOfSms(result.getInt("NO_OF_SMS"));
+		regi.setEmail(result.getString("EMAIL"));
+		regi.setPhone(result.getLong("PHONE"));
+		}
+		return regi;
+	}
 
 }

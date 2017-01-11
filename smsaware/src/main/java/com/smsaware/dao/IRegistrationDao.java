@@ -1,12 +1,14 @@
 package com.smsaware.dao;
 
 
+import java.util.Map;
+
 import com.smsaware.model.Registration;
 
 public interface IRegistrationDao {
 
-public int saveUser(Registration registration);
+public Long saveUser(Registration registration);
 	
-public boolean checkUser(String email,Long phone);
-
+public Map<Boolean,Long> checkUser(String email,Long phone);
+public Map<Boolean,Registration> checkOTP(Long userId,String email,Long phone,String userOTP);
 }

@@ -33,6 +33,11 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.smsaware.service.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>com.smsaware.service.ProfileServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/views/LoginServlet</url-pattern>
@@ -46,6 +51,12 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/views/LogoutServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/views/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    
     
     <!-- error-code related error pages -->
 	<error-page>

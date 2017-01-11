@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,22 +55,40 @@ public class RegistrationServlet extends HttpServlet {
 		
 		try {
 			RegistrationDao dao=new RegistrationDao();
-			boolean userExist=dao.checkUser(registration.getEmail(),registration.getPhone());
-			if(!userExist){
-			int dbResponse=dao.saveUser(registration);
+			boolean userExist=false;
+			Long userId=null;
+			Map<Boolean,Long> userExists=dao.checkUser(registration.getEmail(),registration.getPhone());
+			for ( Map.Entry<Boolean, Long> entry : userExists.entrySet()) {
+				userExist = entry.getKey();
+				userId=entry.getValue();
+			}
 			
+			if(!userExist){
+			Long dbResponse=dao.saveUser(registration);
 			System.out.println("dbResponse===>>" + dbResponse);
-			if (dbResponse == 1) {
-				HttpSession session = request.getSession();
+			if (dbResponse!=null) {
+				RegistrationOTP.sendOTP(dbResponse,registration.getEmail(),registration.getPhone());
+				
+				/*HttpSession session = request.getSession();
 				session.setAttribute("email", registration.getEmail());
 				session.setAttribute("name", registration.getName());
 				session.setAttribute("phone", registration.getPhone());
-				request.getRequestDispatcher("profile.jsp").include(request, response);
-			} else {
+				request.getRequestDispatcher("profile.jsp").include(request, response);*/
+				request.setAttribute("userId", dbResponse);
+				request.setAttribute("name", registration.getName());
+				request.setAttribute("email", registration.getEmail());
+				request.setAttribute("phone", registration.getPhone());
+				  
+			       RequestDispatcher dispatcher = request.getRequestDispatcher("/views/popup.jsp");
+				   dispatcher.forward(request, response);
+				
+				//request.getRequestDispatcher("/views/registration.jsp").forward(request, response);
+				} else {
 				request.getRequestDispatcher("smsawarelogin.html").include(request, response);
 			}
 			}else{
 				request.setAttribute("userExist", "User already Registered");
+				request.setAttribute("userId", userId);
 				request.getRequestDispatcher("/views/registration.jsp").forward(request, response);
 			}
 		} catch (Exception e) {

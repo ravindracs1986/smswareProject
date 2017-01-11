@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,32 +109,14 @@ public class LoginServlet extends HttpServlet {
 				if(login.getEmail()!=null&& !(login.getEmail().isEmpty())){
 					if (result.getString(8).equalsIgnoreCase(login.getEmail())
 							&& result.getString(9).equalsIgnoreCase(login.getPassword())) {
-						Registration regi= new Registration ();
-						//regi.setId(result.getLong("id"));
-						regi.setName(result.getString("NAME"));
-						regi.setBirthdate(result.getString("BIRTH_DATE"));
-						regi.setGender(result.getString("GENDER"));
-						regi.setNationality(result.getString("NATIONALITY"));
-						regi.setWebsite(result.getString("WEBSITE"));
-						regi.setNoOfSms(result.getInt("NO_OF_SMS"));
-						regi.setEmail(result.getString("EMAIL"));
-						regi.setPhone(result.getLong("PHONE"));
+						Registration regi = setDBResponse(result);
 						userObject.put(true, regi);
 						break;
 					}
 					
 				}else{
 					if (result.getLong(10)==login.getPhone() && result.getString(9).equalsIgnoreCase(login.getPassword())) {
-						Registration regi= new Registration ();
-						//regi.setId(result.getLong("id"));
-						regi.setName(result.getString("NAME"));
-						regi.setBirthdate(result.getString("BIRTH_DATE"));
-						regi.setGender(result.getString("GENDER"));
-						regi.setNationality(result.getString("NATIONALITY"));
-						regi.setWebsite(result.getString("WEBSITE"));
-						regi.setNoOfSms(result.getInt("NO_OF_SMS"));
-						regi.setEmail(result.getString("EMAIL"));
-						regi.setPhone(result.getLong("PHONE"));
+						Registration regi = setDBResponse(result);
 						userObject.put(true, regi);
 						break;
 					}
@@ -149,6 +132,19 @@ public class LoginServlet extends HttpServlet {
 
 		return userObject;
 
+	}
+	private Registration setDBResponse(ResultSet result) throws SQLException {
+		Registration regi= new Registration ();
+		//regi.setId(result.getLong("id"));
+		regi.setName(result.getString("NAME"));
+		regi.setBirthdate(result.getString("BIRTH_DATE"));
+		regi.setGender(result.getString("GENDER"));
+		regi.setNationality(result.getString("NATIONALITY"));
+		regi.setWebsite(result.getString("WEBSITE"));
+		regi.setNoOfSms(result.getInt("NO_OF_SMS"));
+		regi.setEmail(result.getString("EMAIL"));
+		regi.setPhone(result.getLong("PHONE"));
+		return regi;
 	}
 
 	// Connection con = Database.getInstance().getConnection();
