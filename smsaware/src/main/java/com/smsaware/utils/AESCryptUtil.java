@@ -10,38 +10,42 @@ import sun.misc.BASE64Encoder;
 
 public class AESCryptUtil {
 
-	 private static final String ALGORITHM = "AES";
-	    private static final String KEY = "1Hbfh667adfDEJ78";
-	    
-	    @SuppressWarnings("restriction")
-		public static String encrypt(String value) throws Exception
-	    {
-	        Key key = generateKey();
-	        Cipher cipher = Cipher.getInstance(AESCryptUtil.ALGORITHM);
-	        cipher.init(Cipher.ENCRYPT_MODE, key);
-	        byte [] encryptedByteValue = cipher.doFinal(value.getBytes("utf-8"));
-	        String encryptedValue64 = new BASE64Encoder().encode(encryptedByteValue);
-	        return encryptedValue64;
-	               
-	    }
-	    
-	    @SuppressWarnings("restriction")
-		public static String decrypt(String value) throws Exception
-	    {
-	    	Key key = generateKey();
-	        Cipher c = Cipher.getInstance(AESCryptUtil.ALGORITHM);
-	        c.init(Cipher.DECRYPT_MODE, key);
-	        String decordedValue = new BASE64Decoder().decodeBuffer(value).toString().trim();
-	        System.out.println("This is Data to be Decrepted"+decordedValue);
-	        return decordedValue;
-	                
-	    }
-	    
-	    private static Key generateKey() throws Exception 
-	    {
-	        Key key = new SecretKeySpec(AESCryptUtil.KEY.getBytes(),AESCryptUtil.ALGORITHM);
-	        return key;
-	    }
-	
-	
+	private static final String ALGO = "AES";
+	private static final byte[] keyValue = new byte[] { 'T', 'h', 'e', 'B', 'e', 's', 't', 'S', 'e', 'c', 'r', 'e', 't',
+			'K', 'e', 'y' };
+
+	public static String encrypt(String Data) throws Exception {
+		Key key = generateKey();
+		Cipher c = Cipher.getInstance(ALGO);
+		c.init(Cipher.ENCRYPT_MODE, key);
+		byte[] encVal = c.doFinal(Data.getBytes());
+		String encryptedValue = new BASE64Encoder().encode(encVal);
+		return encryptedValue;
+	}
+
+	public static String decrypt(String encryptedData) throws Exception {
+		Key key = generateKey();
+		Cipher c = Cipher.getInstance(ALGO);
+		c.init(Cipher.DECRYPT_MODE, key);
+		byte[] decordedValue = new BASE64Decoder().decodeBuffer(encryptedData);
+		byte[] decValue = c.doFinal(decordedValue);
+		String decryptedValue = new String(decValue);
+		return decryptedValue;
+	}
+
+	private static Key generateKey() throws Exception {
+		Key key = new SecretKeySpec(keyValue, ALGO);
+		return key;
+	}
+
+	public static void main(String[] args) 
+    {
+		try {
+			String encryptedString = AESCryptUtil.encrypt("root");
+			System.out.println("encrypted value==>>"+encryptedString);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }

@@ -6,27 +6,14 @@ import java.sql.SQLException;
 
 public class Database {
 
-	private static Database dbIsntance;
 	private Connection con;
-
-	/*private Database() {
-		// private constructor //
-	}
-
-	public static Database getInstance() {
-		if (dbIsntance == null) {
-			dbIsntance = new Database();
-		}
-		return dbIsntance;
-	}*/
-
 	public Connection getConnection(){
-
 		if (con == null) {
 			try {
 				
 				try {
 					Class.forName(PropertiesManager.getInstance().getValue("JDBCDriver")).newInstance();
+					con = DriverManager.getConnection(PropertiesManager.getInstance().getValue("DbHost"), PropertiesManager.getInstance().getValue("DbUserName"), PropertiesManager.getInstance().getValue("DbPassword"));
 				} catch (InstantiationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -37,7 +24,7 @@ public class Database {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				con = DriverManager.getConnection(PropertiesManager.getInstance().getValue("DbHost"), PropertiesManager.getInstance().getValue("DbUserName"), PropertiesManager.getInstance().getValue("DbPassword"));
+				
 			} catch (SQLException ex) {
 				System.out.println(ex);
 			}
