@@ -7,7 +7,7 @@ author URL: http://smsaware.in
 <html>
 <head>
 <title>Smsaware | smsaware.in</title>
-<link rel="icon" href="images/smsaware_logo.jpg">
+<link rel="icon" href="images/logo2.gif">
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -118,8 +118,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="login.jsp">Login</a> details to login here. Or <a href="sign-up.jsp">
 				Register</a> here.</h3>
 
-			<form action="#" method="post">
-				<input type="text" name="Name" value="User Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User Name';}">
+			<form name="login" method="post" action="LoginServlet.do">
+				<input type="text" name="Name" value="Email or Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email or Phone';}">
 				<input type="password" name="Password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
 				<div class="remember">
 					 <div class="w3agile_checkbox1">

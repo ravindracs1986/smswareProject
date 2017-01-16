@@ -7,7 +7,7 @@ author URL: http://smsaware.in
 <html>
 <head>
 <title>Smsaware | smsaware.in</title>
-<link rel="icon" href="images/smsaware_logo.jpg">
+<link rel="icon" href="images/logo2.gif">
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -103,7 +103,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<ul>
 				<li><a href="index.jsp">Home</a><i>|</i></li>
-				<li>Short Codes</li>
+				<li>Clients</li>
 			</ul>
 		</div>
 	</div>
