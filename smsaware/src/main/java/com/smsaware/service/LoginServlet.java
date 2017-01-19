@@ -72,11 +72,11 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("phone", registration.getPhone());
 			session.setAttribute("gender", registration.getGender());
 			// session.setAttribute("address", registration.getAddress());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/profile.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("profile.jsp");
 			dispatcher.forward(request, response);
 
 		} else {
-			request.getRequestDispatcher("smsawarelogin.html").include(request, response);
+			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 
 	}

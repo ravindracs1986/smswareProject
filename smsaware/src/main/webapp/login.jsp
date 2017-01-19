@@ -119,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				Register</a> here.</h3>
 
 			<form name="login" method="post" action="LoginServlet.do">
-				<input type="text" name="Name" value="Email or Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email or Phone';}">
+				<input type="text" name="username" value="Email or Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email or Phone';}">
 				<input type="password" name="Password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
 				<div class="remember">
 					 <div class="w3agile_checkbox1">

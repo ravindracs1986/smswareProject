@@ -1,0 +1,394 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.all-icons [class*="pe-"]{
+    font-size: 40px;
+}
+.all-icons input{
+    border: 0;
+}
+.all-icons .font-icon-detail{
+    text-align: center;
+    padding: 45px 0px 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+    margin: 25px auto 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    font-size: 13px;
+}
+
+#map{
+    position:relative;
+    width:100%;
+    height: calc(100% - 60px);
+}
+
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+.logo_grid{
+	color: #999;
+line-height: 2em;
+width: 100%;
+}
+.logo_grid h2 a {
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.logo_grid h2 a span {
+    display: inline-block;
+    color: #ff9900;
+    line-height: 1;
+}
+.footer{
+	background:#313131;
+	padding:1em 0;
+}
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+
+
+.w3agile_footer_grid {
+    color: #999;
+    line-height: 2em;
+}.col-md-3 {
+    width: 25%;
+}
+.w3agile_footer_grid h3 {
+    font-size: 1.7em;
+    color: #fff;
+    padding-bottom: .5em;
+    margin-bottom: 1em;
+    position: relative;
+}.w3agile_footer_grid h2 {
+    margin: 1em 0 0;
+}.agileinfo_copy_right {
+    background: #212121;
+    padding: 1.5em 0;
+}.agileinfo_copy_right_left p {
+    color: #fff;
+    line-height: 3.8em;
+	float: right;
+}.agileinfo_copy_right_right {
+    float: right;
+}
+.agileinfo_copy_right_left a {
+    color: #ff9900;
+    
+}
+.sms-table {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	border: thin solid #FF9933;
+}
+.sms-input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+	border: 1px solid #333333;
+}
+
+.SendNow {
+	float: right;
+	
+}
+
+/*---------mobile dialer css starts-----------  */
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+
+p
+{
+    margin: 0;
+    padding: 0 0 10px 0;
+    line-height: 20px;
+}
+.span4
+{
+    width: 80px;
+    float: left;
+    margin: 0 8px 10px 8px;
+}
+
+.phone
+{
+    margin-top: -11px;
+    background: #fff;
+}
+.tel
+{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #9e9e9e;
+    border-radius: 0px;
+}
+.num-pad
+{
+    padding-left: 15px;
+}
+
+
+.num {
+    border: 2px solid #9e9e9e;
+    -webkit-border-radius: 999px;
+    border-radius: 23px;
+    -moz-border-radius: 999px;
+    height: 49px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+.num:hover
+{
+    background-color: #9e9e9e;
+    color: #fff;
+    transition-property: background-color .2s linear 0s;
+    -moz-transition: background-color .2s linear 0s;
+    -webkit-transition: background-color .2s linear 0s;
+    -o-transition: background-color .2s linear 0s;
+}
+.txt {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Lato' , sans-serif;
+    line-height: 4px;
+    color: #333;
+}
+.small
+{
+    font-size: 15px;
+}
+
+.btn1
+{
+       display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+}
+.btn1:hover
+{
+    transition-property: background-color .2s linear 0s;
+    -moz-transition: background-color .2s linear 0s;
+    -webkit-transition: background-color .2s linear 0s;
+    -o-transition: background-color .2s linear 0s;
+}
+.spanicons
+{
+    width: 72px;
+    float: left;
+    text-align: center;
+    margin-top: 40px;
+    color: #9e9e9e;
+    font-size: 30px;
+    cursor: pointer;
+}
+.spanicons:hover
+{
+    color: #3498db;
+    transition-property: color .2s linear 0s;
+    -moz-transition: color .2s linear 0s;
+    -webkit-transition: color .2s linear 0s;
+    -o-transition: color .2s linear 0s;
+}
+.active
+{
+    color: #3498db;
+}
+
+.btn-block1 {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+.btn-success1{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+/*---------mobile dialer css ends-----------  */
+
+
+
+#dial1{
+ list-style: none;
+padding-left: 1em;
+margin: 0em;
+}
+
+*{
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+.button-3{
+  text-align: center;
+}
+
+.button-3 li{
+  display: inline-block;
+width: 84px;
+min-width: 84px;
+height: 3em;
+padding-top: 0.7em;
+padding-bottom: 2em;
+margin-bottom: 3%;
+}
+.last{
+  clear: left;
+}
+.first{
+  clear: right;
+}
+#numberDisplay input{
+  height: 2em;
+text-align: center;
+background: rgba(10, 10, 100, 0.1);
+padding: 7px 0px 0em 0px;
+margin-top: 1em;
+margin-bottom: 1%;
+font-size: 2em;
+font-family: "Helvetica Neue";
+font-weight: 100;
+width: auto;
+border: 2px;
+float: right;
+}
+
+#actions .call.ready{
+  background: rgba(0, 255, 0, 0.2);
+}
+#actions .call.ready:hover{
+  background: rgba(0, 255, 0, 0.4);
+}
+#actions .skip.ready{
+  background: rgba(0, 255, 0, 0.2);
+}
+#actions .skip.ready:hover{
+  background: rgba(0, 255, 0, 0.4);
+}
+#actions .clear.ready{
+  background: rgba(255, 0, 0, 0.2);
+}
+#actions .clear.ready:hover{
+  background: rgba(255, 0, 0, 0.4);
+}
+#actions .deactive{
+  opacity: .2;
+}
+
+#dialpad,
+#actions,
+#numberDisplay{
+  max-width: 610px;
+  margin: 0 auto;
+}
+#dialpad.deactive{
+  opacity: .2;
+}
+#dialpad.deactive li:hover,
+#actions li.deactive:hover{
+  background: #eee;
+}
+#dialpad li{
+  font-weight: bold;
+  background: #eee;
+  width: auto;
+}
+#dialpad li:hover{
+  background: #ccc;
+}
+#actions li{
+  background: #efefef;
+  opacity: .8;
+}
+#actions li.call.active{
+  background: rgba(0, 255, 0, 0.2);
+}
+#actions li.hangup{
+  background: rgba(255, 125, 0, 0.2);
+}
+#actions li.hangup:hover{
+  background: rgba(255, 125, 0, 0.4);
+}
+#actions li:hover{
+  background: #ccc;
+}
+
+/*---------new  dialer css ends-----------  */
