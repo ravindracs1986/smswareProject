@@ -674,7 +674,7 @@ i.clock{
 }
 p.quia{
 	text-align: center;
-    color: #ff9900;
+    color: #ff9900 !important;;
     font-size: 1em !important;
     font-style: italic;
     margin: .5em 0 0 !important;
