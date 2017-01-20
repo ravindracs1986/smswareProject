@@ -146,7 +146,9 @@ width: 100%;
 
 .SendNow {
 	float: right;
-	
+	color: #FFFFFF;
+	background-color: #1DC7EA;
+	opacity: 1;
 }
 
 /*---------mobile dialer css starts-----------  */
@@ -392,3 +394,27 @@ float: right;
 }
 
 /*---------new  dialer css ends-----------  */
+
+.serLocId {
+    height: 25px;
+position: relative;
+left: 296px;
+top: 1px;
+cursor: pointer;
+}
+.serLocInput {
+    
+height: 25px;
+width: 296px;
+margin: 2px;
+}
+input.message_submit{
+background-color:#1DC7EA;
+color:#FFFFFF;
+text-align:center;
+float:right;
+padding:4px 4px 3px 4px;
+margin:0 0 0 0px;
+border:1px #fdeaeb solid;
+cursor:pointer;
+}
