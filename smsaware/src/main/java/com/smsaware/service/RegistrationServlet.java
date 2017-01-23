@@ -2,6 +2,7 @@ package com.smsaware.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -27,104 +28,92 @@ public class RegistrationServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		// request.getRequestDispatcher("link.html").include(request, response);
 		System.out.println("inside servelet##############################");
-		/*
-		 * String name=request.getParameter("name"); String
-		 * password=request.getParameter("password");
-		 * 
-		 * if(password.equals("admin123")){ out.print("Welcome, "+name);
-		 * HttpSession session=request.getSession();
-		 * session.setAttribute("name",name); } else{ out.print(
-		 * "Sorry, username or password error!");
-		 * request.getRequestDispatcher("login.html").include(request,
-		 * response); } out.close();
-		 */
+		Address address = null;
 
-		Registration registration=setRegistrationRequest(request);
-		
-		
+		Registration registration = setRegistrationRequest(request);
+
 		try {
-			RegistrationDao dao=new RegistrationDao();
-			boolean userExist=false;
-			Long userId=null;
-			Map<Boolean,Long> userExists=dao.checkUser(registration.getEmail(),registration.getPhone());
-			for ( Map.Entry<Boolean, Long> entry : userExists.entrySet()) {
+			RegistrationDao dao = new RegistrationDao();
+			boolean userExist = false;
+			Long userId = null;
+			Map<Boolean, Long> userExists = dao.checkUser(registration.getEmail(), registration.getPhone());
+			for (Map.Entry<Boolean, Long> entry : userExists.entrySet()) {
 				userExist = entry.getKey();
-				userId=entry.getValue();
+				userId = entry.getValue();
 			}
-			
-			if(!userExist){
-			Long dbResponse=dao.saveUser(registration);
-			System.out.println("dbResponse===>>" + dbResponse);
-			if (dbResponse!=null) {
-				RegistrationOTP.sendOTP(dbResponse,registration.getEmail(),registration.getPhone());
-				
-				/*HttpSession session = request.getSession();
-				session.setAttribute("email", registration.getEmail());
-				session.setAttribute("name", registration.getName());
-				session.setAttribute("phone", registration.getPhone());
-				request.getRequestDispatcher("profile.jsp").include(request, response);*/
-				request.setAttribute("userId", dbResponse);
-				request.setAttribute("name", registration.getName());
-				request.setAttribute("email", registration.getEmail());
-				request.setAttribute("phone", registration.getPhone());
-				  
-			       RequestDispatcher dispatcher = request.getRequestDispatcher("/views/popup.jsp");
-				   dispatcher.forward(request, response);
-				
-				//request.getRequestDispatcher("/views/registration.jsp").forward(request, response);
+
+			if (!userExist) {
+				address = new Address();
+				address.setUser_address("address");
+				address.setStreet("street");
+				address.setCity("city");
+				address.setState("state");
+				address.setZip("zip");
+
+				Long dbResponse = dao.saveUser(registration, address);
+				System.out.println("dbResponse===>>" + dbResponse);
+				if (dbResponse != null && dbResponse != 0l) {
+					// RegistrationOTP.sendOTP(dbResponse,registration.getEmail(),registration.getPhone());
+
+					System.out.println("*********Object save successfully*****");
+					/*
+					 * HttpSession session = request.getSession();
+					 * session.setAttribute("email", registration.getEmail());
+					 * session.setAttribute("name", registration.getName());
+					 * session.setAttribute("phone", registration.getPhone());
+					 * request.getRequestDispatcher("profile.jsp").include(
+					 * request, response);
+					 */
+					request.setAttribute("userId", dbResponse);
+					request.setAttribute("name", registration.getName());
+					request.setAttribute("email", registration.getEmail());
+					request.setAttribute("phone", registration.getPhone());
+					RequestDispatcher dispatcher = request.getRequestDispatcher("popup.jsp");
+					dispatcher.forward(request, response);
+
+					// request.getRequestDispatcher("/views/registration.jsp").forward(request,
+					// response);
 				} else {
-				request.getRequestDispatcher("smsawarelogin.html").include(request, response);
-			}
-			}else{
+					request.getRequestDispatcher("index.jsp").include(request, response);
+				}
+			} else {
 				request.setAttribute("userExist", "User already Registered");
 				request.setAttribute("userId", userId);
-				request.getRequestDispatcher("/views/registration.jsp").forward(request, response);
+				request.getRequestDispatcher("sign-up.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("sql exception"+e.getMessage());
+			System.out.println("sql exception" + e.getMessage());
 		}
 
 	}
 
 	private Registration setRegistrationRequest(HttpServletRequest request) {
-		Registration registration =new Registration();
-		String encryPassword=null;
-		Address address=new Address();
+		Registration registration = null;
+		String encryPassword = null;
+
+		String name = request.getParameter("name");
 		String mobileNumber = request.getParameter("phone");
-		long  mobile = Long.parseLong(mobileNumber);
-		
-		registration.setPhone(mobile);
-		registration.setEmail(request.getParameter("email"));
-		
-		address.setUserAddress(request.getParameter("userAddress"));
-		address.setStreet(request.getParameter("street"));
-		address.setCity(request.getParameter("city"));
-		address.setState(request.getParameter("state"));
-		address.setZipCode(request.getParameter("zipCode"));
-		
-		registration.setAddress(address);
-		
-		String date = request.getParameter("date");
-		String month = request.getParameter("month");
-		String year = request.getParameter("year");
-		String dateOfBirth=date+"/"+month+"/"+year;
+		long mobile = Long.parseLong(mobileNumber);
+		String email = request.getParameter("email");
 		try {
-			encryPassword=com.smsaware.utils.AESCryptUtil.encrypt(request.getParameter("password"));
+			encryPassword = com.smsaware.utils.AESCryptUtil.encrypt(request.getParameter("password"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("Encryption exception "+e.getMessage());
+			System.out.println("Encryption exception " + e.getMessage());
 			e.printStackTrace();
 		}
-		
-		registration.setBirthdate(dateOfBirth);
-		registration.setGender(request.getParameter("gender"));
-		registration.setName(request.getParameter("name"));
-		registration.setNationality(request.getParameter("nationality"));
-		registration.setPassword(encryPassword);
-		registration.setWebsite(request.getParameter("website"));
-		
+
+		Calendar cale = Calendar.getInstance();
+
+		// Date todayDate=(Date) cale.getTime();
+
+		java.util.Date utilDate = cale.getTime();
+		java.sql.Date profileCreationDate = new java.sql.Date(utilDate.getTime());
+		registration = new Registration(name, null, null, "Indian", "www.smsaware.in", 5, email, encryPassword, mobile,
+				profileCreationDate, "N");
+
 		return registration;
 	}
 

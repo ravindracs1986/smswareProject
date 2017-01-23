@@ -1,59 +1,61 @@
 package com.smsaware.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-//@Entity
-//@Table(name="USER_REGISTRATION")
-public class Registration extends Login implements Serializable{
+@Entity
+@Table(name = "USER_REGISTRATION")
+public class Registration{
 	/**
-	 * 
+	 * SMSAWARE
 	 */
 	private static final long serialVersionUID = -4393320270992003990L;
-	//@Id
-	//@GeneratedValue
+
 	private Long id;
-	//@Column(name="NAME")
 	private String name;
-	
-	//@ManyToOne
-	//@JoinColumn(name="address_id")
-	private Address address;
-	
-	//@Column(name="BIRTH_DATE")
-	private String birthdate ;
-	//@Column(name="GENDER")
+	private String birth_date;
 	private String gender;
-	//@Column(name="NATIONALITY")
 	private String nationality;
-	//@Column(name="WEBSITE")
 	private String website;
-	//@Column(name="NO_OF_SMS")
-	private Integer noOfSms;
-	//@Column(name="AUTHENTICATED")
-	//private Boolean authenticated;
+	private Integer no_Of_Sms;
+	private String email;
+	private String password;
+	private Long phone;
+	private Date creation_Date;
+	private String authenticated;
+	/*@OneToOne
+	@JoinColumn(name="ADDRESS_ID")
+	private Address address;*/
 	
-	//private String email;
-	//private String password;
-	//private Long phone;
+	public Registration(){}
 	
-	/*public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
+	public Registration(String name, String birth_date, String gender, String nationality, String website,
+			Integer no_Of_Sms, String email, String password, Long phone, Date creation_Date, String authenticated) {
+		this.name = name;
+		this.birth_date = birth_date;
+		this.gender = gender;
+		this.nationality = nationality;
+		this.website = website;
+		this.no_Of_Sms = no_Of_Sms;
 		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
 		this.password = password;
-	}
-	public Long getPhone() {
-		return phone;
-	}
-	public void setPhone(Long phone) {
 		this.phone = phone;
-	}*/
+		this.creation_Date = creation_Date;
+		this.authenticated = authenticated;
+		//this.address = address;
+	}
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	public Long getId() {
 		return id;
 	}
@@ -66,17 +68,11 @@ public class Registration extends Login implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Address getAddress() {
-		return address;
+	public String getBirth_date() {
+		return birth_date;
 	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public String getBirthdate() {
-		return birthdate;
-	}
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
+	public void setBirth_date(String birth_date) {
+		this.birth_date = birth_date;
 	}
 	public String getGender() {
 		return gender;
@@ -96,18 +92,58 @@ public class Registration extends Login implements Serializable{
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	public Integer getNoOfSms() {
-		return noOfSms;
+	public Integer getNo_Of_Sms() {
+		return no_Of_Sms;
 	}
-	public void setNoOfSms(Integer noOfSms) {
-		this.noOfSms = noOfSms;
+	public void setNo_Of_Sms(Integer no_Of_Sms) {
+		this.no_Of_Sms = no_Of_Sms;
 	}
-	/*public Boolean getAuthenticated() {
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Long getPhone() {
+		return phone;
+	}
+	public void setPhone(Long phone) {
+		this.phone = phone;
+	}
+	public Date getCreation_Date() {
+		return creation_Date;
+	}
+	public void setCreation_Date(Date creation_Date) {
+		this.creation_Date = creation_Date;
+	}
+	public String getAuthenticated() {
 		return authenticated;
 	}
-	public void setAuthenticated(Boolean authenticated) {
+	public void setAuthenticated(String authenticated) {
 		this.authenticated = authenticated;
+	}
+
+	/*public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}*/
+
+	@Override
+	public String toString() {
+		return "Registration [id=" + id + ", name=" + name + ", birth_date=" + birth_date + ", gender=" + gender
+				+ ", nationality=" + nationality + ", website=" + website + ", no_Of_Sms=" + no_Of_Sms + ", email="
+				+ email + ", password=" + password + ", phone=" + phone + ", creation_Date=" + creation_Date
+				+ ", authenticated=" + authenticated + "]";
+	}
 	
 	
 	

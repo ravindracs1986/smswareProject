@@ -137,11 +137,11 @@ public class LoginServlet extends HttpServlet {
 		Registration regi = new Registration();
 		// regi.setId(result.getLong("id"));
 		regi.setName(result.getString("NAME"));
-		regi.setBirthdate(result.getString("BIRTH_DATE"));
+		regi.setBirth_date(result.getString("BIRTH_DATE"));
 		regi.setGender(result.getString("GENDER"));
 		regi.setNationality(result.getString("NATIONALITY"));
 		regi.setWebsite(result.getString("WEBSITE"));
-		regi.setNoOfSms(result.getInt("NO_OF_SMS"));
+		regi.setNo_Of_Sms(result.getInt("NO_OF_SMS"));
 		regi.setEmail(result.getString("EMAIL"));
 		regi.setPhone(result.getLong("PHONE"));
 		return regi;

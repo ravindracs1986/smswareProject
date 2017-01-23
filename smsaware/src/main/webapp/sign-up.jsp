@@ -117,11 +117,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h3>Welcome to our Smsaware.Please enter your <a href="sign-up.jsp">Registration </a>details. Or have an account <a href="login.jsp">Login</a> here </h3>
 
 			<form name="login" method="post" action="RegistrationServlet.do">
-				<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-				<input type="text" name="Name" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
-				<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-				<input type="password" name="Password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-				<input type="password" name="Password" class="lock" value="Confirmed Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirmed Password';}">
+				<input type="text" name="name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+				<input type="text" name="phone" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
+				<input type="email" name="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
+				<input type="password" name="password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+				<input type="password" name="cpassword" class="lock" value="Confirmed Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirmed Password';}">
 				<div class="remember">
 					<label class="checkbox"><input type="checkbox" name="Checkbox" checked=""><i> </i>I Accept Terms</label>
 				</div>
