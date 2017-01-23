@@ -95,7 +95,7 @@
 									<li><a href="#">Account setting</a></li>
 									<li><a href="#">Change Password</a></li>
 								</ul></li>
-							<li><a href="#"> Log out </a></li>
+							<li><a href="LogoutServlet.do"> Log out </a></li>
 						</ul>
 					</div>
 				</div>

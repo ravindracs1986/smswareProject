@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -15,10 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
 import com.smsaware.utils.DataBaseQuerys;
 import com.smsaware.utils.Database;
+import com.smsaware.utils.HibernateUtil;
 
 public class LoginServlet extends HttpServlet {
 
@@ -67,12 +74,12 @@ public class LoginServlet extends HttpServlet {
 		if (isUserFound) {
 			System.out.println("response::" + responseStatus);
 			HttpSession session = request.getSession();
-			session.setAttribute("email", registration.getEmail());
-			session.setAttribute("name", registration.getName());
+			session.setAttribute("user", registration);
+			/*session.setAttribute("name", registration.getName());
 			session.setAttribute("phone", registration.getPhone());
-			session.setAttribute("gender", registration.getGender());
+			session.setAttribute("gender", registration.getGender());*/
 			// session.setAttribute("address", registration.getAddress());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("profile.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 			dispatcher.forward(request, response);
 
 		} else {
@@ -84,46 +91,36 @@ public class LoginServlet extends HttpServlet {
 	private Map<Boolean, Registration> getLoginStatus(Login login) {
 		System.out.println("inside method");
 		Map<Boolean, Registration> userObject = new HashMap<Boolean, Registration>();
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		Connection conn = null;
-		Database dataBase = new Database();
+		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		String sql;
 		try {
-			conn = dataBase.getConnection();
+			
+			tx = session.beginTransaction();
 			if (login.getEmail() != null && !(login.getEmail().isEmpty())) {
-				statement = conn.prepareStatement(DataBaseQuerys.getUserByEmail);
-				statement.setString(1, login.getEmail());
-				statement.setString(2, login.getPassword());
+				sql="SELECT * FROM user_registration where EMAIL='" + login.getEmail() + "' and PASSWORD='"+login.getPassword()+"'";
 			} else {
-				statement = conn.prepareStatement(DataBaseQuerys.getUserByPhone);
-				statement.setLong(1, login.getPhone());
-				statement.setString(2, login.getPassword());
+				sql="SELECT * FROM user_registration where PHONE='" + login.getPhone() + "' and PASSWORD='"+login.getPassword()+"'";
 			}
-
-			result = statement.executeQuery();
-
-			while (result.next()) {
-				System.out.println(result.getString(8));
-				System.out.println("password==>>" + result.getString(9));
-				if (login.getEmail() != null && !(login.getEmail().isEmpty())) {
-					if (result.getString(8).equalsIgnoreCase(login.getEmail())
-							&& result.getString(9).equalsIgnoreCase(login.getPassword())) {
-						Registration regi = setDBResponse(result);
-						userObject.put(true, regi);
+			SQLQuery query = session.createSQLQuery(sql);
+	         query.addEntity(Registration.class);
+	         List employees = query.list();
+	         if(employees!=null){
+		         for (Iterator iterator = employees.iterator(); iterator.hasNext();){
+		        	 Registration employee = (Registration) iterator.next(); 
+		            System.out.print("First Name: " + employee.getName()); 
+		            System.out.print("  Email: " + employee.getEmail()); 
+		            System.out.println("  Phone: " + employee.getPhone()); 
+		            if (employee.getId() != null && employee.getId() != 0) {
+		            	userObject.put(true, employee);
 						break;
 					}
-
-				} else {
-					if (result.getLong(10) == login.getPhone()
-							&& result.getString(9).equalsIgnoreCase(login.getPassword())) {
-						Registration regi = setDBResponse(result);
-						userObject.put(true, regi);
-						break;
-					}
-
-				}
-
-			}
+		         }
+			
+	         }
+			tx.commit();
+			
 
 		} catch (Exception e) {
 			System.out.println("exception" + e);
@@ -133,7 +130,7 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	private Registration setDBResponse(ResultSet result) throws SQLException {
+	/*private Registration setDBResponse(ResultSet result) throws SQLException {
 		Registration regi = new Registration();
 		// regi.setId(result.getLong("id"));
 		regi.setName(result.getString("NAME"));
@@ -145,6 +142,6 @@ public class LoginServlet extends HttpServlet {
 		regi.setEmail(result.getString("EMAIL"));
 		regi.setPhone(result.getLong("PHONE"));
 		return regi;
-	}
+	}*/
 
 }
