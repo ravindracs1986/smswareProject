@@ -9,7 +9,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
+import org.hibernate.Query;
 import com.smsaware.model.Address;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
@@ -33,11 +33,6 @@ public class RegistrationDao implements IRegistrationDao {
 				user.setRegistration(s);
 
 			}
-
-			/*
-			 * session.getTransaction().commit(); session.close();
-			 */
-
 			tx.commit();
 
 		} catch (Exception e) {
@@ -115,62 +110,131 @@ public class RegistrationDao implements IRegistrationDao {
 			tx.commit();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			System.out.println("exception while checking user");
+		} finally {
+			session.close();
 		}
 
 		return isUser;
 	}
 
 	@Override
-	public Map<Boolean, Registration> checkOTP(Long userId, String email, Long phone, String userOTP) {
-		Map<Boolean, Registration> userOTPObject = new HashMap<Boolean, Registration>();
-		/*
-		 * ResultSet result = null; PreparedStatement statement = null; Database
-		 * dataBase = new Database(); Connection conn = null; conn =
-		 * dataBase.getConnection();
-		 * 
-		 * try { // SELECT table1.field1,table1.field2,
-		 * table2.field3,table2.field8 // from table1,table2 where table1.field2
-		 * = something and // table2.field3 = somethingelse String query =
-		 * "SELECT user_registration.NAME,user_registration.EMAIL,user_registration.PHONE,user_registration.BIRTH_DATE,user_registration.GENDER,user_registration.NATIONALITY,"
-		 * + "user_registration.WEBSITE,user_registration.NO_OF_SMS," +
-		 * " user_otp.userId,user_otp.OTP from user_registration,user_otp where user_registration.id = user_otp.userId and user_otp.OTP ="
-		 * + userOTP + ""; // statement = //
-		 * conn.prepareStatement(com.smsaware.utils.DataBaseQuerys.userOTPCheck)
-		 * ; statement = conn.prepareStatement(query); // statement.setString(1,
-		 * userOTP); // statement.setLong(2, phone); result =
-		 * statement.executeQuery(); while (result.next()) { System.out.print(
-		 * "Old UserId Found while registation" + result.getString(1)); Long
-		 * dbuUserId = result.getLong(9); String dbOTP = result.getString(10);
-		 * if (userId != null && userId != 0 && userId == dbuUserId &&
-		 * dbOTP.equalsIgnoreCase(userOTP)) { userOTPObject.put(true,
-		 * setDBResponse(result)); } else { userOTPObject.put(false, null); } }
-		 * 
-		 * } catch (Exception e) { e.printStackTrace(); System.out.println(
-		 * "exception while checking user"); } finally {
-		 * 
-		 * try { conn.close(); statement.close(); } catch (SQLException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * }
-		 */
+	public Map<Boolean, User> checkOTP(Long userId, String email, Long phone, String userOTP) {
+		Map<Boolean, User> userOTPObject = new HashMap<Boolean, User>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		User userObject = new User();
+		try {
+			String sql = "SELECT * FROM user_registration WHERE user_registration.id = (SELECT userId FROM user_otp WHERE user_otp.currentOtp ="
+					+ userOTP + " AND isAuthenticated=0)";
+
+			// String sql1="from Registration R WHERE R.id =(select
+			// userOTP.userId from UserOTP userOTP where UserOTP.currentOtp='"+
+			// userOTP +"')";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(Registration.class);
+			List regList = query.list();
+			if (regList != null && regList.size() != 0) {
+				Object obj = regList.get(0);
+
+				if (obj instanceof Registration) {
+					System.out.println("object get");
+				}
+
+				for (Iterator iterator = regList.iterator(); iterator.hasNext();) {
+					Registration registration = (Registration) iterator.next();
+					if (registration.getId() != null && registration.getId() != 0) {
+						userObject.setRegistration(registration);
+						userObject.setAddress(getAddress(registration.getId()));
+						userOTPObject.put(true, userObject);
+						updateOtp(registration.getId());
+					} else {
+						userOTPObject.put(false, null);
+					}
+				}
+
+			}
+
+		} catch (Exception e) {
+		} finally {
+			session.close();
+		}
+
 		return userOTPObject;
 	}
 
-	/*
-	 * private Registration setDBResponse(ResultSet result) throws SQLException
-	 * { Registration regi = new Registration(); if (result != null) {
-	 * regi.setId(result.getLong("userId"));
-	 * regi.setName(result.getString("NAME"));
-	 * regi.setBirthdate(result.getString("BIRTH_DATE"));
-	 * regi.setGender(result.getString("GENDER"));
-	 * regi.setNationality(result.getString("NATIONALITY"));
-	 * regi.setWebsite(result.getString("WEBSITE"));
-	 * regi.setNoOfSms(result.getInt("NO_OF_SMS"));
-	 * regi.setEmail(result.getString("EMAIL"));
-	 * regi.setPhone(result.getLong("PHONE")); } return regi; }
-	 */
+	private void updateOtp(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			String Y = "Y";
+			Query query = session
+					.createQuery("update Registration set authenticated= '" + Y + "' where id='" + id + "'");
+			int result = query.executeUpdate();
+			if(result!=0){
+				updateOtpTable(id);
+			}
+
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+	}
+
+	private void updateOtpTable(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			int Y = 1;
+			Query query = session
+					.createQuery("update UserOTP set isAuthenticated= '" + Y + "' where userId='" + id + "'");
+			query.executeUpdate();
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		
+	}
+
+	@Override
+	public Address getAddress(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		Address add = new Address();
+		try {
+			tx = session.beginTransaction();
+			List<Address> userAddress = (List<Address>) session
+					.createQuery("from Address A WHERE A.userId = '" + id + "'").list();
+
+			add = userAddress.get(0);
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return add;
+	}
 
 }
