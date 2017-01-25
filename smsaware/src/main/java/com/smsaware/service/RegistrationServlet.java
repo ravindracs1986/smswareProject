@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Address;
 import com.smsaware.model.Registration;
+import com.smsaware.model.User;
 
 public class RegistrationServlet extends HttpServlet {
 
@@ -44,16 +45,10 @@ public class RegistrationServlet extends HttpServlet {
 
 			if (!userExist) {
 				address = new Address();
-				address.setUser_address("address");
-				address.setStreet("street");
-				address.setCity("city");
-				address.setState("state");
-				address.setZip("zip");
-
-				Long dbResponse = dao.saveUser(registration, address);
+				User dbResponse = dao.saveUser(registration, address);
 				System.out.println("dbResponse===>>" + dbResponse);
-				if (dbResponse != null && dbResponse != 0l) {
-					// RegistrationOTP.sendOTP(dbResponse,registration.getEmail(),registration.getPhone());
+				if (dbResponse != null && dbResponse.getRegistration() != null && dbResponse.getRegistration().getId()!=null) {
+					RegistrationOTP.sendOTP(dbResponse.getRegistration().getId(),registration.getEmail(),registration.getPhone());
 
 					System.out.println("*********Object save successfully*****");
 					/*
@@ -64,10 +59,10 @@ public class RegistrationServlet extends HttpServlet {
 					 * request.getRequestDispatcher("profile.jsp").include(
 					 * request, response);
 					 */
-					request.setAttribute("userId", dbResponse);
-					request.setAttribute("name", registration.getName());
-					request.setAttribute("email", registration.getEmail());
-					request.setAttribute("phone", registration.getPhone());
+					request.setAttribute("userId", dbResponse.getRegistration().getId());
+					request.setAttribute("name", dbResponse.getRegistration().getName());
+					request.setAttribute("email", dbResponse.getRegistration().getEmail());
+					request.setAttribute("phone", dbResponse.getRegistration().getPhone());
 					RequestDispatcher dispatcher = request.getRequestDispatcher("popup.jsp");
 					dispatcher.forward(request, response);
 

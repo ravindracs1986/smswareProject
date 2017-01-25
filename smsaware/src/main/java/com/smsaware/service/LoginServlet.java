@@ -21,8 +21,10 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.smsaware.model.Address;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
+import com.smsaware.model.User;
 import com.smsaware.utils.DataBaseQuerys;
 import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
@@ -60,13 +62,14 @@ public class LoginServlet extends HttpServlet {
 			login.setEmail(username);
 		}
 		// String postingString = new Gson().toJson(login);
-		Map<Boolean, Registration> responseStatus = getLoginStatus(login);
+		Map<Boolean, User> responseStatus = getLoginStatus(login);
 		Boolean isUserFound = false;
 		Registration registration = null;
-		for (Map.Entry<Boolean, Registration> entry : responseStatus.entrySet()) {
+		User userObject=null;
+		for (Map.Entry<Boolean, User> entry : responseStatus.entrySet()) {
 			isUserFound = entry.getKey();
 			if (isUserFound) {
-				registration = entry.getValue();
+				userObject = entry.getValue();
 			}
 
 		}
@@ -74,7 +77,7 @@ public class LoginServlet extends HttpServlet {
 		if (isUserFound) {
 			System.out.println("response::" + responseStatus);
 			HttpSession session = request.getSession();
-			session.setAttribute("user", registration);
+			session.setAttribute("user", userObject);
 			/*session.setAttribute("name", registration.getName());
 			session.setAttribute("phone", registration.getPhone());
 			session.setAttribute("gender", registration.getGender());*/
@@ -88,10 +91,10 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	private Map<Boolean, Registration> getLoginStatus(Login login) {
+	private Map<Boolean, User> getLoginStatus(Login login) {
 		System.out.println("inside method");
-		Map<Boolean, Registration> userObject = new HashMap<Boolean, Registration>();
-		
+		Map<Boolean, User> userObject = new HashMap<Boolean, User>();
+		User user = new User();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = null;
 		String sql;
@@ -113,7 +116,10 @@ public class LoginServlet extends HttpServlet {
 		            System.out.print("  Email: " + employee.getEmail()); 
 		            System.out.println("  Phone: " + employee.getPhone()); 
 		            if (employee.getId() != null && employee.getId() != 0) {
-		            	userObject.put(true, employee);
+		            	user.setRegistration(employee);
+		            	Address addres=getAddress(employee.getId());
+		            	user.setAddress(addres);
+		            	userObject.put(true, user);
 						break;
 					}
 		         }
@@ -130,18 +136,21 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
-	/*private Registration setDBResponse(ResultSet result) throws SQLException {
-		Registration regi = new Registration();
-		// regi.setId(result.getLong("id"));
-		regi.setName(result.getString("NAME"));
-		regi.setBirth_date(result.getString("BIRTH_DATE"));
-		regi.setGender(result.getString("GENDER"));
-		regi.setNationality(result.getString("NATIONALITY"));
-		regi.setWebsite(result.getString("WEBSITE"));
-		regi.setNo_Of_Sms(result.getInt("NO_OF_SMS"));
-		regi.setEmail(result.getString("EMAIL"));
-		regi.setPhone(result.getLong("PHONE"));
-		return regi;
-	}*/
+	private Address getAddress(Long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		String sql;
+		Address add = new Address();
+		try {
+			tx = session.beginTransaction();
+			sql="SELECT * FROM ADDRESS where userId='" + id + "'";
+			List<Address> userAddress = (List<Address>)session.createQuery(sql).list();
+	        add=userAddress.get(0);
+		}catch (Exception e) {
+			System.out.println("exception" + e);
+		}
+		return add;
+	}
+
 
 }

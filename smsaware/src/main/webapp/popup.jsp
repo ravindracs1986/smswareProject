@@ -7,16 +7,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Smsaware OTP | smsaware.in</title>
 <link rel="icon" href="../images/logo2.gif">
-	<link rel="stylesheet" type="text/css" href="../css/style.css"
+	<link rel="stylesheet" type="text/css" href="css/style.css"
 		media="screen" />
-	<link rel="stylesheet" type="text/css" href="../css/registration.css"
+	<link rel="stylesheet" type="text/css" href="css/registration.css"
 		media="screen" />
-	<script type="text/javascript" src="../js/jquery.core.js"></script>
-	<script type="text/javascript" src="../js/jquery.superfish.js"></script>
-	<script type="text/javascript" src="../js/jquery.jcarousel.pack.js"></script>
-	<script type="text/javascript" src="../js/jquery.easing.js"></script>
-	<script type="text/javascript" src="../js/jquery.scripts.js"></script>
-	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.core.js"></script>
+	<script type="text/javascript" src="js/jquery.superfish.js"></script>
+	<script type="text/javascript" src="js/jquery.jcarousel.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.js"></script>
+	<script type="text/javascript" src="js/jquery.scripts.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 
 
@@ -70,7 +70,7 @@ $('.window').hide();
 <div id="boxes">
   <div id="dialog" class="window">
     Please provide OTP which you have recievd Via Mail and SMS<br><br>
-	<form action="ProfileServlet" name="ProfileServlet" method="post" onsubmit="return(proValidate())">
+	<form action="ProfileServlet.do" name="ProfileServlet" method="post" onsubmit="return(proValidate())">
             Please enter OTP:  <input type="password" name="userOTP" style="background-color: #fefefe;border: 3px solid #888; width: 213px;height: 31px;" maxlength="6"/> <br>
 			<input type="hidden" name="userId" value="${userId}"/>
 			<input type="hidden" name="name" value="${name}"/>

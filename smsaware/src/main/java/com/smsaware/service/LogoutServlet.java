@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;  
 public class LogoutServlet extends HttpServlet {  
         /**
-	 * 
+	 * SMSAWARE
 	 */
 	private static final long serialVersionUID = 16778L;
 
@@ -19,7 +19,7 @@ public class LogoutServlet extends HttpServlet {
             response.setContentType("text/html");  
             PrintWriter out=response.getWriter();  
               
-            request.getRequestDispatcher("smsawarelogin.html").include(request, response);  
+            request.getRequestDispatcher("index.jsp").include(request, response);  
               
             HttpSession session=request.getSession();  
             session.invalidate();  

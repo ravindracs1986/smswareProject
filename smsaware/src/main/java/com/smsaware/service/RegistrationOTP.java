@@ -4,18 +4,22 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Calendar;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.smsaware.model.UserOTP;
 import com.smsaware.utils.Database;
+import com.smsaware.utils.HibernateUtil;
 
 public class RegistrationOTP {
 
 	public static void sendOTP(Long userId,String email, Long phone) {
 		
 	    String otp;
+	    Long response;
 	    StringBuilder generatedToken = new StringBuilder();
 	    try {
             SecureRandom number = SecureRandom.getInstance("SHA1PRNG");
@@ -29,26 +33,27 @@ public class RegistrationOTP {
             Calendar cale=Calendar.getInstance();
             java.util.Date utilDate = cale.getTime();
     		java.sql.Date otpTime = new java.sql.Date(utilDate.getTime());
-    		Database dataBase = new Database();
-    		Connection conn=null;
-    		PreparedStatement statement = null;
-    		conn =dataBase.getConnection();
+    		Session session = HibernateUtil.getSessionFactory().openSession();
+    		Transaction tx = null;
+    		UserOTP createdOTP= new UserOTP(userId,otp,otpTime,0);
     		try {
-				statement = conn.prepareStatement(com.smsaware.utils.DataBaseQuerys.otpQuery);
-				statement.setLong(1, userId);
-				statement.setString(2, otp);
-				statement.setDate(3, otpTime);
-				statement.setInt(4,0);
-				int resultValue=statement.executeUpdate();
-				 if (resultValue == 0) {
+    			
+    			tx = session.beginTransaction();
+				response = (Long) session.save(createdOTP);
+				 if (response == 0) {
 			            throw new SQLException("Inserting user OTP failed, no rows affected.");
 			        }else{
 			        	sendOTPonMail(otp,email);
 			        	sendOTPonPhone(otp,phone);
 			        }
+				 tx.commit();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				if (tx != null) {
+					tx.rollback();
+				}
 				e.printStackTrace();
+			}finally {
+				session.close();
 			}
             
         } catch (NoSuchAlgorithmException e) {
