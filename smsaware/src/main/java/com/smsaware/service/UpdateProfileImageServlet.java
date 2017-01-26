@@ -13,7 +13,7 @@ import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
 
-public class ProfileServlet extends HttpServlet{
+public class UpdateProfileImageServlet extends HttpServlet{
 
 	/**
 	 * SMSAWARE
@@ -28,26 +28,20 @@ public class ProfileServlet extends HttpServlet{
 		String email=request.getParameter("email");
 		String phone=request.getParameter("phone");
 		String userOTP=request.getParameter("userOTP");
-		String firstTime=request.getParameter("firstTime");
-		//System.out.println("Profile Id-->"+userId+"email-->"+email+"phone-->>"+phone);
-	    boolean	firstLogin = Boolean.parseBoolean(firstTime);
-	    boolean userExist=false;
-		User userObject=null;
-		Map<Boolean, User> otpValidate=null;
+		System.out.println("Profile Id-->"+userId+"email-->"+email+"phone-->>"+phone);
+		
 		RegistrationDao dao=new RegistrationDao();
-	    if(firstLogin){
-	    	otpValidate=dao.checkOTP(Long.valueOf(userId),email,Long.valueOf(phone),userOTP);
-			}else{
-				otpValidate=dao.getUserData(Long.valueOf(userId));
-			}
-	    for ( Map.Entry<Boolean, User> entry : otpValidate.entrySet()) {
+		Map<Boolean, User> otpValidate=dao.checkOTP(Long.valueOf(userId),email,Long.valueOf(phone),userOTP);
+		boolean userExist=false;
+		Registration userDetails=new Registration();
+		User userObject=null;
+		for ( Map.Entry<Boolean, User> entry : otpValidate.entrySet()) {
 			userExist = entry.getKey();
 			if(userExist){
 				userObject=entry.getValue();
 			}
 			
 		}
-		
 		if(userExist){
 			HttpSession session = request.getSession();
 			session.setAttribute("user", userObject);

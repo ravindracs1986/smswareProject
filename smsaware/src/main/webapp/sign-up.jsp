@@ -125,6 +125,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="remember">
 					<label class="checkbox"><input type="checkbox" name="Checkbox" checked=""><i> </i>I Accept Terms</label>
 				</div>
+				<input type="hidden" id="firstTime" name="firstTime" value="true">
 				<input type="submit" value="Sign Up">
 			</form>
 			<div class="agileits_social">

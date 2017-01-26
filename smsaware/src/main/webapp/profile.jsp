@@ -288,11 +288,11 @@
 									<h4 class="title">Edit Profile</h4>
 								</div>
 								<div class="content">
-									<form>
+									<form name="updatePfofile" method="post" action="UpdateProfileSevlet.do">
 										<div class="row">
 											<div class="col-md-5">
 												<div class="form-group">
-													<label>Phone Number</label> <input type="text"
+													<label>Phone Number</label> <input type="text" name="pPhone"
 														class="form-control" disabled placeholder="Company"
 														value='${user.getRegistration().getPhone()}'>
 												</div>
@@ -301,29 +301,29 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Email address</label> <input
-														type="email" class="form-control" placeholder="Email" value='${user.getRegistration().getEmail()}'>
+														type="email" name="email" id="Pemail" class="form-control" placeholder="Email" value='${user.getRegistration().getEmail()}'>
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>First Name</label> <input type="text"
+													<label>First Name</label> <input type="text" name="name" id="Pname"
 														class="form-control" placeholder="Company" value="${user.getRegistration().getName()}">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>Last Name</label> <input type="text"
+													<label>Last Name</label> <input type="text" name="lastName" id="PlastName"
 														class="form-control" placeholder="Last Name"
-														value="${user.getRegistration().getName()}">
+														value="${user.getRegistration().getLastName()}">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label>Address</label> <input type="text"
+													<label>Address</label> <input type="text" name="userAddress" id="PuserAddress"
 														class="form-control" placeholder="Home Address"
 														value="${user.getAddress().getUser_address()}">
 												</div>
@@ -332,19 +332,19 @@
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>City</label> <input type="text" class="form-control"
+													<label>City</label> <input type="text" class="form-control" name="city" id="Pcity"
 														placeholder="City" value="${user.getAddress().getCity()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>State</label> <input type="text"
+													<label>State</label> <input type="text" name="state" id="Pstate"
 														class="form-control" placeholder="Country" value="${user.getAddress().getState()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>Postal Code</label> <input type="text"
+													<label>Postal Code</label> <input type="text" name="zip" id="Pzip"
 														class="form-control" placeholder="ZIP Code" value='${user.getAddress().getZip()}'>
 												</div>
 											</div>
@@ -353,12 +353,13 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>About Me</label>
-													<textarea rows="5" class="form-control"
-														placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+													<textarea rows="5" class="form-control"name="aboutMe" id="PaboutMe"
+														placeholder="Here can be your description" value="${user.getRegistration().getAboutMe()}">${user.getRegistration().getAboutMe()}</textarea>
 												</div>
 											</div>
 										</div>
-										<button type="submit" class="btn btn-info btn-fill pull-right">Update
+										<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}">
+										<button type="submit" class="btn btn-info btn-fill pull-right" id="updateProfileButton">Update
 											Profile</button>
 										<div class="clearfix"></div>
 									</form>
@@ -373,13 +374,12 @@
 										<a href="#"> <img class="avatar border-gray"
 											src="images/faces/face-3.jpg" alt="..." />
 											<h4 class="title">
-												Mike Andrew<br />
+												${user.getRegistration().getName()} ${user.getRegistration().getLastName()}<br />
 											</h4>
 										</a>
 									</div>
 									<p class="description text-center">
-										"Lamborghini Mercy <br> Your chick she so thirsty <br>
-										I'm in that two seat Lambo"
+										${user.getRegistration().getAboutMe()}
 									</p>
 								</div>
 								<hr>

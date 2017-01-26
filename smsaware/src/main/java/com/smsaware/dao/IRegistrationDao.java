@@ -15,4 +15,8 @@ public interface IRegistrationDao {
 	public Map<Boolean, User> checkOTP(Long userId, String email, Long phone, String userOTP);
 
 	public Address getAddress(Long id);
+	
+	public Map<Boolean, User> getUserData(Long userId);
+	
+	public int updateProfile(String userId, String name, String lastName, String email, String aboutMe, String userAddress, String city, String state, String zip);
 }

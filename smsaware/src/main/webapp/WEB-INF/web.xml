@@ -54,6 +54,14 @@
         <url-pattern>/ProfileServlet.do</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>UpdateProfileSevlet</servlet-name>
+        <servlet-class>com.smsaware.service.UpdateProfileSevlet</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>UpdateProfileSevlet</servlet-name>
+        <url-pattern>/UpdateProfileSevlet.do</url-pattern>
+    </servlet-mapping>
     
     <!-- error-code related error pages -->
 	<error-page>

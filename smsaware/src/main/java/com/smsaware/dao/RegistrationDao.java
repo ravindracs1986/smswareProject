@@ -237,4 +237,118 @@ public class RegistrationDao implements IRegistrationDao {
 		return add;
 	}
 
+	@Override
+	public Map<Boolean, User> getUserData(Long userId) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		User user = new User();
+		Transaction tx = null;
+		Map<Boolean, User> result =new HashMap<Boolean, User>();
+		
+		try {
+			tx = session.beginTransaction();
+			
+			List<Registration> Registrations = (List<Registration>) session
+					.createQuery("from Registration R WHERE R.id = '" + userId + "'").list();
+			for (Registration s : Registrations) {
+				user.setRegistration(s);
+
+			}
+			List<Address> userAddress = (List<Address>) session
+					.createQuery("from Address A WHERE A.userId = '" + userId + "'").list();
+			for (Address add : userAddress) {
+				user.setAddress(add);
+
+			}
+			result.put(true, user);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public int updateProfile(String userId, String name, String lastName, String email, String aboutMe, String userAddress, String city, String state, String zip) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		int result=0;
+		StringBuilder str= new StringBuilder();
+		String sql="update Registration set ";
+		try {
+			tx = session.beginTransaction();
+			
+			if(name!=null){
+				str=str.append("name = '"+name+"'"+",");
+			}if(lastName!=null){
+				str=str.append("lastName = '"+lastName+"'"+",");
+			}if(email!=null){
+				str=str.append("email = '"+email+"'"+",");
+			}if(aboutMe!=null){
+				str=str.append("aboutMe = '"+aboutMe+"'");
+			}
+			sql=sql+str.toString();
+			System.out.println("sql==>>"+sql);
+			Long id=Long.valueOf(userId);
+			String Y = "Y";
+			Query query = session.createQuery(""+sql+" where id='" + id + "'");
+			result = query.executeUpdate();
+			if(result!=0){
+				updateAddress(id,userAddress,city,state,zip);
+			}
+
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return result;
+	}
+
+	private void updateAddress(Long id, String userAddress, String city, String state, String zip) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		StringBuilder str= new StringBuilder();
+		String sql="update Address set ";
+		try {
+			tx = session.beginTransaction();
+			
+			if(userAddress!=null){
+				str=str.append("user_address = '"+userAddress+"'"+",");
+			}if(city!=null){
+				str=str.append("city = '"+city+"'"+",");
+			}if(state!=null){
+				str=str.append("state = '"+state+"'"+",");
+			}if(zip!=null){
+				str=str.append("zip = '"+zip+"'");
+			}
+			sql=sql+str.toString();
+			System.out.println("sql for address==>>"+sql);
+			
+			Query query = session.createQuery(""+sql+" where userId='" + id + "'");
+			 query.executeUpdate();
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+	}
+
 }

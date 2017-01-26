@@ -30,7 +30,10 @@ public class LoginServlet extends HttpServlet {
 	 * SMSAWARE
 	 */
 	private static final long serialVersionUID = 1L;
-
+public void doGet(HttpServletRequest request, HttpServletResponse response)
+			  throws ServletException, IOException {
+				doPost(request, response);
+			  }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("inside login servlt#######::");
@@ -39,7 +42,10 @@ public class LoginServlet extends HttpServlet {
 		String encryPassword = null;
 
 		try {
-			encryPassword = com.smsaware.utils.AESCryptUtil.encrypt(password);
+			if(password!=null){
+				encryPassword = com.smsaware.utils.AESCryptUtil.encrypt(password);
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("Encryption exception " + e.getMessage());

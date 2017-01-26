@@ -150,3 +150,44 @@ demo = {
     
 }
 
+/*$(document).ready(function() {
+    $("#updateProfileButton").click(function() {
+		 alert("updateProfile call");
+        servletCall();
+    });
+
+});*/
+
+ function servletCall() {
+   // $.post(
+      //  "UpdateProfileSevlet.do", 
+       // {name : "Message from jsp"}, //meaasge you want to send
+       // function(result) {
+       // $('#somediv').html('Here is your result : <strong>' + result + '</strong>'); //message you want to show
+   // });
+	
+	var data={
+	 userId: $('#userId').val(),
+	 email: $('#Pemail').val(),
+	 name: $('#Pname').val(),
+	 lastName: $('#PlastName').val(),
+	 userAddress: $('#PuserAddress').val(),
+	 state: $('#Pstate').val(),
+	 zip: $('#Pzip').val(),
+	 aboutMe: $('#PaboutMe').val()
+	}
+	
+	$.ajax({
+        type: "POST",
+        url: "UpdateProfileSevlet.do",
+        data: data,
+		success: function(response)
+        {   
+            alert(response);
+           // $('#userError').html(html);
+            //$("#userError").html(userChar);
+            //$("#userError").html(userTaken);
+        }
+    });
+	
+};
