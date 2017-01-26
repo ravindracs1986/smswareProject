@@ -28,6 +28,9 @@ public class Registration{
 	private Long phone;
 	private Date creation_Date;
 	private String authenticated;
+	private String lastName;
+	private String aboutMe;
+	private byte[] imageInByte;
 	/*@OneToOne
 	@JoinColumn(name="ADDRESS_ID")
 	private Address address;*/
@@ -35,7 +38,8 @@ public class Registration{
 	public Registration(){}
 	
 	public Registration(String name, String birth_date, String gender, String nationality, String website,
-			Integer no_Of_Sms, String email, String password, Long phone, Date creation_Date, String authenticated) {
+			Integer no_Of_Sms, String email, String password, Long phone, Date creation_Date,
+			String authenticated,String lastName,String aboutMe,byte[] imageInByte) {
 		this.name = name;
 		this.birth_date = birth_date;
 		this.gender = gender;
@@ -47,6 +51,9 @@ public class Registration{
 		this.phone = phone;
 		this.creation_Date = creation_Date;
 		this.authenticated = authenticated;
+		this.lastName = lastName;
+		this.aboutMe = aboutMe;
+		this.imageInByte = imageInByte;
 		//this.address = address;
 	}
 	
@@ -126,20 +133,38 @@ public class Registration{
 		this.authenticated = authenticated;
 	}
 
-	/*public Address getAddress() {
-		return address;
+
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}*/
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
+
+	public byte[] getImageInByte() {
+		return imageInByte;
+	}
+
+	public void setImageInByte(byte[] imageInByte) {
+		this.imageInByte = imageInByte;
+	}
 
 	@Override
 	public String toString() {
 		return "Registration [id=" + id + ", name=" + name + ", birth_date=" + birth_date + ", gender=" + gender
 				+ ", nationality=" + nationality + ", website=" + website + ", no_Of_Sms=" + no_Of_Sms + ", email="
 				+ email + ", password=" + password + ", phone=" + phone + ", creation_Date=" + creation_Date
-				+ ", authenticated=" + authenticated + "]";
+				+ ", "
+				+ "authenticated=" + authenticated + ",lastName=" + lastName + ",aboutMe=" + aboutMe + ",imageInByte=" + imageInByte + "]";
 	}
 	
 	

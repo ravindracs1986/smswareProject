@@ -43,8 +43,8 @@ public class RegistrationOTP {
 				 if (response == 0) {
 			            throw new SQLException("Inserting user OTP failed, no rows affected.");
 			        }else{
-			        	sendOTPonMail(otp,email,name);
-			        	sendOTPonPhone(otp,phone);
+			        	//sendOTPonMail(otp,email,name);
+			        	//sendOTPonPhone(otp,phone);
 			        }
 				 tx.commit();
 			} catch (SQLException e) {

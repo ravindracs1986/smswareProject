@@ -5,8 +5,13 @@
    author URL: http://smsaware.in
    
    -->
-<!DOCTYPE html>
-<html>
+  
+  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Smsaware | smsaware.in</title>
 <link rel="icon" href="images/logo2.gif">
@@ -82,11 +87,14 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">Welcome John</a>
+						
+						
+						
+						<a class="navbar-brand" href="#">Welcome ${user.getRegistration().getName()}</a>
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#"> SMS Baleance </a></li>
+							<li><a href="#"> SMS Baleance( ${user.getRegistration().getNo_Of_Sms()})</a></li>
 							<li><a href="#"> Buy Sms or Calls </a></li>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown"> Account <b class="caret"></b>
@@ -286,14 +294,14 @@
 												<div class="form-group">
 													<label>Phone Number</label> <input type="text"
 														class="form-control" disabled placeholder="Company"
-														value="Creative Code Inc.">
+														value='${user.getRegistration().getPhone()}'>
 												</div>
 											</div>
 
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Email address</label> <input
-														type="email" class="form-control" placeholder="Email">
+														type="email" class="form-control" placeholder="Email" value='${user.getRegistration().getEmail()}'>
 												</div>
 											</div>
 										</div>
@@ -301,14 +309,14 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>First Name</label> <input type="text"
-														class="form-control" placeholder="Company" value="Mike">
+														class="form-control" placeholder="Company" value="${user.getRegistration().getName()}">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Last Name</label> <input type="text"
 														class="form-control" placeholder="Last Name"
-														value="Andrew">
+														value="${user.getRegistration().getName()}">
 												</div>
 											</div>
 										</div>
@@ -317,7 +325,7 @@
 												<div class="form-group">
 													<label>Address</label> <input type="text"
 														class="form-control" placeholder="Home Address"
-														value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+														value="${user.getAddress().getUser_address()}">
 												</div>
 											</div>
 										</div>
@@ -325,19 +333,19 @@
 											<div class="col-md-4">
 												<div class="form-group">
 													<label>City</label> <input type="text" class="form-control"
-														placeholder="City" value="Mike">
+														placeholder="City" value="${user.getAddress().getCity()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
 													<label>State</label> <input type="text"
-														class="form-control" placeholder="Country" value="Andrew">
+														class="form-control" placeholder="Country" value="${user.getAddress().getState()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
 													<label>Postal Code</label> <input type="text"
-														class="form-control" placeholder="ZIP Code">
+														class="form-control" placeholder="ZIP Code" value='${user.getAddress().getZip()}'>
 												</div>
 											</div>
 										</div>
