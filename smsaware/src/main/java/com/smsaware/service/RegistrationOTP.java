@@ -2,18 +2,17 @@ package com.smsaware.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.google.gson.Gson;
 import com.smsaware.model.UserOTP;
-import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
 import com.smsaware.utils.SendMail;
+import com.smsaware.utils.SendSMS;
 
 public class RegistrationOTP {
 
@@ -71,7 +70,9 @@ public class RegistrationOTP {
 	}
 	
 	private static void sendOTPonPhone(String otp,Long phone) {
-		// TODO Auto-generated method stub
+		SendSMS sms = new SendSMS();
+		String smsResponse=sms.sendSms(otp,phone);
+		System.out.println("smsResponse==>>"+smsResponse+"JSON Response==>>"+new Gson().toJson(smsResponse));
 		
 	}
 
