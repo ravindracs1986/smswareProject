@@ -38,14 +38,14 @@ public class AESCryptUtil {
 		return key;
 	}
 
-	public static void main(String[] args) 
+	/*public static void main(String[] args) 
     {
 		try {
-			String encryptedString = AESCryptUtil.encrypt("root");
+			String encryptedString = AESCryptUtil.encrypt("admin@smsaware.in");
 			System.out.println("encrypted value==>>"+encryptedString);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+    }*/
 }

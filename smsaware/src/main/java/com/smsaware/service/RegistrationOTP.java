@@ -13,10 +13,11 @@ import org.hibernate.Transaction;
 import com.smsaware.model.UserOTP;
 import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
+import com.smsaware.utils.SendMail;
 
 public class RegistrationOTP {
 
-	public static void sendOTP(Long userId,String email, Long phone) {
+	public static void sendOTP(Long userId,String email, Long phone,String name) {
 		
 	    String otp;
 	    Long response;
@@ -43,7 +44,7 @@ public class RegistrationOTP {
 				 if (response == 0) {
 			            throw new SQLException("Inserting user OTP failed, no rows affected.");
 			        }else{
-			        	sendOTPonMail(otp,email);
+			        	sendOTPonMail(otp,email,name);
 			        	sendOTPonPhone(otp,phone);
 			        }
 				 tx.commit();
@@ -64,8 +65,8 @@ public class RegistrationOTP {
 		
 	}
 
-	private static void sendOTPonMail(String otp,String email) {
-		// TODO Auto-generated method stub
+	private static void sendOTPonMail(String otp,String email,String name) {
+		SendMail mail=new SendMail(email,otp,name);
 		
 	}
 	

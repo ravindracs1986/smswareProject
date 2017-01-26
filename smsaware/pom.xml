@@ -23,14 +23,50 @@
 
 	<dependencies>
 
+
+		<!-- Mail jars -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>20041127.091804</version>
+		</dependency>
+		
+		<dependency>
+	        <groupId>org.apache.httpcomponents</groupId>
+	        <artifactId>httpclient</artifactId>
+	        <version>4.3.6</version>
+	    </dependency>
+
 		<!-- Hibernate jars starts -->
 
 
 		<dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>4.2.0.Final</version>
-        </dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/antlr/antlr -->
 		<dependency>
@@ -82,18 +118,15 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.jms/jms -->
-		<!-- <dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>jms</artifactId>
-			<version>1.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>javax.jms</groupId> <artifactId>jms</artifactId> 
+			<version>1.1</version> </dependency> -->
 		<dependency>
 			<groupId>javax.jms</groupId>
 			<artifactId>jms</artifactId>
 			<version>1.1</version>
 			<scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jms-1.1.jar</systemPath>
-			</dependency>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jms-1.1.jar</systemPath>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.annotation/jsr250-api -->
 		<dependency>
@@ -196,41 +229,16 @@
 		<!-- Logging -->
 		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
 			<version>${org.slf4j-version}</version> </dependency> -->
-		<!-- <dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${org.slf4j-version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.jms</groupId>
-					<artifactId>jms</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jdmk</groupId>
-					<artifactId>jmxtools</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.jmx</groupId>
-					<artifactId>jmxri</artifactId>
-				</exclusion>
-			</exclusions>
-			<scope>runtime</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>jcl-over-slf4j</artifactId> 
+			<version>${org.slf4j-version}</version> <scope>runtime</scope> </dependency> 
+			<dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
+			<version>1.7.5</version> </dependency> <dependency> <groupId>log4j</groupId> 
+			<artifactId>log4j</artifactId> <version>1.2.15</version> <exclusions> <exclusion> 
+			<groupId>javax.mail</groupId> <artifactId>mail</artifactId> </exclusion> 
+			<exclusion> <groupId>javax.jms</groupId> <artifactId>jms</artifactId> </exclusion> 
+			<exclusion> <groupId>com.sun.jdmk</groupId> <artifactId>jmxtools</artifactId> 
+			</exclusion> <exclusion> <groupId>com.sun.jmx</groupId> <artifactId>jmxri</artifactId> 
+			</exclusion> </exclusions> <scope>runtime</scope> </dependency> -->
 
 	</dependencies>
 

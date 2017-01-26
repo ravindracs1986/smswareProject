@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 				User dbResponse = dao.saveUser(registration, address);
 				System.out.println("dbResponse===>>" + dbResponse);
 				if (dbResponse != null && dbResponse.getRegistration() != null && dbResponse.getRegistration().getId()!=null) {
-					RegistrationOTP.sendOTP(dbResponse.getRegistration().getId(),registration.getEmail(),registration.getPhone());
+					RegistrationOTP.sendOTP(dbResponse.getRegistration().getId(),registration.getEmail(),registration.getPhone(),dbResponse.getRegistration().getName());
 
 					System.out.println("*********Object save successfully*****");
 					/*
