@@ -9,7 +9,7 @@
   
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page
-	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*"%>
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,6 +38,37 @@
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
 <body>
+
+
+ 
+ 
+ 
+ <%
+  User userBean = (User) session.getAttribute("user");
+
+  if ( userBean == null)
+  {
+   out.print("welcome to jsp");
+  }else{
+	 
+	  String names =userBean.getRegistration().getName();
+	 // out.print("names==>:"+names);
+	//byte[] bytes =userBean.getRegistration().getImageInByte();
+	//out.print("bytes==>:"+bytes);
+	//String str =new com.sun.org.apache.xerces.internal.impl.dv.util.Base64().encode(bytes);
+	//String image = new String(str);
+
+	
+	
+///BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
+
+
+    //out.print("str==>:"+str);	
+  }
+
+%>
+
+
 	<div class="wrapper">
 		<div class="sidebar" data-color="#FFA534"
 			data-image="images/sidebar-5.jpg">
@@ -371,9 +402,24 @@
 								<div class="image"></div>
 								<div class="content">
 									<div class="author">
-										<a href="#"> <img class="avatar border-gray"
-											src="images/faces/face-3.jpg" alt="..." />
-											<h4 class="title">
+										<a href="#">
+										<form method="post" action="UpdateProfileImageServlet.do" enctype="multipart/form-data">
+
+										<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}">
+										<div class="pic">
+										<img class="avatar border-gray"
+											src="ImageRetrieveServlet.do?userId=${user.getRegistration().getId()}"alt="..." />
+										<div class="text"> Please Upload Image 
+										<table border="0">
+											<tr>
+											<td><input type="file" name="photo" size="50" style="color:green;cursor: pointer;"/></td>
+											<td colspan="2"><input type="submit" value="Upload"></td>
+											</tr>
+											
+										</table>
+										</div> </div>
+										</form>
+										<h4 class="title">
 												${user.getRegistration().getName()} ${user.getRegistration().getLastName()}<br />
 											</h4>
 										</a>

@@ -1,5 +1,6 @@
 package com.smsaware.model;
 
+import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class Registration{
 	private String authenticated;
 	private String lastName;
 	private String aboutMe;
-	private byte[] imageInByte;
+	//private Blob imageInByte;
 	/*@OneToOne
 	@JoinColumn(name="ADDRESS_ID")
 	private Address address;*/
@@ -39,7 +40,7 @@ public class Registration{
 	
 	public Registration(String name, String birth_date, String gender, String nationality, String website,
 			Integer no_Of_Sms, String email, String password, Long phone, Date creation_Date,
-			String authenticated,String lastName,String aboutMe,byte[] imageInByte) {
+			String authenticated,String lastName,String aboutMe) {
 		this.name = name;
 		this.birth_date = birth_date;
 		this.gender = gender;
@@ -53,7 +54,7 @@ public class Registration{
 		this.authenticated = authenticated;
 		this.lastName = lastName;
 		this.aboutMe = aboutMe;
-		this.imageInByte = imageInByte;
+		//this.imageInByte = imageInByte;
 		//this.address = address;
 	}
 	
@@ -150,13 +151,13 @@ public class Registration{
 		this.aboutMe = aboutMe;
 	}
 
-	public byte[] getImageInByte() {
+	/*public Blob getImageInByte() {
 		return imageInByte;
 	}
 
-	public void setImageInByte(byte[] imageInByte) {
+	public void setImageInByte(Blob imageInByte) {
 		this.imageInByte = imageInByte;
-	}
+	}*/
 
 	@Override
 	public String toString() {
@@ -164,7 +165,7 @@ public class Registration{
 				+ ", nationality=" + nationality + ", website=" + website + ", no_Of_Sms=" + no_Of_Sms + ", email="
 				+ email + ", password=" + password + ", phone=" + phone + ", creation_Date=" + creation_Date
 				+ ", "
-				+ "authenticated=" + authenticated + ",lastName=" + lastName + ",aboutMe=" + aboutMe + ",imageInByte=" + imageInByte + "]";
+				+ "authenticated=" + authenticated + ",lastName=" + lastName + ",aboutMe=" + aboutMe + "]";
 	}
 	
 	

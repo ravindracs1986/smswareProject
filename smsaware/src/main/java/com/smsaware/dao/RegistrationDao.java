@@ -1,5 +1,9 @@
 package com.smsaware.dao;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,8 +17,9 @@ import org.hibernate.Query;
 import com.smsaware.model.Address;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
+import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
-
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 public class RegistrationDao implements IRegistrationDao {
 
 	@Override
@@ -250,8 +255,11 @@ public class RegistrationDao implements IRegistrationDao {
 			
 			List<Registration> Registrations = (List<Registration>) session
 					.createQuery("from Registration R WHERE R.id = '" + userId + "'").list();
-			for (Registration s : Registrations) {
-				user.setRegistration(s);
+			for (Registration regiObject : Registrations) {
+			/*if(regiObject.getImageInByte()!=null){
+				regiObject=	getImageFromDb(regiObject.getImageInByte());
+			}*/
+				user.setRegistration(regiObject);
 
 			}
 			List<Address> userAddress = (List<Address>) session
@@ -272,6 +280,7 @@ public class RegistrationDao implements IRegistrationDao {
 		}
 		return result;
 	}
+
 
 	@Override
 	public int updateProfile(String userId, String name, String lastName, String email, String aboutMe, String userAddress, String city, String state, String zip) {
@@ -349,6 +358,40 @@ public class RegistrationDao implements IRegistrationDao {
 			session.close();
 
 		}
+	}
+
+	@Override
+	public int uploadProfileImage(InputStream inputStream,Long userId) {
+		int result=0;
+		Connection conn = null;
+		 Database database = new Database();
+		 ResultSet rs = null;
+		try {
+			if(inputStream!=null && inputStream.toString()!=null){
+			conn=database.getConnection();
+			String sql = "select * from profileImage where userId = '"+userId+"'";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            rs= statement.executeQuery();
+            if(rs.next()){
+            	result=1;
+            	String sqlDelete ="DELETE FROM profileImage WHERE userId='"+userId+"'";
+            	result=statement.executeUpdate(sqlDelete);
+            }
+			
+				String sqlInsert = "INSERT INTO profileImage (userId, photo) values (?, ?)";
+		        PreparedStatement statementInsert = conn.prepareStatement(sqlInsert);
+		        statementInsert.setLong(1, userId);
+		        statementInsert.setBlob(2, inputStream);
+		        result= statementInsert.executeUpdate();
+		
+            
+            conn.close();
+			} 
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

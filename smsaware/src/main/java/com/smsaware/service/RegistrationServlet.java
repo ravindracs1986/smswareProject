@@ -107,7 +107,7 @@ public class RegistrationServlet extends HttpServlet {
 		java.util.Date utilDate = cale.getTime();
 		java.sql.Date profileCreationDate = new java.sql.Date(utilDate.getTime());
 		registration = new Registration(name, null, null, "Indian", "www.smsaware.in", 5, email, encryPassword, mobile,
-				profileCreationDate, "N",null,null,null);
+				profileCreationDate, "N",null,null);
 
 		return registration;
 	}

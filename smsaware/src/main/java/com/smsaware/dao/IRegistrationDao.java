@@ -1,5 +1,6 @@
 package com.smsaware.dao;
 
+import java.io.InputStream;
 import java.util.Map;
 
 import com.smsaware.model.Address;
@@ -19,4 +20,6 @@ public interface IRegistrationDao {
 	public Map<Boolean, User> getUserData(Long userId);
 	
 	public int updateProfile(String userId, String name, String lastName, String email, String aboutMe, String userAddress, String city, String state, String zip);
+	
+	public int uploadProfileImage(InputStream inputStream,Long userId);
 }
