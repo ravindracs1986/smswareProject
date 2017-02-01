@@ -12,5 +12,6 @@
        <mapping class="com.smsaware.model.Registration"/>
        <mapping class="com.smsaware.model.Address"/>
         <mapping class="com.smsaware.model.UserOTP"/>
+        <mapping class="com.smsaware.model.Comments"/>
     </session-factory>
 </hibernate-configuration>

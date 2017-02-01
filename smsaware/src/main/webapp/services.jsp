@@ -3,8 +3,12 @@ author: smsaware
 author URL: http://smsaware.in
 
 -->
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Smsaware | smsaware.in</title>
 <link rel="icon" href="images/logo2.gif">
@@ -26,6 +30,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+<c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 <!-- header -->
 	<div class="header">
 		<div class="container">
@@ -120,28 +125,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">free sms service</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">free sms service</a></h4>
 						<p>We provide free of cost sms tsanmition service</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">customer blogings</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">customer blogings</a></h4>
 						<p>user can have blogs with us and for all live users</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">sms chat services</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">sms chat services</a></h4>
 						<p>user can have free sms chat with there belonging accounts.</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">Phonebook services</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">Phonebook services</a></h4>
 						<p>user can have save there contacts for quick sms send</p>
 					</div>
 				</div>
@@ -151,28 +156,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">mobile recharge service</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">mobile recharge service</a></h4>
 						<p>user can recharge there mobile through there accounts</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">Mobile number tracker</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">Mobile number tracker</a></h4>
 						<p>user can track the number locations</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">encrpted secure profile data service</a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">encrpted secure profile data service</a></h4>
 						<p>all data get encrypted at run time for more secure of user details.</p>
 					</div>
 				</div>
 				<div class="col-md-3 w3l_services_grid">
 					<div class="w3l_services_grid1">
 						<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-						<h4><a href="learn-more.jsp">Free calls </a></h4>
+						<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">Free calls </a></h4>
 						<p>user can call free of cost to any number in india </p>
 					</div>
 				</div>
@@ -327,22 +332,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 w3agile_footer_grid">
 				<h3>Instagram</h3>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " onclick="goToURL('${url}'); return false;" class="img-responsive" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -386,4 +391,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
 </body>
+<script type="text/javascript">
+
+	 function goToURL(url) {
+		 location.href = 'CommentRetrieveServlet.do';
+
+		}
+ </script>
 </html>

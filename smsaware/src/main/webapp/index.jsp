@@ -3,7 +3,13 @@ author: smsaware
 author URL: http://smsaware.in
 
 -->
-<!DOCTYPE html>
+  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
 <title>Smsaware | smsaware.in</title>
@@ -44,6 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <body>
 <!-- header -->
+<c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 	<div class="header">
 		<div class="container">
 			<div class="w3l_header_left"> 
@@ -117,9 +124,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h2>SMSAWARE</h2>
 				<p>Smsaware shines due to thermonuclear fusion 
                  releasing communication energy that traverses the star's interior and then radiates into outer space</p>
+				 ${url}
 				<div class="wthree_more">
-					<a href="learn-more.jsp" class="button--wayra button--border-thick button--text-upper button--size-s">Learn More</a>
+					<a href="learn-more.jsp" id="learnUrl" class="button--wayra button--border-thick button--text-upper button--size-s" onclick="goToURL('${url}'); return false;">Learn More</a>
 				</div>
+				
+				
+				
+				
 			</div>
 		</div>
 	</div>
@@ -133,7 +145,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p><i>tends to new sms world</i> To distinguish ourselves from our competitors, we concentrate on how we conduct business and treat people. 
 				Being polite and professional doesn't cost anything but it is hard work and it is emotionally tiring but is truly important in delivering a best in Transactional information solution </p>
 				<div class="wthree_more wthree_more1">
-					<a href="learn-more.jsp" class="button--wayra button--border-thick button--text-upper button--size-s">Read More</a>
+					<a href="learn-more.jsp" class="button--wayra button--border-thick button--text-upper button--size-s" onclick="goToURL('${url}'); return false;">Read More</a>
 				</div>
 			</div>
 			<div class="col-md-6 banner_bottom_right">
@@ -207,7 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<p>Imagination makes it possible to experience a whole world inside the mind. It gives the ability to look at any situation from a different point of view, 
 			and to mentally explore the past and the future Imagination is not limited only to seeing pictures in the mind. It includes all the five senses and the feelings. One can imagine a sound, taste, smell, a physical sensation or a feeling or emotion</p>
 			<div class="details">
-				<a href="learn-more.jsp">More Details</a>
+				<a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">More Details</a>
 			</div>
 		</div>
 		<div class="clearfix"> </div>
@@ -233,7 +245,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 										<div class="agileits_news_grid_left_gridr">
 											<img src="images/smsnews.jpg" alt=" " class="img-responsive" />
-											<h4><a href="learn-more.jsp">government pensioners can track status via SMS, online</a></h4>
+											<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">government pensioners can track status via SMS, online</a></h4>
 											<p>Web Portal that will be a one stop destination accessable through mobile phones aims to lessen harassment for pensioners</p>
 										</div>
 										<div class="clearfix"> </div>
@@ -246,7 +258,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 										<div class="agileits_news_grid_left_gridr">
 											<img src="images/smsnews1.jpg" alt=" " class="img-responsive" />
-											<h4><a href="learn-more.jsp">Railway passengers to soon receive SMS on ticket status</a></h4>
+											<h4><a href="learn-more.jsp" onclick="goToURL('${url}'); return false;">Railway passengers to soon receive SMS on ticket status</a></h4>
 											<p>As part of its 'go green' initiative, the Southern railways would do away with the practice of pasting reservation charts on train coaches and instead send SMS alerts to passengers regarding the reservation status of their tickets.</p>
 										</div>
 										<div class="clearfix"> </div>
@@ -350,22 +362,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="col-md-3 w3agile_footer_grid">
 				<h3>Instagram</h3>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -408,5 +420,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- for bootstrap working -->
 	<script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="js/bootstrap-checkbox-radio-switch.js"></script>
+<!--  Charts Plugin -->
+<script src="js/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="js/bootstrap-notify.js"></script>
+<!-- Light Bootstrap Table Core javascript and methods for profile purpose -->
+<script src="js/light-bootstrap-dashboard.js"></script>
+
 </body>
+<script type="text/javascript">
+
+		function goToURL(url) {
+		 location.href = 'CommentRetrieveServlet.do';
+		
+		}
+ </script>
+
 </html>

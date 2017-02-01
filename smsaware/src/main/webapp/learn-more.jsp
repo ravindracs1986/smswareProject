@@ -1,10 +1,16 @@
-<!--
-author: smsaware
-author URL: http://smsaware.in
+<!--  
+  author: smsaware
+   author URL: http://smsaware.in
+   
+   -->
+  
+  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
--->
-<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Smsaware | smsaware.in</title>
 <link rel="icon" href="images/logo2.gif">
@@ -26,6 +32,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+
+<%
+String names =null;
+boolean isLogin=false;
+ User userBean = (User) request.getSession().getAttribute("user");
+ // User userBean = (User) session.getAttribute("user");
+	if (userBean == null)
+	{
+		//out.print("welcome to jsp");
+	}else{
+		isLogin=true;
+	   names =userBean.getRegistration().getName();
+	   Long userId=userBean.getRegistration().getId();
+	   //out.print("user log in==>>");
+	}
+%>
+
+<c:set var="userName" value="<%=names%>" scope="request"></c:set>
+<c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 <!-- header -->
 	<div class="header">
 		<div class="container">
@@ -50,12 +75,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 			</div>
-			<div class="w3l_header_right">
-				<ul>
-					<li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>log in</a></li>
-					<li><a href="sign-up.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>sign up</a></li>
-				</ul>
-			</div>
+			
+			<c:if test="${empty userName}">
+				<div class="w3l_header_right">
+					<ul>
+						<li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>log in</a></li>
+						<li><a href="sign-up.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>sign up</a></li>
+					</ul>
+			   </div>
+			</c:if>
+			
+			
+			<c:if test="${not empty userName}">
+				<div class="w3l_header_right">
+					<ul>
+						<li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Logout</a></li>
+						
+					</ul>
+			   </div>
+			</c:if>
+			
 			<div class="clearfix"> </div>
 			<script type="text/javascript" src="js/demo.js"></script>
 		</div>
@@ -239,12 +278,59 @@ Business can refer to a particular organization expenditures resulting in a prof
 				</div>
 			</div>
 			<div class="clearfix"> </div>
-			<div class="w3agile_comments">
+			<!-- comments response start-->
+			<table border="1" cellpadding="5" cellspacing="5">
+				<tr>
+				<th>CommentId</th>
+				<th>Name</th>
+				<th>Comment</th>
+				<th>Date</th>
+				</tr> 
+			<c:forEach var="comment" items="${comments}">
+				<tr>
+				<td>${comment.commentsId}</td>
+				<td>${comment.username}</td>
+				<td>${comment.comments}</td>
+				<td>${comment.commentDate}</td>
+				</tr>
+				</c:forEach> 
+			
+			</table> 
+			
+			
+			<%--For displaying Previous link except for the 1st page --%>
+	<c:if test="${currentPage != 1}">
+		<td><a href="CommentRetrieveServlet.do?page=${currentPage - 1}">Previous</a></td>
+	</c:if>
+
+	<%--For displaying Page numbers. 
+	The when condition does not display a link for the current page--%>
+	<table border="1" cellpadding="5" cellspacing="5">
+		<tr>
+			<c:forEach begin="1" end="${noOfPages}" var="i">
+				<c:choose>
+					<c:when test="${currentPage eq i}">
+						<td>${i}</td>
+					</c:when>
+					<c:otherwise>
+						<td><a href="CommentRetrieveServlet.do?page=${i}">${i}</a></td>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</tr>
+	</table>
+	
+	<%--For displaying Next link --%>
+	<c:if test="${currentPage lt noOfPages}">
+		<td><a href="CommentRetrieveServlet.do?page=${currentPage + 1}">Next</a></td>
+	</c:if>
+
+<div class="w3agile_comments">
 				<h4>0 Comments</h4>
 				<p>There is no Comments for desplay now,Lets starts</p>
-				<!-- <div class="comments-grid">
+				 <div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
 					<div class="w3agile_grid_left">
-						<img src="images/1.png" alt=" " class="img-responsive">
+						<img src="images/new_logo.png" alt=" " class="img-responsive">
 					</div>
 					<div class="w3agile_grid_right">
 						<h3><a href="#">Adam Smith</a></h3>
@@ -256,24 +342,41 @@ Business can refer to a particular organization expenditures resulting in a prof
 					</div>
 					<div class="clearfix"> </div>
 				</div>
-				<div class="comments-grid">
+				<div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
 					<div class="w3agile_grid_left">
-						<img src="images/2.png" alt=" " class="img-responsive">
+						<img src="images/new_logo.png" alt=" " class="img-responsive">
 					</div>
 					<div class="w3agile_grid_right">
 						<h3><a href="#">James Rick</a></h3>
 						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 26th July, 2016</h5>
 						<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
 						<div class="reply">
-							<a href="#">Reply</a>
+							<a href="#aClass">Reply</a>
+							<!-- Reply contents starts-->
+							<div class="replyDiv" id="aClass">
+							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
+								<form action="CommentServlet.do" method="post">
+									<div class="col-md-6 agileinfo_write_reply_left">
+										<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+										<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+										<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
+									</div>
+									<div class="clearfix"> </div>
+									<input type="hidden" name="parentsId" value="${parentsId}"/>
+									<input type="submit" value="Reply">
+								</form>
+							</div></div>
+						<!-- Reply contents ends-->
 						</div>
 					</div>
 					<div class="clearfix"> </div>
-				</div> -->
+				</div>
+				
 			</div>
+			<!-- comments response start-->
 			<div class="agileinfo_write_reply">
 				<h3>Write a Reply or Comment</h3>
-				<form action="#" method="post">
+				<form action="CommentServlet.do" method="post">
 					<div class="col-md-6 agileinfo_write_reply_left">
 						<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
 						<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
@@ -284,6 +387,7 @@ Business can refer to a particular organization expenditures resulting in a prof
 						<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
 					</div>
 					<div class="clearfix"> </div>
+					<input type="hidden" name="parentsId" value="${parentsId}"/>
 					<input type="submit" value="Send Your Comment">
 				</form>
 			</div>
@@ -319,22 +423,22 @@ Business can refer to a particular organization expenditures resulting in a prof
 			<div class="col-md-3 w3agile_footer_grid">
 				<h3>Instagram</h3>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " onclick="goToURL('${url}'); return false;" class="img-responsive" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -376,6 +480,41 @@ Business can refer to a particular organization expenditures resulting in a prof
 <!-- //footer -->
 <!-- for bootstrap working -->
 	<script src="js/bootstrap.js"></script>
+	<script src="js/comments.js"></script>
 <!-- //for bootstrap working -->
+
+<script src="js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="js/bootstrap-checkbox-radio-switch.js"></script>
+<!--  Charts Plugin -->
+<script src="js/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="js/bootstrap-notify.js"></script>
+<!-- Light Bootstrap Table Core javascript and methods for profile purpose -->
+<script src="js/light-bootstrap-dashboard.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </body>
+
+<script type="text/javascript">
+ jQuery(document).ready(function($) {
+  $('.replyDiv') .hide()
+$('a[href^="#"]').on('click', function(event) {
+$('.replyDiv') .hide()
+    var target = $(this).attr('href');
+
+    $('.replyDiv'+target).toggle();
+
+});
+});
+</script>
+
+<script type="text/javascript">
+
+	 function goToURL(url) {
+		 location.href = 'CommentRetrieveServlet.do';
+
+		}
+ </script>
+
 </html>

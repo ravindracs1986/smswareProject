@@ -3,8 +3,12 @@ author: smsaware
 author URL: http://smsaware.in
 
 -->
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@page
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Smsaware | smsaware.in</title>
 <link rel="icon" href="images/logo2.gif">
@@ -38,6 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+<c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 <!-- header -->
 	<div class="header">
 		<div class="container">
@@ -148,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 Attracting, selecting and supporting executive talent is <span>vital</span>. These important decisions need to be evidence based.<i> We believe in providing thorough due diligence and comparative analysis to support those decisions</i>
 					</p>
 					<div class="wthree_more wthree_more3">
-						<a href="learn-more.jsp" class="button--wayra button--border-thick button--text-upper button--size-s">Read More</a>
+						<a href="learn-more.jsp" class="button--wayra button--border-thick button--text-upper button--size-s" onclick="goToURL('${url}'); return false;">Read More</a>
 					</div>
 				</div>
 				<div class="clearfix"> </div>
@@ -243,22 +248,22 @@ Attracting, selecting and supporting executive talent is <span>vital</span>. The
 			<div class="col-md-3 w3agile_footer_grid">
 				<h3>Instagram</h3>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta1.jpg" alt=" " onclick="goToURL('${url}'); return false;" class="img-responsive" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta2.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;" /></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta3.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta4.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta5.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="w3agile_footer_grid_left">
-					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" /></a>
+					<a href="learn-more.jsp"><img src="images/insta6.jpg" alt=" " class="img-responsive" onclick="goToURL('${url}'); return false;"/></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -302,4 +307,11 @@ Attracting, selecting and supporting executive talent is <span>vital</span>. The
 	<script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
 </body>
+<script type="text/javascript">
+
+	 function goToURL(url) {
+		 location.href = 'CommentRetrieveServlet.do';
+
+		}
+ </script>
 </html>
