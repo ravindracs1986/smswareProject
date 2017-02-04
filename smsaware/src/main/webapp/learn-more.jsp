@@ -29,6 +29,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <!-- <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'> -->
+<style type="text/css">
+
+.showSingle
+{
+    cursor:pointer;
+}
+</style>
+
 </head>
 	
 <body>
@@ -337,7 +345,25 @@ Business can refer to a particular organization expenditures resulting in a prof
 						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 25th July, 2016</h5>
 						<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
 						<div class="reply">
-							<a href="#">Reply</a>
+							<a class="showSingle" target="1">Reply</a>
+							
+							<!-- Reply contents starts-->
+							<div class="replyDiv" id="replyDiv1" style="display: none;">
+							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
+								<form action="CommentServlet.do" method="post">
+									<div class="col-md-6 agileinfo_write_reply_left">
+										<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+										<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+										<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
+									</div>
+									<div class="clearfix"> </div>
+									<input type="hidden" name="parentsId" value="${parentsId}"/>
+									<input type="submit" value="Reply">
+								</form>
+							</div></div>
+						<!-- Reply contents ends-->
+							
+							
 						</div>
 					</div>
 					<div class="clearfix"> </div>
@@ -351,9 +377,9 @@ Business can refer to a particular organization expenditures resulting in a prof
 						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 26th July, 2016</h5>
 						<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
 						<div class="reply">
-							<a href="#aClass">Reply</a>
+							<a class="showSingle" target="2">Reply</a>
 							<!-- Reply contents starts-->
-							<div class="replyDiv" id="aClass">
+							<div class="replyDiv" id="replyDiv2" style="display: none;">
 							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
 								<form action="CommentServlet.do" method="post">
 									<div class="col-md-6 agileinfo_write_reply_left">
@@ -497,13 +523,11 @@ Business can refer to a particular organization expenditures resulting in a prof
 </body>
 
 <script type="text/javascript">
- jQuery(document).ready(function($) {
-  $('.replyDiv') .hide()
-$('a[href^="#"]').on('click', function(event) {
-$('.replyDiv') .hide()
-    var target = $(this).attr('href');
 
-    $('.replyDiv'+target).toggle();
+jQuery(document).ready(function($) {
+$('.showSingle').on('click', function(event) {
+ jQuery('.replyDiv').hide();
+ jQuery('#replyDiv'+$(this).attr('target')).show();
 
 });
 });
