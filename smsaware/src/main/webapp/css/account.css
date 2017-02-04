@@ -153,7 +153,9 @@ width: 100%;
 
 /*---------mobile dialer css starts-----------  */
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300);
+/* @import url(http://fonts.googleapis.com/css?family=Lato:300); */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700|Slabo+27px|Lato:400,300italic,900italic);
+
 @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
 
 p
