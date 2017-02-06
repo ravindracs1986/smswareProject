@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -50,6 +51,8 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 				replyList=getAllunApprovedReply();
 				request.setAttribute("commentsList", commentsList);
 				request.setAttribute("replyList", replyList);
+				HttpSession session = request.getSession();
+				session.setAttribute("user", username);
 				request.getRequestDispatcher("/views/admin.jsp").forward(request, response);
 				
 			}else{

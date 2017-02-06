@@ -3,8 +3,8 @@
    author URL: http://smsaware.in
    
    -->
-  
-  
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page
 	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
@@ -12,9 +12,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>Smsaware | smsaware.in</title>
-<link rel="icon" href="images/logo2.gif">
+<link rel="icon" href="../images/logo2.gif">
 <!-- for-mobile-apps -->
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -23,13 +23,15 @@
 <style type="text/css">
 /* Form Module */
 .form-module {
-	position: relative;
-	background: #ffffff;
-	max-width: 320px;
-	width: 100%;
-	border-top: 5px solid #33b5e5;
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-	margin: 0 auto;
+    position: relative;
+    background: #ffffff;
+    max-width: 324px;
+    width: 100%;
+    border-top: 3px solid #33b5e5;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin: 0 100px 10px 501px;
+    height: 400px;
+    background-color: #E6E6FA;
 }
 
 .form-module .toggle {
@@ -135,22 +137,45 @@
 	color: #333333;
 	text-decoration: none;
 }
-  p {
-    margin: 0;
-    color: blue;
-  }
-  div,p {
-    margin-left: 10px;
-  }
-  span {
-    color: red;
-  }
+
+p {
+	margin: 0;
+	color: blue;
+}
+
+div, p {
+    margin-left: 0px;
+}
+
+span {
+	color: red;
+}
+
+.adminAccount {
+	padding: 4px 10px 9px 32px;
+	height: 31px;
+	margin: -47px 30px 12px 5px;
+}
+
+.adminAccount1 {
+	padding: 4px 10px 9px 32px;
+	height: 31px;
+	margin: -47px 30px 12px 109px;
+}
 </style>
 <script type="text/javascript" src="../js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="../js/demo.js"></script>
 </head>
 
 <body>
 
+<%
+String user1 = (String) session.getAttribute("user");
+
+//out.print("user==>:"+user1);	
+
+%>
+<input type="hidden" id="userValue" value='&{user1}' />
 <!-- Form Module-->
 
 	<div class="header">
@@ -167,21 +192,58 @@
 			</div>
 
 			<div class="clearfix"></div>
-			<script type="text/javascript" src="../js/demo.js"></script>
+			
 		</div>
 	</div>
+	<div class="wrapper">
+		<div class="main-panel">
+			<nav class="navbar navbar-default navbar-fixed">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#navigation-example-2">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
 
+				</div>
+				<% if (user1 ==null) { %> 
+				
+				<% } else { %>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown adminAccount"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> Welcome ${user1} <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Account setting</a></li>
+								<li><a href="#">Change Password</a></li>
+							</ul></li>
+						<li class="adminAccount1"><a href="AdminLogout.do" onClick="logout();">Log out </a>
+						</li>
+					</ul>
+				</div>
+				 <% } %>
+			</div>
+			</nav>
 
-	<div class="module form-module">
-		<div class="">
+		</div>
+	</div>
+<% if (user1 ==null) { %> 
+     
+	 <div class="module form-module">
+		<div>
 			<i class="fa-times fa-pencil"></i>
 
 		</div>
 		<div class="formDiv">
 			<h2>Admin Login</h2>
-			<form name="adminLogin" method="post" action="AdminLoginServlet.do" id="adminLogin-form">
-				<input type="text" placeholder="Username" name="adminUser"id="adminUser"/> 
-				<input type="password" placeholder="Password" name="adminPass" id="adminPass"/>
+			<form name="adminLogin" method="post" action="AdminLoginServlet.do"
+				id="adminLogin-form">
+				<input type="text" placeholder="Username" name="adminUser"
+					id="adminUser" /> <input type="password" placeholder="Password"
+					name="adminPass" id="adminPass" />
 				<button name="Login" value="Login">Login</button>
 
 			</form>
@@ -189,12 +251,12 @@
 
 	</div>
 
-	<div id="result" style="border-style: solid;border-color:#E6E6FA;">
-	<h2>Comments Need to Approved</h2>
-		<pre>
+   <% } else { %>
+  <div id="result" style="border-style: solid; border-color: #E6E6FA;">
+		<h2 align="center">Comments Need to Approved</h2><br>
 		<!-- comments response start-->
-			<table border="1" cellpadding="5" cellspacing="5">
-				<tr>
+			<table border="1" cellpadding="5" cellspacing="5" align="center">
+				<tr style="background-color:#33b5e5;">
 				<th>CommentId</th>
 				<th>Name</th>
 				<th>Email</th>
@@ -212,19 +274,21 @@
 					<td>${each.comments}</td>
 					<td>${each.commentDate}</td>
 					
-					<td><button type="button" value="approve">approve</button><button type="button" value="reject">reject</button></td></tr>
+					<td><button type="button" value="approve">approve</button>
+								<button type="button" value="reject">reject</button></td>
+						</tr>
 					</c:if>
 					
 				</c:forEach>
 			</table> 
-		</pre>
+		
 	</div>
-     <div id="result" style="border-style: solid;border-color:#E6E6FA;">
-		<h2>Replys Need to Approved</h2>
-		<pre>
+	<div id="result" style="border-style: solid; border-color: #E6E6FA;">
+		<h2 align="center">Replys Need to Approved</h2><br>
+		
 		<!-- comments response start-->
-			<table border="1" cellpadding="5" cellspacing="5">
-				<tr>
+			<table border="1" cellpadding="5" cellspacing="5" align="center">
+				<tr style="background-color:#33b5e5;">
 				<th>replyId</th>
 				<th>Name</th>
 				<th>Email</th>
@@ -240,16 +304,19 @@
 					<td>${reply.email}</td>
 					<td>${reply.comments}</td>
 					<td>${reply.replyDate}</td>
-					<td><button type="button" value="approve">approve</button><button type="button" value="reject">reject</button></td></tr>
+					<td><button type="button" value="approve">approve</button>
+								<button type="button" value="reject">reject</button></td>
+						</tr>
 					
 					</c:if>
 					
 				</c:forEach>
 			</table> 
-		</pre>
+		
 	</div>
+    <% } %>
 
-	<div class="footer">
+	<div class="footer" style="padding: 6em 0;">
 		<div class="container">
 			<div class="w3agile_footer_grid">
 				<h2>
@@ -264,7 +331,8 @@
 </body>
 <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
 <script src="../js/bootstrap.min.js" type="text/javascript"></script>
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+<script
+	src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
 
@@ -290,6 +358,10 @@ $(function() {
 
   });
   
+  function logout(){
+	  var userObject=document.getElementById("userValue");
+	 
+  }
 
  </script>
 
