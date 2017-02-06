@@ -54,4 +54,13 @@ CREATE TABLE comments(
     comments VARCHAR(100) DEFAULT NULL,
     parentsId INT(20),
   PRIMARY KEY (commentsId)
-) 
+) ;
+
+CREATE TABLE reply(
+  replyId INT(20)NOT NULL AUTO_INCREMENT,
+  username VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  comments VARCHAR(100) DEFAULT NULL,
+  commentsId INT(20),
+  PRIMARY KEY (replyId)
+);

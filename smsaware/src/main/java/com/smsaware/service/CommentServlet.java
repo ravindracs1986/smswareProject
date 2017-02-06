@@ -56,7 +56,7 @@ public class CommentServlet extends HttpServlet {
 	    			parentIdLong=Long.valueOf(parentId);
 	    		}
 	    		
-	    		Comments commentObject = new Comments(name,email,website,subject,comment,commentDate,parentIdLong);
+	    		Comments commentObject = new Comments(name,email,website,subject,comment,commentDate,parentIdLong,"N");
 	    		List<Comments> result =dao.submitComments(commentObject);
 	    		
 	    			HttpSession session = request.getSession();

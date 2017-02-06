@@ -25,13 +25,13 @@ public class Comments {
 	private String comments;
 	private Date commentDate;
 	private Long parentsId;
-	
+	private String approved;
 	
 	public Comments() {
 	}
 
 
-	public Comments(String username, String email, String website, String subjects, String comments,Date commentDate, Long parentsId) {
+	public Comments(String username, String email, String website, String subjects, String comments,Date commentDate, Long parentsId,String approved) {
 		this.username = username;
 		this.email = email;
 		this.website = website;
@@ -39,7 +39,7 @@ public class Comments {
 		this.comments = comments;
 		this.commentDate = commentDate;
 		this.parentsId = parentsId;
-		
+		this.approved=approved;
 	}
 
 	@Id
@@ -122,6 +122,12 @@ public class Comments {
 
 	public void setParentsId(Long parentsId) {
 		this.parentsId = parentsId;
+	}
+	public String getApproved() {
+		return approved;
+	}
+	public void setApproved(String approved) {
+		this.approved = approved;
 	}
 
 

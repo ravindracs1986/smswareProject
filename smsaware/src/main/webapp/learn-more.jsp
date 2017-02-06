@@ -286,24 +286,81 @@ Business can refer to a particular organization expenditures resulting in a prof
 				</div>
 			</div>
 			<div class="clearfix"> </div>
-			<!-- comments response start-->
-			<table border="1" cellpadding="5" cellspacing="5">
-				<tr>
-				<th>CommentId</th>
-				<th>Name</th>
-				<th>Comment</th>
-				<th>Date</th>
-				</tr> 
-			<c:forEach var="comment" items="${comments}">
-				<tr>
-				<td>${comment.commentsId}</td>
-				<td>${comment.username}</td>
-				<td>${comment.comments}</td>
-				<td>${comment.commentDate}</td>
-				</tr>
-				</c:forEach> 
 			
-			</table> 
+			<div class="w3agile_comments">
+				<h4>0 Comments</h4>
+				<p>There is no Comments for desplay now,Lets starts</p>
+				<c:forEach items="${comments}" var="each">
+				    <c:if test="${not empty each}">
+				  <div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
+					<div class="w3agile_grid_left">
+						<img src="images/new_logo.png" alt=" " class="img-responsive">
+					</div>
+					<div class="w3agile_grid_right">
+						<h3><a href="#">${each.comments.username}</a></h3>
+						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ${each.comments.commentDate}</h5>
+						<p>${each.comments.comments}</p>
+						<!--reply content block -->
+						<c:forEach items="${each.reply}" var="each2">
+						<c:if test="${not empty each2}">
+						<div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
+							<div class="w3agile_grid_left">
+								<img src="images/new_logo.png" alt=" " class="img-responsive">
+							</div>
+							<div class="w3agile_grid_right">
+								<h3><a href="#">${each2.email}</a></h3>
+								<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> ${each2.replyDate}</h5>
+								<p>${each2.comments}</p>
+								<div class="reply">
+									<a class="showSingle" target="1">Reply</a>
+									<!-- Reply contents starts-->
+									<div class="replyDiv" id="replyDiv1" style="display: none;">
+									<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
+										<form action="CommentServlet.do" method="post">
+											<div class="col-md-6 agileinfo_write_reply_left">
+												<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+												<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+												<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
+											</div>
+											<div class="clearfix"> </div>
+											<input type="hidden" name="parentsId" value="${parentsId}"/>
+											<input type="submit" value="Reply">
+										</form>
+									</div></div>
+								<!-- Reply contents ends-->
+								</div>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						</c:if>
+						</c:forEach>
+						<!-- end content block-->
+						<div class="reply">
+							<a class="showSingle" target="1">Reply</a>
+							<!-- Reply contents starts-->
+							<div class="replyDiv" id="replyDiv1" style="display: none;">
+							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
+								<form action="CommentServlet.do" method="post">
+									<div class="col-md-6 agileinfo_write_reply_left">
+										<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+										<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+										<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
+									</div>
+									<div class="clearfix"> </div>
+									<input type="hidden" name="parentsId" value="${parentsId}"/>
+									<input type="submit" value="Reply">
+								</form>
+							</div></div>
+						<!-- Reply contents ends-->
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				</c:if>
+					
+			</c:forEach>
+				
+			</div>
 			
 			
 			<%--For displaying Previous link except for the 1st page --%>
@@ -332,73 +389,7 @@ Business can refer to a particular organization expenditures resulting in a prof
 	<c:if test="${currentPage lt noOfPages}">
 		<td><a href="CommentRetrieveServlet.do?page=${currentPage + 1}">Next</a></td>
 	</c:if>
-
-<div class="w3agile_comments">
-				<h4>0 Comments</h4>
-				<p>There is no Comments for desplay now,Lets starts</p>
-				 <div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
-					<div class="w3agile_grid_left">
-						<img src="images/new_logo.png" alt=" " class="img-responsive">
-					</div>
-					<div class="w3agile_grid_right">
-						<h3><a href="#">Adam Smith</a></h3>
-						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 25th July, 2016</h5>
-						<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-						<div class="reply">
-							<a class="showSingle" target="1">Reply</a>
-							
-							<!-- Reply contents starts-->
-							<div class="replyDiv" id="replyDiv1" style="display: none;">
-							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
-								<form action="CommentServlet.do" method="post">
-									<div class="col-md-6 agileinfo_write_reply_left">
-										<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-										<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-										<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
-									</div>
-									<div class="clearfix"> </div>
-									<input type="hidden" name="parentsId" value="${parentsId}"/>
-									<input type="submit" value="Reply">
-								</form>
-							</div></div>
-						<!-- Reply contents ends-->
-							
-							
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
-					<div class="w3agile_grid_left">
-						<img src="images/new_logo.png" alt=" " class="img-responsive">
-					</div>
-					<div class="w3agile_grid_right">
-						<h3><a href="#">James Rick</a></h3>
-						<h5><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> On 26th July, 2016</h5>
-						<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
-						<div class="reply">
-							<a class="showSingle" target="2">Reply</a>
-							<!-- Reply contents starts-->
-							<div class="replyDiv" id="replyDiv2" style="display: none;">
-							<div class="agileinfo_write_reply" id="replyDiv" style="border-style: solid;border-color:#E6E6FA;">
-								<form action="CommentServlet.do" method="post">
-									<div class="col-md-6 agileinfo_write_reply_left">
-										<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-										<input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-										<textarea  name="Comment" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Comment...';}" required="">Comment...</textarea>
-									</div>
-									<div class="clearfix"> </div>
-									<input type="hidden" name="parentsId" value="${parentsId}"/>
-									<input type="submit" value="Reply">
-								</form>
-							</div></div>
-						<!-- Reply contents ends-->
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				
-			</div>
+			
 			<!-- comments response start-->
 			<div class="agileinfo_write_reply">
 				<h3>Write a Reply or Comment</h3>

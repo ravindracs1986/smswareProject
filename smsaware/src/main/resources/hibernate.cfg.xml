@@ -13,5 +13,6 @@
        <mapping class="com.smsaware.model.Address"/>
         <mapping class="com.smsaware.model.UserOTP"/>
         <mapping class="com.smsaware.model.Comments"/>
+        <mapping class="com.smsaware.model.ReplyComments"/>
     </session-factory>
 </hibernate-configuration>
