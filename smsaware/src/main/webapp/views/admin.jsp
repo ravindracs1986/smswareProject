@@ -270,7 +270,7 @@ String user1 = (String) session.getAttribute("user");
 					<tr>
 					<td>${each.commentsId}</td>
 					<td>${each.username}</td>
-					<td>${each.comments}</td>
+					<td>${each.email}</td>
 					<td>${each.comments}</td>
 					<td>${each.commentDate}</td>
 					
