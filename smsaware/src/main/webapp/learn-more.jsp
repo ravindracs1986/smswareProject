@@ -97,7 +97,8 @@ boolean isLogin=false;
 			<c:if test="${not empty userName}">
 				<div class="w3l_header_right">
 					<ul>
-						<li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Logout</a></li>
+					    <li><a href="profile.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Profile</a></li>
+						<li><a href="LogoutServlet.do"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Logout</a></li>
 						
 					</ul>
 			   </div>

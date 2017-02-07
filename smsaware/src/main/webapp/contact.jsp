@@ -31,6 +31,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 	
 <body>
+<%
+String names =null;
+boolean isLogin=false;
+ User userBean = (User) request.getSession().getAttribute("user");
+ // User userBean = (User) session.getAttribute("user");
+	if (userBean == null)
+	{
+		//out.print("welcome to jsp");
+	}else{
+		isLogin=true;
+	   names =userBean.getRegistration().getName();
+	   Long userId=userBean.getRegistration().getId();
+	   //out.print("user log in==>>");
+	}
+%>
+
+<c:set var="userName" value="<%=names%>" scope="request"></c:set>
 <c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 <!-- header -->
 	<div class="header">
@@ -56,12 +73,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 			</div>
+			<c:if test="${empty userName}">
 			<div class="w3l_header_right">
 				<ul>
 					<li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>log in</a></li>
 					<li><a href="sign-up.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>sign up</a></li>
 				</ul>
 			</div>
+			</c:if>
+			<c:if test="${not empty userName}">
+				<div class="w3l_header_right">
+					<ul>
+					    <li><a href="profile.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Profile</a></li>
+						<li><a href="LogoutServlet.do"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Logout</a></li>
+						
+					</ul>
+			   </div>
+			</c:if>
 			<div class="clearfix"> </div>
 			<script type="text/javascript" src="js/demo.js"></script>
 		</div>
