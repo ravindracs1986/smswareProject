@@ -82,6 +82,7 @@ public class CommentRetrieveServlet extends HttpServlet {
 	    	request.setAttribute("comments", resultObject);
 	    	request.setAttribute("noOfPages", noOfPages);
 	    	request.setAttribute("currentPage", page);
+	    	request.setAttribute("totalComments", noOfRecords);
 	    	RequestDispatcher view = request.getRequestDispatcher("learn-more.jsp");
 	    	view.forward(request, response);
 	         

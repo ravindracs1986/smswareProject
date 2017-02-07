@@ -7,7 +7,7 @@
   
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page
-	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,org.apache.commons.codec.binary.Base64"%>
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,java.util.*,org.apache.commons.codec.binary.Base64"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,10 +55,18 @@ boolean isLogin=false;
 	   Long userId=userBean.getRegistration().getId();
 	   //out.print("user log in==>>");
 	}
+	Integer totalComments=(Integer) request.getAttribute("totalComments");
+	java.util.Date date = new java.util.Date();
+	  java.text.SimpleDateFormat ft = new  java.text.SimpleDateFormat("dd/MM/yyyy");
+	  String now=ft.format(date);
+	
 %>
 
 <c:set var="userName" value="<%=names%>" scope="request"></c:set>
+<c:set var="total" value="<%=totalComments%>" scope="request"></c:set>
 <c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
+<c:set var="nowDate" value="<%=now%>" scope="request"></c:set>
+
 <!-- header -->
 	<div class="header">
 		<div class="container">
@@ -247,9 +255,9 @@ boolean isLogin=false;
 			<div class="col-md-8 agile_single_right">
 				<div class="w3_comments">
 					<ul>
-						<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>today Date</li>
+						<li><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>${nowDate}</li>
 						<li><span class="glyphicon glyphicon-user" aria-hidden="true"></span><a href="#">Users</a></li>
-						<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">0 Comments</a></li>
+						<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="#">${total} Comments</a></li>
 						<li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span><a href="#">6 Tags</a></li>
 					</ul>
 				</div>
@@ -289,8 +297,15 @@ Business can refer to a particular organization expenditures resulting in a prof
 			<div class="clearfix"> </div>
 			
 			<div class="w3agile_comments">
-				<h4>0 Comments</h4>
+			 <c:if test="${total != 0}">
+				<h4>${total} Comments</h4>
+				</c:if>
+				
+				<c:if test="${total == 0}">
 				<p>There is no Comments for desplay now,Lets starts</p>
+				</c:if>
+				
+				
 				<c:forEach items="${comments}" var="each">
 				    <c:if test="${not empty each}">
 				  <div class="comments-grid" style="border-style: solid;border-color:#E6E6FA;">
