@@ -100,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //header -->
 <!-- banner1 -->
-	<div class="banner1">
+	<div class="bannerLogin">
 		<div class="container">
 		</div>
 	</div>

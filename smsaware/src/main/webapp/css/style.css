@@ -1072,7 +1072,21 @@ ul.social li{
 	-o-background-size:cover;
 	min-height:400px;
 }
-
+.bannerLogin{
+	background:url(../images/loginImage.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	min-height:400px;
+}.bannerRegister{
+	background:url(../images/regImage.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	min-height:400px;
+}
 .services-breadcrumb{
 	padding:1em 0;
 	background:#f5f5f5;
@@ -2201,6 +2215,10 @@ label.checkbox {
 		min-height: 260px;
 	}.bannerContact {
 		min-height: 260px;
+	}.bannerLogin {
+		min-height: 260px;
+	}.bannerRegister {
+		min-height: 260px;
 	}
 	.w3l_services_grid1 h4 a {
 		font-size: .96em;
@@ -2710,6 +2728,10 @@ label.checkbox {
 	}.bannerClient {
 		min-height: 180px;
 	}.bannerContact {
+		min-height: 180px;
+	}.bannerLogin {
+		min-height: 180px;
+	}.bannerRegister {
 		min-height: 180px;
 	}
 	.agileits_recent_posts_gridr {
@@ -3338,6 +3360,10 @@ label.checkbox {
 	}.bannerClient {
 		min-height: 115px;
 	}.bannerContact {
+		min-height: 115px;
+	}.bannerLogin {
+		min-height: 115px;
+	}.bannerRegister {
 		min-height: 115px;
 	}
 	.services-breadcrumb {
