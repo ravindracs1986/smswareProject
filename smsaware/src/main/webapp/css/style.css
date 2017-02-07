@@ -1048,6 +1048,31 @@ ul.social li{
 	-o-background-size:cover;
 	min-height:400px;
 }
+.bannerAbout{
+	background:url(../images/about2Image.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	min-height:400px;
+}
+.bannerClient{
+	background:url(../images/clientImage.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	min-height:400px;
+}
+.bannerContact{
+	background:url(../images/contactImage.jpg) no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	min-height:400px;
+}
+
 .services-breadcrumb{
 	padding:1em 0;
 	background:#f5f5f5;
@@ -2170,6 +2195,12 @@ label.checkbox {
 	}
 	.banner1 {
 		min-height: 260px;
+	}.bannerAbout {
+		min-height: 260px;
+	}.bannerClient {
+		min-height: 260px;
+	}.bannerContact {
+		min-height: 260px;
 	}
 	.w3l_services_grid1 h4 a {
 		font-size: .96em;
@@ -2673,6 +2704,12 @@ label.checkbox {
 		text-align: center;
 	}
 	.banner1 {
+		min-height: 180px;
+	}.bannerAbout {
+		min-height: 180px;
+	}.bannerClient {
+		min-height: 180px;
+	}.bannerContact {
 		min-height: 180px;
 	}
 	.agileits_recent_posts_gridr {
@@ -3295,6 +3332,12 @@ label.checkbox {
 		margin-bottom: 0.5em;
 	}
 	.banner1 {
+		min-height: 115px;
+	}.bannerAbout {
+		min-height: 115px;
+	}.bannerClient {
+		min-height: 115px;
+	}.bannerContact {
 		min-height: 115px;
 	}
 	.services-breadcrumb {
