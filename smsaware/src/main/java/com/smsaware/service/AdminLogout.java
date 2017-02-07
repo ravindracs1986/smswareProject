@@ -19,10 +19,11 @@ public class AdminLogout extends HttpServlet {
 		protected void doGet(HttpServletRequest request, HttpServletResponse response)  
                                 throws ServletException, IOException {  
             response.setContentType("text/html");  
-            response.sendRedirect("/smsaware/views/admin.jsp");  
+            //response.sendRedirect("/smsaware/views/admin.jsp");  
               
             HttpSession session=request.getSession();  
-            session.invalidate();  
+            session.invalidate(); 
+            response.sendRedirect(request.getContextPath() + "/views/admin.jsp");
              
     }  
 }  
