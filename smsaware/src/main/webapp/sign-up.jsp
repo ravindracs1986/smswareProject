@@ -28,6 +28,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <!-- <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'> -->
+<style type="text/css">
+
+	
+
+form.register input[type=text].name:focus, select:focus{
+    border-color: red !important;
+}
+form.register input[type=text].phone:focus, select:focus{
+    border-color: red !important;
+}
+form.register input[type=text].email:focus, select:focus{
+    border-color: red !important;
+}
+form.register input[type=password].password:focus, select:focus{
+    border-color: red !important;
+}
+form.register input[type=password].Cpassword:focus, select:focus{
+    border-color: red !important;
+}
+form.register input[type=checkbox].termCheckBox:focus, select:focus{
+    border-color: red !important;
+}
+.login.RegiError {
+   color: red;
+	
+}
+</style>
+
 </head>
 	
 <body>
@@ -120,18 +148,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 			<h6>Sign Up</h6>
 			<h3>Welcome to our Smsaware.Please enter your <a href="sign-up.jsp">Registration </a>details. Or have an account <a href="login.jsp">Login</a> here </h3>
-
-			<form name="login" method="post" action="RegistrationServlet.do">
-				<input type="text" name="name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-				<input type="text" name="phone" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}">
-				<input type="email" name="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-				<input type="password" name="password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-				<input type="password" name="cpassword" class="lock" value="Confirmed Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Confirmed Password';}">
+				<h3><div class="message" id="message" style="color:red"></div></h3>
+			<form name="registrationForm" method="post" action="" id="register-form" class="register" onsubmit="return(regvalidate())">
+				<input type="text" name="name" id="name" class="name" placeholder="Name"/>
+				<input type="text" name="phone" id="phone" class="phone" placeholder="Phone"/ maxlength="10" >
+				<input type="text" name="email" id="email" class="email" placeholder="Email"  />
+				<input type="password" name="password" id="password" class="password" placeholder="Password" size="4" maxlength="8"/>
+				<input type="password" name="Cpassword" id="Cpassword" class="Cpassword" placeholder="Confirm Password" size="4" maxlength="8"/>
 				<div class="remember">
-					<label class="checkbox"><input type="checkbox" name="Checkbox" checked=""><i> </i>I Accept Terms</label>
+					<label class="checkbox"><input type="checkbox" name="termCheckBox" class="termCheckBox" id="termCheckBox" checked=""><i> </i>I Accept Terms</label>
 				</div>
-				<input type="hidden" id="firstTime" name="firstTime" value="true">
-				<input type="submit" value="Sign Up">
+				<input type="hidden" id="firstTime" name="firstTime" value="true"/>
+				<input type="submit" value="Sign Up"/>
 			</form>
 			<div class="agileits_social">
 				<h5>Sign Up with your <a href="#">Facebook</a> or <a href="#">Twitter</a></h5>
@@ -199,7 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="agileinfo_copy_right">
 		<div class="container">
 			<div class="agileinfo_copy_right_left">
-				<p>Smsaware © 2016 Privacy Policy Terms Of Use<a href="http://smsaware.in/">Smsaware</a></p>
+				<p>Smsaware © 2016 Privacy Policy Terms Of Use<a href="http://smsaware.in/"> Smsaware</a></p>
 			</div>
 			<div class="agileinfo_copy_right_right">
 				<ul class="social">
@@ -233,8 +261,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="js/bootstrap.js"></script>
 <!-- //for bootstrap working -->
 </body>
-
+<script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script type="text/javascript">
+
+      function regvalidate() {
+				 var illegalChars = /[\W_]/; // allow only letters and numbers
+				 var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$", "g");
+				 var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+				 var enoughRegex = new RegExp("(?=.{4,}).*", "g");
+				 
+				 if ((document.registrationForm.name.value == "")) {
+						document.getElementById('message').innerHTML = " *Name should not be Empty";
+						registrationForm.name.focus();
+						return (false);
+					}if ((document.registrationForm.phone.value == "")) {
+						document.getElementById('message').innerHTML = " *Phone should not be Empty";
+						registrationForm.phone.focus();
+						return (false);
+					}
+				 if ((document.registrationForm.email.value == "")) {
+						document.getElementById('message').innerHTML = " *Email should not be Empty";
+						registrationForm.email.focus();
+						return (false);
+					} else if (document.registrationForm.email.value != "") {
+						var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+						if (!filter.test(document.registrationForm.email.value)) {
+							document.getElementById('message').innerHTML = " *Email id not Correct";
+							registrationForm.email.focus();
+							return (false);
+						}
+
+					}
+					if ((document.registrationForm.password.value == "")) {
+						document.getElementById('message').innerHTML = " *Password should not be Empty";
+						registrationForm.password.focus();
+						return (false);
+					}else if (false == enoughRegex.test(document.registrationForm.password.value)) {
+						//strength.innerHTML = "More Characters";
+						document.getElementById('message').innerHTML = " *Password lenght minimum should 4 to 8 Character";
+						registrationForm.password.focus();
+						return (false);
+						} 
+					if ((document.registrationForm.Cpassword.value == "")) {
+						document.getElementById('message').innerHTML = " *Confirmed Password should not be Empty";
+						registrationForm.Cpassword.focus();
+						return (false);
+					}
+					if ((document.registrationForm.password.value != document.registrationForm.Cpassword.value)) {
+						document.getElementById('message').innerHTML = " *Password and Confirmed password should be Same";
+						registrationForm.Cpassword.focus();
+						return (false);
+					}
+					if(!document.getElementById('termCheckBox').checked) {
+						document.getElementById('message').innerHTML = " *Please checked Term and Conditions";
+						return false; 
+					
+					}
+					
+				}
+
+
+
 
 	 function goToURL(url) {
 		 location.href = 'CommentRetrieveServlet.do';
