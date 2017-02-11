@@ -27,6 +27,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <!-- <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'> -->
+<style type="text/css">
+
+	
+
+form.loginClass input[type=text].username:focus, select:focus{
+    border-color: #DC143C !important;
+}
+form.loginClass input[type=password].password:focus, select:focus{
+    border-color: #DC143C !important;
+}
+</style>
 </head>
 	
 <body>
@@ -122,10 +133,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h3>Welcome to our Smsaware.Please enter your 
 				<a href="login.jsp">Login</a> details to login here. Or <a href="sign-up.jsp">
 				Register</a> here.</h3>
-
-			<form name="login" method="post" action="LoginServlet.do">
-				<input type="text" name="username" value="Email or Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email or Phone';}">
-				<input type="password" name="password" class="lock" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+			<h3><div class="message" id="message" style="color:#DC143C"></div></h3>
+			<form name="loginForm" method="post" action="LoginServlet.do" id="login-form" class="loginClass" onsubmit="return(regvalidate())">
+				<input type="text" name="username" id="username" class="username" placeholder="Email or Phone" >
+				<input type="password" name="password" id="password" class="password" placeholder="Password">
 				<div class="remember">
 					 <div class="w3agile_checkbox1">
 						   <label class="checkbox"><input type="checkbox" name="Checkbox" checked=""><i> </i>Remember me</label>
@@ -238,6 +249,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //for bootstrap working -->
 </body>
 <script type="text/javascript">
+
+
+
+function regvalidate() {
+	if ((document.loginForm.username.value == "")) {
+		document.getElementById('message').innerHTML = " *Username should not be Empty";
+		loginForm.username.focus();
+		return (false);
+	}
+	if ((document.loginForm.password.value == "")) {
+		document.getElementById('message').innerHTML = " *Password should not be Empty";
+		loginForm.password.focus();
+		return (false);
+	}
+}
 
 	 function goToURL(url) {
 		 location.href = 'CommentRetrieveServlet.do';

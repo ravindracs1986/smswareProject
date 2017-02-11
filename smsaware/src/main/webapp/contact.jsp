@@ -28,6 +28,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <!-- <!-- <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'> -->
+
+<style type="text/css">
+form.contactClass input[type=text].name:focus, select:focus{
+    border-color: #DC143C !important;
+}
+form.loginClass input[type=text].Telephone:focus, select:focus{
+    border-color: #DC143C !important;
+}form.loginClass input[type=email].email:focus, select:focus{
+    border-color: #DC143C !important;
+}
+form.loginClass input[type=text].Subject:focus, select:focus{
+    border-color: #DC143C !important;
+}
+form.loginClass input[type=text].Message:focus, select:focus{
+    border-color: #DC143C !important;
+}
+</style>
 </head>
 	
 <body>
@@ -165,17 +182,18 @@ boolean isLogin=false;
 			</div>
 			<div class="col-md-8 wthree_contact_left">
 				<h4>Contact Form</h4>
-				<form action="#" method="post">
+				<h5><div class="message" id="message" style="color:#DC143C"></div></h5>
+				<form name="contactForm" method="post" action="contactUs.do" id="contact-form" class="contactClass" onsubmit="return(regvalidate())">
 					<div class="col-md-6 wthree_contact_left_grid">
-						<input type="text" name="Name" value="Name*" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name*';}" required="">
-						<input type="email" name="Email" value="Email*" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email*';}" required="">
+						<input type="text" name="Name" id="name" class="name" placeholder="Name*" />
+						<input type="email" name="Email" id="email" class="email" placeholder="Email*" />
 					</div>
 					<div class="col-md-6 wthree_contact_left_grid">
-						<input type="text" name="Telephone" value="Telephone*" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone*';}" required="">
-						<input type="text" name="Subject" value="Subject*" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject*';}" required="">
+						<input type="text" name="Telephone" id="Telephone" class="Telephone" placeholder="Telephone*" >
+						<input type="text" name="Subject" id="Subject" class="Subject" placeholder="Subject*" >
 					</div>
 					<div class="clearfix"> </div>
-					<textarea  name="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+					<textarea  name="Message" id="Message" class="Message" placeholder="Message*"></textarea>
 					<input type="submit" value="Submit">
 					<input type="reset" value="Clear">
 				</form>
@@ -273,6 +291,43 @@ boolean isLogin=false;
 <!-- //for bootstrap working -->
 </body>
 <script type="text/javascript">
+
+function regvalidate() {
+	if ((document.contactForm.name.value == "")) {
+		document.getElementById('message').innerHTML = " *Name should not be Empty";
+		contactForm.name.focus();
+		return (false);
+	}if ((document.contactForm.Telephone.value == "")) {
+		document.getElementById('message').innerHTML = " *Telephone should not be Empty";
+		contactForm.Telephone.focus();
+		return (false);
+	}
+	
+	if ((document.contactForm.email.value == "")) {
+		document.getElementById('message').innerHTML = " *Email should not be Empty";
+		contactForm.email.focus();
+		return (false);
+	} else if (document.contactForm.email.value != "") {
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filter.test(document.contactForm.email.value)) {
+			document.getElementById('message').innerHTML = " *Email id not Correct";
+			contactForm.email.focus();
+			return (false);
+		}
+
+	}
+	if ((document.contactForm.Subject.value == "")) {
+		document.getElementById('message').innerHTML = " *Subject should not be Empty";
+		contactForm.Subject.focus();
+		return (false);
+	}if ((document.contactForm.Message.value == "")) {
+		document.getElementById('message').innerHTML = " *Message should not be Empty";
+		contactForm.Message.focus();
+		return (false);
+	}
+}
+
+
 
 	 function goToURL(url) {
 		 location.href = 'CommentRetrieveServlet.do';

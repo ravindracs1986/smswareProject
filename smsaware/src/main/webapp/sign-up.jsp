@@ -33,25 +33,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 
 form.register input[type=text].name:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 form.register input[type=text].phone:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 form.register input[type=text].email:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 form.register input[type=password].password:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 form.register input[type=password].Cpassword:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 form.register input[type=checkbox].termCheckBox:focus, select:focus{
-    border-color: red !important;
+    border-color: #DC143C !important;
 }
 .login.RegiError {
-   color: red;
+   color: #DC143C;
 	
 }
 </style>
@@ -148,7 +148,7 @@ form.register input[type=checkbox].termCheckBox:focus, select:focus{
 		<div class="container">
 			<h6>Sign Up</h6>
 			<h3>Welcome to our Smsaware.Please enter your <a href="sign-up.jsp">Registration </a>details. Or have an account <a href="login.jsp">Login</a> here </h3>
-				<h3><div class="message" id="message" style="color:red"></div></h3>
+				<h3><div class="message" id="message" style="color:#DC143C"></div></h3>
 			<form name="registrationForm" method="post" action="" id="register-form" class="register" onsubmit="return(regvalidate())">
 				<input type="text" name="name" id="name" class="name" placeholder="Name"/>
 				<input type="text" name="phone" id="phone" class="phone" placeholder="Phone"/ maxlength="10" >
