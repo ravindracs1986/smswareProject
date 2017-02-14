@@ -151,8 +151,8 @@ demo = {
 }
 
 /*$(document).ready(function() {
-    $("#updateProfileButton").click(function() {
-		 alert("updateProfile call");
+    $("#addContact").click(function() {
+		 alert("addContact call");
         servletCall();
     });
 
@@ -168,18 +168,16 @@ demo = {
 	
 	var data={
 	 userId: $('#userId').val(),
-	 email: $('#Pemail').val(),
-	 name: $('#Pname').val(),
-	 lastName: $('#PlastName').val(),
-	 userAddress: $('#PuserAddress').val(),
-	 state: $('#Pstate').val(),
-	 zip: $('#Pzip').val(),
-	 aboutMe: $('#PaboutMe').val()
+	 phone: $('#phoneValue').val(),
+	 name: $('#nameValue').val(),
+	 city: $('#cityValue').val(),
+	 state: $('#stateValue').val()
+	 
 	}
 	
 	$.ajax({
         type: "POST",
-        url: "UpdateProfileSevlet.do",
+        url: "contact/add",
         data: data,
 		success: function(response)
         {   

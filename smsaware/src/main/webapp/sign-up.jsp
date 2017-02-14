@@ -149,7 +149,7 @@ form.register input[type=checkbox].termCheckBox:focus, select:focus{
 			<h6>Sign Up</h6>
 			<h3>Welcome to our Smsaware.Please enter your <a href="sign-up.jsp">Registration </a>details. Or have an account <a href="login.jsp">Login</a> here </h3>
 				<h3><div class="message" id="message" style="color:#DC143C"></div></h3>
-			<form name="registrationForm" method="post" action="" id="register-form" class="register" onsubmit="return(regvalidate())">
+			<form name="registrationForm" method="post" action="RegistrationServlet.do" id="register-form" class="register" onsubmit="return(regvalidate())">
 				<input type="text" name="name" id="name" class="name" placeholder="Name"/>
 				<input type="text" name="phone" id="phone" class="phone" placeholder="Phone"/ maxlength="10" >
 				<input type="text" name="email" id="email" class="email" placeholder="Email"  />

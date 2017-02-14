@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Smsaware OTP | smsaware.in</title>
-<link rel="icon" href="../images/logo2.gif">
+<link rel="icon" href="images/logo2.gif">
 	<link rel="stylesheet" type="text/css" href="css/style.css"
 		media="screen" />
 	<link rel="stylesheet" type="text/css" href="css/registration.css"
@@ -48,7 +48,7 @@ $(id).css('left', winW/2-$(id).width()/2);
 $(id).fadeIn(2000); 	
 	
 //if close button is clicked
-$('.window .close').click(function (e) {
+$('.close').click(function (e) {
 //Cancel the link behavior
 e.preventDefault();
 
@@ -58,8 +58,8 @@ $('.window').hide();
 
 //if mask is clicked
 $('#mask').click(function () {
-$(this).hide();
-$('.window').hide();
+//$(this).hide();
+//$('.window').hide();
 });
 	
 });
@@ -67,6 +67,7 @@ $('.window').hide();
 </script>
 <body>
 <!--PopUP -->
+<c:set var="url" value="<%=request.getRequestURL()%>" scope="request"></c:set>
 <div id="boxes">
   <div id="dialog" class="window">
     Please provide OTP which you have recievd Via Mail and SMS<br><br>
@@ -81,7 +82,7 @@ $('.window').hide();
 									class="message_submit otpSubt otpSubt-submit" value="Submit"/></a>
 	</form>
 	
-	<a class="close agree message_submit otpSubt otpSubt-cancle"style="color:#fff;" href="../views/smsawarelogin.html"> Cancle</a> 
+	<a class="close agree message_submit otpSubt otpSubt-cancle"style="color:#fff;" href="sign-up.jsp" onclick="goToURL('${url}'); return false;">Cancle</a> 
 	 
 	</div>
   </div>
@@ -89,4 +90,11 @@ $('.window').hide();
 </div>
 	
 </body>
+
+<script type="text/javascript">
+function goToURL(url) {
+		 location.href = 'CommentRetrieveServlet.do';
+
+		}
+ </script>
 </html>

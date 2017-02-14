@@ -19,6 +19,7 @@ import org.hibernate.Transaction;
 
 import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Address;
+import com.smsaware.model.Contacts;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
@@ -36,7 +37,6 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			  }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("inside login servlt#######::");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String encryPassword = null;
@@ -85,7 +85,6 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 	}
 
 	private Map<Boolean, User> getLoginStatus(Login login) {
-		System.out.println("inside method");
 		RegistrationDao dao = new RegistrationDao();
 		Map<Boolean, User> userObject = new HashMap<Boolean, User>();
 		User user = new User();
@@ -108,13 +107,12 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			if (employees != null) {
 				for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
 					Registration employee = (Registration) iterator.next();
-					System.out.print("First Name: " + employee.getName());
-					System.out.print("  Email: " + employee.getEmail());
-					System.out.println("  Phone: " + employee.getPhone());
 					if (employee.getId() != null && employee.getId() != 0) {
 						user.setRegistration(employee);
 						Address addres = dao.getAddress(employee.getId());
 						user.setAddress(addres);
+						List<Contacts> contacts = dao.getContacts(employee.getId());
+						user.setContacts(contacts);
 						userObject.put(true, user);
 						break;
 					}

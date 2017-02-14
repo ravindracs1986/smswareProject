@@ -15,6 +15,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Query;
 import com.smsaware.model.Address;
+import com.smsaware.model.Contacts;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
 import com.smsaware.utils.Database;
@@ -268,6 +269,8 @@ public class RegistrationDao implements IRegistrationDao {
 				user.setAddress(add);
 
 			}
+			List<Contacts> contacts = (List<Contacts>) session.createQuery("from Contacts C WHERE C.userId = '" + userId + "'").list();
+			user.setContacts(contacts);
 			result.put(true, user);
 			tx.commit();
 		} catch (Exception e) {
@@ -392,6 +395,27 @@ public class RegistrationDao implements IRegistrationDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public List<Contacts>  getContacts(Long id) {
+		List<Contacts> contacts=null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			contacts = (List<Contacts>) session.createQuery("from Contacts C WHERE C.userId = '" + id + "'").list();
+
+			
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return contacts;
 	}
 
 }
