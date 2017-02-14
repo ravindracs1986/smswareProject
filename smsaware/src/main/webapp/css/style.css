@@ -197,7 +197,7 @@ input[type="submit"],.header_left ul li a,.agile_back_home a,.agileits_social h5
 	opacity: .5;
 	position: absolute;
 /*-- w3layouts --*/
-	margin:.5em 0 0 0.5em;
+	margin: 0.5em 0 0 0.2em;
 	cursor: pointer;
 	-webkit-transition: 0.5s linear;
 	-moz-transition: 0.5s linear;

@@ -1,3 +1,4 @@
+
 <!--
 author: smsaware
 author URL: http://smsaware.in
@@ -128,7 +129,7 @@ form.loginClass input[type=password].password:focus, select:focus{
 
 <!-- login -->
 	<div class="login">
-		<div class="container">
+		<div class="container commonClass" id="loginDiv">
 			<h6>Login</h6>
 			<h3>Welcome to our Smsaware.Please enter your 
 				<a href="login.jsp">Login</a> details to login here. Or <a href="sign-up.jsp">
@@ -142,7 +143,7 @@ form.loginClass input[type=password].password:focus, select:focus{
 						   <label class="checkbox"><input type="checkbox" name="Checkbox" checked=""><i> </i>Remember me</label>
 					 </div>
 					 <div class="w3agile_forgot">
-						<h4><a href="#">Forgot Password?</a></h4>
+						<h4><a href="javascript:showonlyone('forgotDiv');">Forgot Password?</a></h4>
 					 </div>
 					<div class="clearfix"> </div>
 				</div>
@@ -158,6 +159,31 @@ form.loginClass input[type=password].password:focus, select:focus{
 				<a href="index.jsp">back to home</a>
 			</div>
 		</div>
+		
+		<div class="container commonClass" id="forgotDiv" style="display: none;">
+			<h6 style="font-size: 1.5em;">Forgot Password</h6>
+			<h3>Welcome to our Smsaware.Please enter your 
+				<a href="login.jsp">Login</a> details to recover password. Or <a href="sign-up.jsp">
+				Register</a> here.</h3>
+			<h3><div class="message" id="message" style="color:#DC143C"></div></h3>
+			<form name="forgotForm" method="post" action="" id="login-form" class="loginClass" onsubmit="return(forgotvalidate())">
+				<input type="text" name="phone" id="phone" class="phone" placeholder="Phone" >
+				<input type="email" name="email" id="email" class="email" placeholder="Email">
+				<input type="submit" value="Send Password">
+			</form>
+			<div class="agileits_social">
+				<h5>Login with your <a href="#">Facebook</a> or <a href="#">Twitter</a></h5>
+				<a href="#" class="face">Facebook</a>
+				<a href="#" class="twitt">Twitter</a>
+				<div class="clearfix"> </div>
+			</div>		
+			<div class="agile_back_home">
+				<a href="index.jsp">back to home</a>
+			</div>
+		</div>
+		
+		
+		
 	</div>
 <!-- //login -->
 <!-- footer -->
@@ -250,7 +276,16 @@ form.loginClass input[type=password].password:focus, select:focus{
 </body>
 <script type="text/javascript">
 
-
+ function showonlyone(thechosenone) {
+      $('.commonClass').each(function(index) {
+      if ($(this).attr("id") == thechosenone) {
+		$(this).show();
+      
+      }else {
+       $(this).hide();
+      }
+     });
+   }
 
 function regvalidate() {
 	if ((document.loginForm.username.value == "")) {
