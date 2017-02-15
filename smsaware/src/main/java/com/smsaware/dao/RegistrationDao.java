@@ -20,6 +20,8 @@ import com.smsaware.model.Registration;
 import com.smsaware.model.User;
 import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
+import com.smsaware.utils.SendMail;
+import com.smsaware.utils.SendSMS;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 public class RegistrationDao implements IRegistrationDao {
 
@@ -416,6 +418,56 @@ public class RegistrationDao implements IRegistrationDao {
 
 		}
 		return contacts;
+	}
+
+	@Override
+	public String forgotPassword(Long phone, String email) {
+		String result="failure";
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String sql = "SELECT * FROM user_registration where EMAIL='" + email + "' or PHONE='" + phone + "'";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(Registration.class);
+			List employees = query.list();
+			if (employees != null) {
+				for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
+					Registration employee = (Registration) iterator.next();
+					if(employee.getPhone().equals(phone) && employee.getEmail().equalsIgnoreCase(email)){
+						String otp=null;
+							try {
+									otp = com.smsaware.utils.AESCryptUtil.decrypt(employee.getPassword());
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									System.out.println("Encryption exception " + e.getMessage());
+									e.printStackTrace();
+								}
+								
+						//SendMail mail=new SendMail(email,otp,employee.getName());
+						//SendSMS sms = new SendSMS();
+						//String smsResponse=sms.sendSms(otp,phone);
+						result="success";
+						break;
+					}
+				}
+
+			}
+			tx.commit();
+
+			
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		
+		
+		return result;
 	}
 
 }
