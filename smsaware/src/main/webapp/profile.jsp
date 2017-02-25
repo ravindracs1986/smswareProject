@@ -5,8 +5,8 @@
    author URL: http://smsaware.in
    
    -->
-  
-  
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page
 	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,java.util.*,org.apache.commons.codec.binary.Base64"%>
@@ -30,45 +30,45 @@
 <!--  CSS for profile Purpose, don't include it in your project     -->
 <link href="css/account.css" rel="stylesheet" />
 <!--     Fonts and icons     -->
-<link
-	href="css/font-awesome.min.css"
-	rel="stylesheet">
+<link href="css/font-awesome.min.css" rel="stylesheet">
 <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300'
 	rel='stylesheet' type='text/css'> -->
 <link href="css/pe-icon-7-stroke.css" rel="stylesheet" />
 <style type="text/css">
-.tabStyle{
+.tabStyle {
 	border-radius: 25px;
-    background: #F5F5DC;
-    font-style: italic;
+	background: #F5F5DC;
+	font-style: italic;
 }
 
+.messageClass {
+	font-style: italic;
+	background: #F5F5DC;
+	background-color: #1DC7EA;
+}
 </style>
 </head>
 <body>
 
 
- 
- 
- 
- <%
- java.util.List<Contacts>  contacts=null;
-  User userBean = (User) session.getAttribute("user");
-
-  if ( userBean == null)
-  {
-   out.print("welcome to jsp");
-  }else{
-	 
-	  String names =userBean.getRegistration().getName();
-	 contacts =userBean.getContacts();
 
 
-    //out.print("str==>:"+str);	
-  }
 
-%>
-<c:set var="contactsList" value="<%=contacts%>" scope="request"></c:set>
+	<%
+		java.util.List<Contacts> contacts = null;
+		User userBean = (User) session.getAttribute("user");
+
+		if (userBean == null) {
+			out.print("welcome to jsp");
+		} else {
+
+			String names = userBean.getRegistration().getName();
+			contacts = userBean.getContacts();
+
+			//out.print("str==>:"+str);	
+		}
+	%>
+	<c:set var="contactsList" value="<%=contacts%>" scope="request"></c:set>
 	<div class="wrapper">
 		<div class="sidebar" data-color="#FFA534"
 			data-image="images/sidebar-5.jpg">
@@ -110,32 +110,36 @@
 		</div>
 		<div class="main-panel">
 			<nav class="navbar navbar-default navbar-fixed">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target="#navigation-example-2">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">Welcome ${user.getRegistration().getName()}</a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#" class="tabStyle"> SMS Baleance( ${user.getRegistration().getNo_Of_Sms()})</a></li>
-							<li><a href="#" class="tabStyle"> Buy Sms or Calls </a></li>
-							<li class="dropdown"><a href="#" class="dropdown-toggle tabStyle"
-								data-toggle="dropdown"> Account <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu" class="tabStyle">
-									<li><a href="#">Account setting</a></li>
-									<li><a href="#">Change Password</a></li>
-								</ul></li>
-							<li><a href="LogoutServlet.do" class="tabStyle"> Log out </a></li>
-						</ul>
-						
-					</div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#navigation-example-2">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Welcome
+						${user.getRegistration().getName()}</a>
 				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" class="tabStyle"> SMS Baleance(
+								${user.getRegistration().getNo_Of_Sms()})</a></li>
+						<li><a href="#" class="tabStyle"> Buy Sms or Calls </a></li>
+						<li class="dropdown"><a href="#"
+							class="dropdown-toggle tabStyle" data-toggle="dropdown">
+								Account <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu" class="tabStyle">
+								<li><a href="#">Account setting</a></li>
+								<li><a href="#">Change Password</a></li>
+							</ul></li>
+						<li><a href="LogoutServlet.do" class="tabStyle"> Log out
+						</a></li>
+					</ul>
+
+				</div>
+			</div>
 			</nav>
 			<!--dashboard starts -->
 			<div class="content commonClass" id="dashboardId">
@@ -148,8 +152,7 @@
 									<p class="category">quick delevery all sms</p>
 								</div>
 								<div class="content">
-									<form name="form" method="post"
-										action="http://www.smseverywhere.com/sendsms.htm?from=a1">
+									<form name="form" method="post" action="SmsCommunication.do">
 										<table width="305" border="0" cellspacing="1"
 											class="sms-table">
 											<tr>
@@ -174,21 +177,30 @@
 												</td>
 											</tr>
 											<tr>
-												<td>If you agree to the <a
-													href="http://www.smsaware.in/termsofuse.html?frm"
+												<td>If you agree to the <a href="terms.jsp"
 													target="_blank">terms</a>
 												</td>
+												<input type="hidden" id="userId" name="userId"
+													value="${user.getRegistration().getId()}" />
 												<td><input type="submit" name="Submit3"
 													value="Send Now" class="SendNow"></td>
 											</tr>
 											<tr align="center" bgcolor="#FFCC66">
-												<td colspan="2">Powered by <a
-													href="http://www.smsaware.in/?msnger" target="_blank">SMSAWARE
-												</a>
+												<td colspan="2">Powered by <a href="terms.jsp"
+													target="_blank">SMSAWARE </a>
 												</td>
 											</tr>
 										</table>
+
 									</form>
+									<div class="messageClass">
+										<input type="hidden" id="smsmessage" name="smsmessage"
+											value="${smsmessage}">
+									</div>
+									<div class="messageClass">
+										<input type="hidden" id="successMessage" name="successMessage"
+											value="${successMessage}">
+									</div>
 								</div>
 							</div>
 						</div>
@@ -317,12 +329,14 @@
 									<h4 class="title">Edit Profile</h4>
 								</div>
 								<div class="content">
-									<form name="updatePfofile" method="post" action="UpdateProfileSevlet.do">
+									<form name="updatePfofile" method="post"
+										action="UpdateProfileSevlet.do">
 										<div class="row">
 											<div class="col-md-5">
 												<div class="form-group">
-													<label>Phone Number</label> <input type="text" name="pPhone"
-														class="form-control" disabled placeholder="Company"
+													<label>Phone Number</label> <input type="text"
+														name="pPhone" class="form-control" disabled
+														placeholder="Company"
 														value='${user.getRegistration().getPhone()}'>
 												</div>
 											</div>
@@ -330,21 +344,25 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Email address</label> <input
-														type="email" name="email" id="Pemail" class="form-control" placeholder="Email" value='${user.getRegistration().getEmail()}'>
+														type="email" name="email" id="Pemail" class="form-control"
+														placeholder="Email"
+														value='${user.getRegistration().getEmail()}'>
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>First Name</label> <input type="text" name="name" id="Pname"
-														class="form-control" placeholder="Company" value="${user.getRegistration().getName()}">
+													<label>First Name</label> <input type="text" name="name"
+														id="Pname" class="form-control" placeholder="Company"
+														value="${user.getRegistration().getName()}">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>Last Name</label> <input type="text" name="lastName" id="PlastName"
-														class="form-control" placeholder="Last Name"
+													<label>Last Name</label> <input type="text" name="lastName"
+														id="PlastName" class="form-control"
+														placeholder="Last Name"
 														value="${user.getRegistration().getLastName()}">
 												</div>
 											</div>
@@ -352,8 +370,9 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label>Address</label> <input type="text" name="userAddress" id="PuserAddress"
-														class="form-control" placeholder="Home Address"
+													<label>Address</label> <input type="text"
+														name="userAddress" id="PuserAddress" class="form-control"
+														placeholder="Home Address"
 														value="${user.getAddress().getUser_address()}">
 												</div>
 											</div>
@@ -361,20 +380,23 @@
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>City</label> <input type="text" class="form-control" name="city" id="Pcity"
-														placeholder="City" value="${user.getAddress().getCity()}">
+													<label>City</label> <input type="text" class="form-control"
+														name="city" id="Pcity" placeholder="City"
+														value="${user.getAddress().getCity()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>State</label> <input type="text" name="state" id="Pstate"
-														class="form-control" placeholder="Country" value="${user.getAddress().getState()}">
+													<label>State</label> <input type="text" name="state"
+														id="Pstate" class="form-control" placeholder="Country"
+														value="${user.getAddress().getState()}">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>Postal Code</label> <input type="text" name="zip" id="Pzip"
-														class="form-control" placeholder="ZIP Code" value='${user.getAddress().getZip()}'>
+													<label>Postal Code</label> <input type="text" name="zip"
+														id="Pzip" class="form-control" placeholder="ZIP Code"
+														value='${user.getAddress().getZip()}'>
 												</div>
 											</div>
 										</div>
@@ -382,14 +404,16 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>About Me</label>
-													<textarea rows="5" class="form-control"name="aboutMe" id="PaboutMe"
-														placeholder="Here can be your description" value="${user.getRegistration().getAboutMe()}">${user.getRegistration().getAboutMe()}</textarea>
+													<textarea rows="5" class="form-control" name="aboutMe"
+														id="PaboutMe" placeholder="Here can be your description"
+														value="${user.getRegistration().getAboutMe()}">${user.getRegistration().getAboutMe()}</textarea>
 												</div>
 											</div>
 										</div>
-										<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}">
-										<button type="submit" class="btn btn-info btn-fill pull-right" id="updateProfileButton">Update
-											Profile</button>
+										<input type="hidden" id="userId" name="userId"
+											value="${user.getRegistration().getId()}">
+										<button type="submit" class="btn btn-info btn-fill pull-right"
+											id="updateProfileButton">Update Profile</button>
 										<div class="clearfix"></div>
 									</form>
 								</div>
@@ -401,30 +425,36 @@
 								<div class="content">
 									<div class="author">
 										<a href="#">
-										<form method="post" action="UpdateProfileImageServlet.do" enctype="multipart/form-data">
+											<form method="post" action="UpdateProfileImageServlet.do"
+												enctype="multipart/form-data">
 
-										<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}">
-										<div class="pic">
-										<img class="avatar border-gray"
-											src="ImageRetrieveServlet.do?userId=${user.getRegistration().getId()}"alt="..." />
-										<div class="text"> Please Upload Image 
-										<table border="0">
-											<tr>
-											<td><input type="file" name="photo" size="50" style="color:green;cursor: pointer;"/></td>
-											<td colspan="2"><input type="submit" value="Upload"></td>
-											</tr>
-											
-										</table>
-										</div> </div>
-										</form>
-										<h4 class="title">
-												${user.getRegistration().getName()} ${user.getRegistration().getLastName()}<br />
+												<input type="hidden" id="userId" name="userId"
+													value="${user.getRegistration().getId()}">
+												<div class="pic">
+													<img class="avatar border-gray"
+														src="ImageRetrieveServlet.do?userId=${user.getRegistration().getId()}"
+														alt="..." />
+													<div class="text">
+														Please Upload Image
+														<table border="0">
+															<tr>
+																<td><input type="file" name="photo" size="50"
+																	style="color: green; cursor: pointer;" /></td>
+																<td colspan="2"><input type="submit" value="Upload"></td>
+															</tr>
+
+														</table>
+													</div>
+												</div>
+											</form>
+											<h4 class="title">
+												${user.getRegistration().getName()}
+												${user.getRegistration().getLastName()}<br />
 											</h4>
 										</a>
 									</div>
 									<p class="description text-center">
-										${user.getRegistration().getAboutMe()}
-									</p>
+										${user.getRegistration().getAboutMe()}</p>
 								</div>
 								<hr>
 								<div class="text-center">
@@ -465,28 +495,28 @@
 											<th>State</th>
 										</thead>
 										<tbody>
-										<c:forEach items="${contactsList}" var="listObject">
-				
-											<c:if test="${not empty listObject}">
-											<tr>
-												<td>${listObject.CONTACT_ID}</td>
-												<td>${listObject.CONTACT_NAME}</td>
-												<td>${listObject.PHONE_NUMBER}</td>
-												<td>${listObject.CITY}</td>
-												<td>${listObject.STATE}</td>
-												<td class="td-actions text-right">
-													<button type="button" rel="tooltip" title="Remove"
-														class="btn btn-danger btn-simple btn-xs">
-														<i class="fa fa-times"></i>
-													</button>
-												</td>
-											</tr>
-											</c:if>
-					
-										</c:forEach>
+											<c:forEach items="${contactsList}" var="listObject">
+
+												<c:if test="${not empty listObject}">
+													<tr>
+														<td>${listObject.CONTACT_ID}</td>
+														<td>${listObject.CONTACT_NAME}</td>
+														<td>${listObject.PHONE_NUMBER}</td>
+														<td>${listObject.CITY}</td>
+														<td>${listObject.STATE}</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title="Remove"
+																class="btn btn-danger btn-simple btn-xs">
+																<i class="fa fa-times"></i>
+															</button>
+														</td>
+													</tr>
+												</c:if>
+
+											</c:forEach>
 
 										</tbody>
-										
+
 									</table>
 								</div>
 							</div>
@@ -501,42 +531,47 @@
 
 								<!-- Adding contacts start in contact list -->
 								<div class="content card" id="addContacts" style="display: none">
-									<form id="addContact-form" name="addContact-form" method="post" action="UserContacts.do">
+									<form id="addContact-form" name="addContact-form" method="post"
+										action="UserContacts.do">
 										<div class="row">
 											<div class="col-md-5">
 												<div class="form-group">
 													<label>Phone Number</label> <input type="text"
-														class="form-control" id="phoneValue" name="phoneValue" placeholder="Phone Number"
-														value="+91">
+														class="form-control" id="phoneValue" name="phoneValue"
+														placeholder="Phone Number" value="+91">
 												</div>
 											</div>
 
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Name</label> <input
-														type="text" class="form-control" name="nameValue" id="nameValue" placeholder="Name">
+														type="text" class="form-control" name="nameValue"
+														id="nameValue" placeholder="Name">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-5">
 												<div class="form-group">
-													<label>City</label> <input type="text" name="cityValue" id="cityValue" class="form-control"
-														placeholder="City">
+													<label>City</label> <input type="text" name="cityValue"
+														id="cityValue" class="form-control" placeholder="City">
 												</div>
 											</div>
 
 											<div class="col-md-6">
 												<div class="form-group">
 													<label for="exampleInputEmail1">State</label> <input
-														type="text" class="form-control" name="stateValue" id="stateValue" placeholder="State">
+														type="text" class="form-control" name="stateValue"
+														id="stateValue" placeholder="State">
 												</div>
 											</div>
 										</div>
-										<button type="submit" class="btn btn-info btn-fill pull-right" id="addContact">Add</button>
+										<button type="submit" class="btn btn-info btn-fill pull-right"
+											id="addContact">Add</button>
 										<div class="clearfix"></div>
-										<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}">
-										
+										<input type="hidden" id="userId" name="userId"
+											value="${user.getRegistration().getId()}">
+
 									</form>
 								</div>
 
@@ -555,18 +590,18 @@
 					<div class="card">
 						<div class="header">
 							<h4 class="title">Notifications</h4>
-							<p class="category">
+							<!--<p class="category">
 								Handcrafted by our friend <a target="_blank"
 									href="https://github.com/mouse0270">Robert McIntosh</a>. Please
 								checkout the <a
 									href="http://bootstrap-notify.remabledesigns.com/"
 									target="_blank">full documentation.</a>
-							</p>
+							</p>-->
 						</div>
 						<div class="content">
 							<div class="row">
 								<div class="col-md-6">
-									<h5>Notifications Style</h5>
+									<!--<h5>Notifications Style</h5>
 									<div class="alert alert-info">
 										<span>This is a plain notification</span>
 									</div>
@@ -590,10 +625,10 @@
 											the icon and the close button are always vertically aligned.
 											This is a beautiful notification. So you don't have to worry
 											about the style.</span>
-									</div>
+									</div>-->
 								</div>
 								<div class="col-md-6">
-									<h5>Notification states</h5>
+									<!--<h5>Notification states</h5>
 									<div class="alert alert-info">
 										<button type="button" aria-hidden="true" class="close">×</button>
 										<span><b> Info - </b> This is a regular notification
@@ -613,12 +648,12 @@
 										<button type="button" aria-hidden="true" class="close">×</button>
 										<span><b> Danger - </b> This is a regular notification
 											made with ".alert-danger"</span>
-									</div>
+									</div>-->
 								</div>
 							</div>
 							<br> <br>
 							<div class="places-buttons">
-								<div class="row">
+								<!--<div class="row">
 									<div class="col-md-6 col-md-offset-3 text-center">
 										<h5>
 											Notifications Places
@@ -659,7 +694,7 @@
 											onclick="demo.showNotification('bottom','right')">Bottom
 											Right</button>
 									</div>
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</div>
@@ -669,22 +704,22 @@
 
 			<!-- footer -->
 			<footer class="footer">
-				<div class="container-fluid">
-					<nav class="pull-left">
-						<ul>
-							<li><a href="#"> Home </a></li>
-							<li><a href="#"> Company History </a></li>
-							<li><a href="#"> Portfolio </a></li>
-							<li><a href="#"> Blog </a></li>
-						</ul>
-					</nav>
-					<div class="agileinfo_copy_right_left">
-						<p>
-							Smsaware © 2016 Privacy Policy Terms Of Use<a
-								href="http://smsaware.in/"> Smsaware</a>
-						</p>
-					</div>
+			<div class="container-fluid">
+				<nav class="pull-left">
+				<ul>
+					<li><a href="#"> Home </a></li>
+					<li><a href="#"> Company History </a></li>
+					<li><a href="#"> Portfolio </a></li>
+					<li><a href="#"> Blog </a></li>
+				</ul>
+				</nav>
+				<div class="agileinfo_copy_right_left">
+					<p>
+						Smsaware © 2016 Privacy Policy Terms Of Use<a
+							href="http://smsaware.in/"> Smsaware</a>
+					</p>
 				</div>
+			</div>
 			</footer>
 			<!-- //footer -->
 		</div>
@@ -707,253 +742,293 @@
 <!-- Light Bootstrap Table profile methods, don't include it in your project! -->
 <script src="js/profile.js"></script>
 <script type="text/javascript">
-      $(document).ready(function(){
-      
-         	demo.initChartist();
-      
-         	$.notify({
-             	icon: 'pe-7s-gift',
-             	message: "Welcome to <b>SMSAWARE</b> - utilised your account free services."
-      
-             },{
-                 type: 'info',
-                 timer: 4000
-             });
-			 
-			   $('.num').click(function () {
-					var num = $(this);
-					var text = $.trim(num.find('.txt').clone().children().remove().end().text());
-					var telNumber = $('#telNumber');
-					$(telNumber).val(telNumber.val() + text);
-				});
-			 
-			 $( "#NewContactId" ).click(function() {
-			  $( "#addContacts" ).toggle( "slow" );
-			});
-			 
-			 
-      
-      });
-      
-      function showonlyone(thechosenone) {
-      $('.commonClass').each(function(index) {
-      if ($(this).attr("id") == thechosenone) {
-		  //if($(this).attr("id")=='contactListId'){
-			 // alert("inside"); 
-		   //}
-		   
-      $(this).show();
-      
-               }
-      else {
-      
-                    $(this).hide();
-      
-               }
-      
-          });
-      
-      }
-      
-      (function ($){
-  window.numberArray = [],
-  window.phoneNumber = '',
-  window.updateDisplay,
-  window.numberDisplayEl,
-  window.inCallModeActive,
-  window.dialpadButton = $('div#dialpad li'),
-  window.dialpadCase = $('div#dialpad'),
-  window.clearButton = $('#actions .clear'),
-  window.callButton = $('#actions .call'),
-  window.actionButtons = $('#actions'),
-  window.skipButton = $('#actions .skip'),
-  window.numberDisplayEl = $('#numberDisplay input');
+	$(document)
+			.ready(
+					function() {
 
-  function compilePhoneNumber(numberArray){
-    if (window.numberArray.length > 1){ 
-      window.phoneNumber = window.numberArray.join('');
-    } else {
-      window.phoneNumber = window.numberArray
-    }
-    return this.phoneNumber;
-  };
+						demo.initChartist();
+						var cont = document.getElementById('smsmessage').value;
+						var sucessmsg = document
+								.getElementById('successMessage').value;
 
-  function updateDisplay(phoneNumber){
-    window.numberDisplayEl.val(window.phoneNumber);
-  };
+						if (cont !== '') {
+							$.notify({
+								icon : 'pe-7s-gift',
+								message : cont
 
-  function clearPhoneNumber(){
-    window.numberDisplayEl.val('');
-    window.phoneNumber = '';
-    window.numberArray = [];
-  };
+							}, {
+								type : 'danger',
+								timer : 4000
+							});
 
-  function callNumber(){
-    window.numberDisplayEl.val('Calling...');
-    activateInCallInterface();
-    // Need timer interval to animate . . .
-    // Trigger  "Hangup"
-    // Trigger  "Call timer"
-  };
+						} else if (sucessmsg !== '') {
+							$.notify({
+								icon : 'pe-7s-gift',
+								message : sucessmsg
 
-  function holdNumber(){
-    window.numberDisplayEl.val('On Hold.');
-    changeHoldIntoUnhold();
-  };
+							}, {
+								type : 'success',
+								timer : 4000
+							});
+						} else {
+							$
+									.notify(
+											{
+												icon : 'pe-7s-gift',
+												message : "Welcome to <b>SMSAWARE</b> - utilised your account free services."
 
-  function changeHoldIntoUnhold(){
-    window.skipButton.html('Unhold');
-    window.skipButton.addClass('ready');
-  };
+											}, {
+												type : 'info',
+												timer : 4000
+											});
 
-  function changeUnholdIntoHold(){
-    window.skipButton.html('Hold');
-  };
+						}
+						$('.num').click(
+								function() {
+									var num = $(this);
+									var text = $.trim(num.find('.txt').clone()
+											.children().remove().end().text());
+									var telNumber = $('#telNumber');
+									$(telNumber).val(telNumber.val() + text);
+								});
 
-  function activateInCallInterface(){
-    changeClearIntoHangUp();
-    changeSkipIntoHold();
-    disableCallButton();
-    disableDialButton();
-    removeReadyFromCall();
-    enableReadOnlyInput();
-    window.inCallModeActive = true;
-  };
+						$("#NewContactId").click(function() {
+							$("#addContacts").toggle("slow");
+						});
 
-  function disableInCallInterface(){
-    removeReadOnlyInput();
-    enableCallButton();
-    changeHoldIntoSkip();
-    window.inCallModeActive = false;
-  }
+					});
 
-  function disableCallButton(){
-    window.callButton.addClass('deactive');
-  };
+	function showonlyone(thechosenone) {
+		$('.commonClass').each(function(index) {
+			if ($(this).attr("id") == thechosenone) {
+				//if($(this).attr("id")=='contactListId'){
+				// alert("inside"); 
+				//}
 
-  function enableCallButton(){
-    window.callButton.removeClass('deactive');
-  };
+				$(this).show();
 
-  function enableDialButton(){
-    window.dialpadCase.removeClass('deactive');
-  };
+			} else {
 
-  function disableDialButton(){
-    window.dialpadCase.addClass('deactive');
-  };
+				$(this).hide();
 
-  function changeSkipIntoHold(){
-    window.skipButton.html('Hold');
-  };
+			}
 
-  function changeHoldIntoSkip(){
-    window.skipButton.html('Skip');
-  };
+		});
 
-  function changeClearIntoHangUp(){
-    window.clearButton.html('Hang Up');
-    window.clearButton.addClass('hangup');
-  };
+	}
 
-  function changeHangUpIntoClear(){
-    if( window.clearButton.html('Hang Up') ){
-      window.clearButton.html('Clear');
-      window.clearButton.removeClass('hangup');
-    }
-  };
+	(function($) {
+		window.numberArray = [], window.phoneNumber = '', window.updateDisplay,
+				window.numberDisplayEl, window.inCallModeActive,
+				window.dialpadButton = $('div#dialpad li'),
+				window.dialpadCase = $('div#dialpad'),
+				window.clearButton = $('#actions .clear'),
+				window.callButton = $('#actions .call'),
+				window.actionButtons = $('#actions'),
+				window.skipButton = $('#actions .skip'),
+				window.numberDisplayEl = $('#numberDisplay input');
 
-  function enableReadOnlyInput(){
-    window.numberDisplayEl.attr('readonly','readonly');
-  }
+		function compilePhoneNumber(numberArray) {
+			if (window.numberArray.length > 1) {
+				window.phoneNumber = window.numberArray.join('');
+			} else {
+				window.phoneNumber = window.numberArray
+			}
+			return this.phoneNumber;
+		}
+		;
 
-  function removeReadOnlyInput(){
-    window.numberDisplayEl.removeAttr('readonly');
-  }
+		function updateDisplay(phoneNumber) {
+			window.numberDisplayEl.val(window.phoneNumber);
+		}
+		;
 
-  function refreshInputArray(){
-    this.numberDisplayElContent = window.numberDisplayEl.val(); 
-    window.numberArray = this.numberDisplayElContent.split('');
-  };
+		function clearPhoneNumber() {
+			window.numberDisplayEl.val('');
+			window.phoneNumber = '';
+			window.numberArray = [];
+		}
+		;
 
-  window.dialpadButton.click(function(){
-    if( !$(dialpadCase).hasClass('deactive') ){
-      var content = $(this).html();
-      refreshInputArray();
-      window.numberArray.push(content);
-      compilePhoneNumber();
-      updateDisplay();
-      checkDisplayEl();
-      saveNumberDisplayEl();
-    }
-  });
+		function callNumber() {
+			window.numberDisplayEl.val('Calling...');
+			activateInCallInterface();
+			// Need timer interval to animate . . .
+			// Trigger  "Hangup"
+			// Trigger  "Call timer"
+		}
+		;
 
-  window.skipButton.click(function(){
-    if (window.inCallModeActive == true){
-      holdNumber();
-    }
-  });
+		function holdNumber() {
+			window.numberDisplayEl.val('On Hold.');
+			changeHoldIntoUnhold();
+		}
+		;
 
-  function checkDisplayEl(){
-    if( window.numberDisplayEl.val() != "" ){
-      addReadyToClear();
-      addReadyToCall();
-      enableActionButtons();
-    } else if ( window.numberDisplayEl.val() == "" ) {
-      removeReadyFromClear();
-      removeReadyFromCall();
-      disableActionButtons();
-    }
-  }
+		function changeHoldIntoUnhold() {
+			window.skipButton.html('Unhold');
+			window.skipButton.addClass('ready');
+		}
+		;
 
-  function disableActionButtons(){
-    window.actionButtons.addClass('deactive');
-  }
+		function changeUnholdIntoHold() {
+			window.skipButton.html('Hold');
+		}
+		;
 
-  function enableActionButtons(){
-    window.actionButtons.removeClass('deactive');
-  }
+		function activateInCallInterface() {
+			changeClearIntoHangUp();
+			changeSkipIntoHold();
+			disableCallButton();
+			disableDialButton();
+			removeReadyFromCall();
+			enableReadOnlyInput();
+			window.inCallModeActive = true;
+		}
+		;
 
-  function addReadyToCall(){
-    window.callButton.addClass('ready');
-  }
+		function disableInCallInterface() {
+			removeReadOnlyInput();
+			enableCallButton();
+			changeHoldIntoSkip();
+			window.inCallModeActive = false;
+		}
 
-  function removeReadyFromCall(){
-    window.callButton.removeClass('ready');
-  }
+		function disableCallButton() {
+			window.callButton.addClass('deactive');
+		}
+		;
 
-  function addReadyToClear(){
-    window.clearButton.addClass('ready');
-  }
+		function enableCallButton() {
+			window.callButton.removeClass('deactive');
+		}
+		;
 
-  function removeReadyFromClear(){
-    window.clearButton.removeClass('ready');
-  }
+		function enableDialButton() {
+			window.dialpadCase.removeClass('deactive');
+		}
+		;
 
-  function saveNumberDisplayEl(){
-    lastNumberDisplayEl = window.numberDisplayEl.val()
-  }
+		function disableDialButton() {
+			window.dialpadCase.addClass('deactive');
+		}
+		;
 
-  function displayLastSavedNumberDisplayEl(){
-    console.log('Last displayed element value: ' + lastNumberDisplayEl);
-  }
+		function changeSkipIntoHold() {
+			window.skipButton.html('Hold');
+		}
+		;
 
-  $('div#actions li.clear').click(function(){
-    enableCallButton();
-    enableDialButton();
-    clearPhoneNumber();
-    removeReadOnlyInput();
-    changeHangUpIntoClear();
-    updateDisplay();
-    checkDisplayEl();
-    disableInCallInterface();
-  });
+		function changeHoldIntoSkip() {
+			window.skipButton.html('Skip');
+		}
+		;
 
-  $('div#actions li.call').click(function(){
-    callNumber();
-  });
+		function changeClearIntoHangUp() {
+			window.clearButton.html('Hang Up');
+			window.clearButton.addClass('hangup');
+		}
+		;
 
-})(jQuery);
-   </script>
+		function changeHangUpIntoClear() {
+			if (window.clearButton.html('Hang Up')) {
+				window.clearButton.html('Clear');
+				window.clearButton.removeClass('hangup');
+			}
+		}
+		;
+
+		function enableReadOnlyInput() {
+			window.numberDisplayEl.attr('readonly', 'readonly');
+		}
+
+		function removeReadOnlyInput() {
+			window.numberDisplayEl.removeAttr('readonly');
+		}
+
+		function refreshInputArray() {
+			this.numberDisplayElContent = window.numberDisplayEl.val();
+			window.numberArray = this.numberDisplayElContent.split('');
+		}
+		;
+
+		window.dialpadButton.click(function() {
+			if (!$(dialpadCase).hasClass('deactive')) {
+				var content = $(this).html();
+				refreshInputArray();
+				window.numberArray.push(content);
+				compilePhoneNumber();
+				updateDisplay();
+				checkDisplayEl();
+				saveNumberDisplayEl();
+			}
+		});
+
+		window.skipButton.click(function() {
+			if (window.inCallModeActive == true) {
+				holdNumber();
+			}
+		});
+
+		function checkDisplayEl() {
+			if (window.numberDisplayEl.val() != "") {
+				addReadyToClear();
+				addReadyToCall();
+				enableActionButtons();
+			} else if (window.numberDisplayEl.val() == "") {
+				removeReadyFromClear();
+				removeReadyFromCall();
+				disableActionButtons();
+			}
+		}
+
+		function disableActionButtons() {
+			window.actionButtons.addClass('deactive');
+		}
+
+		function enableActionButtons() {
+			window.actionButtons.removeClass('deactive');
+		}
+
+		function addReadyToCall() {
+			window.callButton.addClass('ready');
+		}
+
+		function removeReadyFromCall() {
+			window.callButton.removeClass('ready');
+		}
+
+		function addReadyToClear() {
+			window.clearButton.addClass('ready');
+		}
+
+		function removeReadyFromClear() {
+			window.clearButton.removeClass('ready');
+		}
+
+		function saveNumberDisplayEl() {
+			lastNumberDisplayEl = window.numberDisplayEl.val()
+		}
+
+		function displayLastSavedNumberDisplayEl() {
+			console.log('Last displayed element value: ' + lastNumberDisplayEl);
+		}
+
+		$('div#actions li.clear').click(function() {
+			enableCallButton();
+			enableDialButton();
+			clearPhoneNumber();
+			removeReadOnlyInput();
+			changeHangUpIntoClear();
+			updateDisplay();
+			checkDisplayEl();
+			disableInCallInterface();
+		});
+
+		$('div#actions li.call').click(function() {
+			callNumber();
+		});
+
+	})(jQuery);
+</script>
 </html>
-

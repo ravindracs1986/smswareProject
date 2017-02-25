@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,9 +17,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.Query;
 import com.smsaware.model.Address;
+import com.smsaware.model.Comments;
 import com.smsaware.model.Contacts;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
+import com.smsaware.pservice.MessageHistory;
 import com.smsaware.utils.Database;
 import com.smsaware.utils.HibernateUtil;
 import com.smsaware.utils.SendMail;
@@ -273,6 +277,9 @@ public class RegistrationDao implements IRegistrationDao {
 			}
 			List<Contacts> contacts = (List<Contacts>) session.createQuery("from Contacts C WHERE C.userId = '" + userId + "'").list();
 			user.setContacts(contacts);
+			user.setMessageHistory(getMessageHistoryById(userId));
+			
+			
 			result.put(true, user);
 			tx.commit();
 		} catch (Exception e) {
@@ -470,4 +477,119 @@ public class RegistrationDao implements IRegistrationDao {
 		return result;
 	}
 
+	@Override
+	public Registration getUserForSMSCheck(Long userId) {
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		Registration regiObject = new Registration();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			List<Registration> Registrations = (List<Registration>) session
+					.createQuery("from Registration R WHERE R.id = '" + userId + "'").list();
+			regiObject=Registrations.get(0);
+			
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return regiObject;
+	}
+
+	@Override
+	public int updateSmsCount(Long userId, int smsBalance) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		int result=0;
+		try {
+			tx = session.beginTransaction();
+			Query query = session
+					.createQuery("update Registration set no_Of_Sms= '" + smsBalance + "' where id='" + userId + "'");
+			result = query.executeUpdate();
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return result;
+	}
+
+	@Override
+	public Long saveMessageHistory(Long mobile, String message, Date smsDate, Long userId) {
+		Long historyResponse=0l;
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			if(message!=null){
+				message = com.smsaware.utils.AESCryptUtil.encrypt(message);
+				MessageHistory smshistory=new MessageHistory(mobile,message,smsDate,userId);
+				tx = session.beginTransaction();
+				historyResponse=(Long)session.save(smshistory);
+				//response = (List<MessageHistory>) session.createQuery("from Comments").list();
+				
+			}
+			
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return historyResponse;
+	}
+
+	
+	private List<MessageHistory> getMessageHistoryById(Long userId) {
+		List<MessageHistory>  response = new ArrayList<MessageHistory>();
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			List<MessageHistory> responseTemp = (List<MessageHistory>) session
+						.createQuery("from MessageHistory R WHERE R.id = '" + userId + "'").list();
+				
+			tx.commit();
+			if(responseTemp!=null && responseTemp.size()!=0){
+				for (MessageHistory messageHistory : responseTemp) {
+					String userMessage=messageHistory.getMessage();
+					userMessage = com.smsaware.utils.AESCryptUtil.decrypt(userMessage);
+					messageHistory.setMessage(userMessage);
+					response.add(messageHistory);
+				}
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return response;
+	}
+	
+	
+	
 }

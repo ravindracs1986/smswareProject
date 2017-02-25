@@ -43,8 +43,8 @@ public class RegistrationOTP {
 				 if (response == 0) {
 			            throw new SQLException("Inserting user OTP failed, no rows affected.");
 			        }else{
-			        	//sendOTPonMail(otp,email,name);
-			        	//sendOTPonPhone(otp,phone);
+			        	sendOTPonMail(otp,email,name);
+			        	sendOTPonPhone(otp,phone);
 			        }
 				 tx.commit();
 			} catch (SQLException e) {
@@ -71,7 +71,8 @@ public class RegistrationOTP {
 	
 	private static void sendOTPonPhone(String otp,Long phone) {
 		SendSMS sms = new SendSMS();
-		String smsResponse=sms.sendSms(otp,phone);
+		otp="your one time password is:"+otp;
+		String smsResponse=sms.sendSms(otp,phone,true);
 		System.out.println("smsResponse==>>"+smsResponse+"JSON Response==>>"+new Gson().toJson(smsResponse));
 		
 	}

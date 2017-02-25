@@ -74,3 +74,12 @@ CREATE TABLE user_contacts (
   userId BIGINT NOT NULL,
   PRIMARY KEY (CONTACT_ID)
 ) ;
+
+CREATE TABLE MessageHistory (
+  messageHistoryId BIGINT(50) NOT NULL AUTO_INCREMENT,
+  phone BIGINT NOT NULL,
+  message VARCHAR(1000) NULL,
+  messageDate DATE,
+  userId BIGINT NOT NULL,
+  PRIMARY KEY (messageHistoryId)
+) ;

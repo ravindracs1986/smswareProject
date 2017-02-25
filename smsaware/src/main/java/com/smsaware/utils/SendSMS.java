@@ -2,46 +2,83 @@ package com.smsaware.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import com.google.gson.Gson;
 
 public class SendSMS {
 
-	public String sendSms(String otp, Long phone) {
+	private static final String SM_SSENDER_COMMUNICATION_ID = "SMSsenderCommunicationId";
+	private static final String SM_SMAIN_URL = "SMSmainUrl";
+	private static final String SM_SROUTE = "SMSroute";
+	private static final String SM_SSENDER_ID = "SMSsenderId";
+	private static final String SM_SAUTHKEY = "SMSauthkey";
+
+	public String sendSms(String otp, Long phone,boolean isotp) {
+		 String apiResponse="Exception";
+		 String senderId=null;
 		try {
+			 String authkey = PropertiesManager.getInstance().getValue(SM_SAUTHKEY);
+			 String mobiles = "91"+Long.toString(phone);
+			 if(isotp){
+				 senderId = PropertiesManager.getInstance().getValue(SM_SSENDER_ID);
+			 }else{
+				 senderId = PropertiesManager.getInstance().getValue(SM_SSENDER_COMMUNICATION_ID);
+			 }
+			
+			 String message = otp;
+			 String route=PropertiesManager.getInstance().getValue(SM_SROUTE);
+			
+			 //Prepare Url
+	         URLConnection myURLConnection=null;
+	         URL myURL=null;
+	         BufferedReader reader=null;
 
-			Gson gson = new Gson();
-			// Construct data
-			String user = "username=" + "ravindracs1986@gmail.com";
-			String hash = "&hash=" + "981ef0ef704c2030758745488393419284f72a04";
-			String message = "&message=" + "Your OTP for smsaware account is:" + otp;
-			String sender = "&sender=" + "SMSAWARE";
-			// String numbers = "&numbers=" + "918660574960";
-			String numbers = "&numbers=" + "91" + phone;
-			// Send data
-			HttpURLConnection conn = (HttpURLConnection) new URL("http://api.textlocal.in/send/?").openConnection();
-			String data = user + hash + numbers + message + sender + "test=1";
-			conn.setDoOutput(true);
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
-			conn.getOutputStream().write(data.getBytes("UTF-8"));
-			final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			final StringBuffer stringBuffer = new StringBuffer();
-			String line;
-			while ((line = rd.readLine()) != null) {
-				stringBuffer.append(line);
-			}
-			rd.close();
+	         //encoding message
+	         @SuppressWarnings("deprecation")
+			 String encoded_message=URLEncoder.encode(message);
+	         //Send SMS API
+	         String mainUrl=PropertiesManager.getInstance().getValue(SM_SMAIN_URL);
+	         //Prepare parameter string
+	         StringBuilder sbPostData= new StringBuilder(mainUrl);
+	         sbPostData.append("authkey="+authkey);
+	         sbPostData.append("&mobiles="+mobiles);
+	         sbPostData.append("&message="+encoded_message);
+	         sbPostData.append("&route="+route);
+	         sbPostData.append("&sender="+senderId);
 
-			String response = stringBuffer.toString();
-			response = gson.toJson(response);
-			return response;
+	         //final string
+	         mainUrl = sbPostData.toString();
+			 
+	         //prepare connection
+        	 System.out.println("mainUrl==>>"+mainUrl);
+             myURL = new URL(mainUrl);
+             myURLConnection = myURL.openConnection();
+             myURLConnection.connect();
+             reader= new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
+             //reading response
+             String response;
+             final StringBuffer stringBuffer = new StringBuffer();
+             while ((response = reader.readLine()) != null){
+             //print response
+            	 stringBuffer.append(response);
+             //System.out.println(response);
+             }
+             //finally close connection
+             reader.close();
+             apiResponse = new Gson().toJson(stringBuffer.toString());
+	           //System.out.println("response==>"+response);
+	           System.out.println("response==>"+apiResponse);
+			
+			return apiResponse;
 		} catch (Exception e) {
 			System.out.println("Error SMS " + e);
-			return "Error " + e;
+			return apiResponse + e;
 		}
 	}
 
+	
+	
 }

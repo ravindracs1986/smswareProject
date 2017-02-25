@@ -1,6 +1,7 @@
 package com.smsaware.dao;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Map;
 
 import com.smsaware.model.Address;
@@ -23,4 +24,8 @@ public interface IRegistrationDao {
 	
 	public int uploadProfileImage(InputStream inputStream,Long userId);
 	public String forgotPassword(Long phone,String email);
+	
+	public Registration getUserForSMSCheck(Long userId);
+	public int updateSmsCount(Long userId,int smsBalance);
+	public Long saveMessageHistory(Long mobile,String message,Date smsDate,Long userId);
 }

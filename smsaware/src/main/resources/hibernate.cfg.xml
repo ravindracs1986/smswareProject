@@ -15,5 +15,6 @@
         <mapping class="com.smsaware.model.Comments"/>
         <mapping class="com.smsaware.model.ReplyComments"/>
         <mapping class="com.smsaware.model.Contacts"/>
+        <mapping class="com.smsaware.pservice.MessageHistory"/>
     </session-factory>
 </hibernate-configuration>
