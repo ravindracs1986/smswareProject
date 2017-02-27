@@ -23,6 +23,7 @@ import com.smsaware.model.Contacts;
 import com.smsaware.model.Login;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
+import com.smsaware.pservice.MessageHistory;
 import com.smsaware.utils.HibernateUtil;
 
 public class LoginServlet extends HttpServlet {
@@ -113,6 +114,8 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 						user.setAddress(addres);
 						List<Contacts> contacts = dao.getContacts(employee.getId());
 						user.setContacts(contacts);
+						List<MessageHistory> smsHistory = dao.getMessageHistoryById(employee.getId());
+						user.setMessageHistory(smsHistory);
 						userObject.put(true, user);
 						break;
 					}

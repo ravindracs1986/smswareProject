@@ -527,8 +527,9 @@ public class RegistrationDao implements IRegistrationDao {
 	}
 
 	@Override
-	public Long saveMessageHistory(Long mobile, String message, Date smsDate, Long userId) {
+	public List<MessageHistory> saveMessageHistory(Long mobile, String message, Date smsDate, Long userId) {
 		Long historyResponse=0l;
+		List<MessageHistory> response=null;
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -539,7 +540,8 @@ public class RegistrationDao implements IRegistrationDao {
 				tx = session.beginTransaction();
 				historyResponse=(Long)session.save(smshistory);
 				//response = (List<MessageHistory>) session.createQuery("from Comments").list();
-				
+				tx.commit();
+				response=getMessageHistoryById(userId);
 			}
 			
 		} catch (Exception e) {
@@ -551,11 +553,11 @@ public class RegistrationDao implements IRegistrationDao {
 			session.close();
 		}
 		
-		return historyResponse;
+		return response;
 	}
 
-	
-	private List<MessageHistory> getMessageHistoryById(Long userId) {
+	@Override
+	public List<MessageHistory> getMessageHistoryById(Long userId) {
 		List<MessageHistory>  response = new ArrayList<MessageHistory>();
 		SessionFactory factory = HibernateUtil.getSessionFactory();
 		Session session = factory.openSession();
@@ -563,7 +565,7 @@ public class RegistrationDao implements IRegistrationDao {
 		try {
 			tx = session.beginTransaction();
 			List<MessageHistory> responseTemp = (List<MessageHistory>) session
-						.createQuery("from MessageHistory R WHERE R.id = '" + userId + "'").list();
+						.createQuery("from MessageHistory MH WHERE MH.userId = '" + userId + "'").list();
 				
 			tx.commit();
 			if(responseTemp!=null && responseTemp.size()!=0){

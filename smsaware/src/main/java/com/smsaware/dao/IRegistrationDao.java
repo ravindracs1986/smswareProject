@@ -2,11 +2,13 @@ package com.smsaware.dao;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.smsaware.model.Address;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
+import com.smsaware.pservice.MessageHistory;
 
 public interface IRegistrationDao {
 
@@ -27,5 +29,6 @@ public interface IRegistrationDao {
 	
 	public Registration getUserForSMSCheck(Long userId);
 	public int updateSmsCount(Long userId,int smsBalance);
-	public Long saveMessageHistory(Long mobile,String message,Date smsDate,Long userId);
+	public List<MessageHistory> saveMessageHistory(Long mobile,String message,Date smsDate,Long userId);
+	public List<MessageHistory> getMessageHistoryById(Long userId);
 }

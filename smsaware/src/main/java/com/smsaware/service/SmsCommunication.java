@@ -2,6 +2,7 @@ package com.smsaware.service;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.smsaware.dao.RegistrationDao;
 import com.smsaware.model.Registration;
 import com.smsaware.model.User;
+import com.smsaware.pservice.MessageHistory;
 import com.smsaware.utils.SendSMS;
 
 @WebServlet("/SmsCommunication.do")
@@ -56,6 +58,7 @@ public class SmsCommunication extends HttpServlet {
 		String successMessage = "";
 		String smsResponse = null;
 		RegistrationDao dao = new RegistrationDao();
+		List<MessageHistory> msgHistry=null;
 		if (phone != null && subject != null && message != null) {
 
 			Registration regi = dao.getUserForSMSCheck(Long.valueOf(userId));
@@ -73,7 +76,7 @@ public class SmsCommunication extends HttpServlet {
 		        	java.util.Date utilDate = cale.getTime();
 		    		java.sql.Date smsDate = new java.sql.Date(utilDate.getTime());
 		    		
-		    		dao.saveMessageHistory(mobile,message,smsDate,Long.valueOf(userId));
+		    		msgHistry=dao.saveMessageHistory(mobile,message,smsDate,Long.valueOf(userId));
 					
 				} else {
 

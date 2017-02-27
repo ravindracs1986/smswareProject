@@ -9,7 +9,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@page
-	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,java.util.*,org.apache.commons.codec.binary.Base64"%>
+	import="javax.servlet.*,javax.servlet.http.*,java.sql.*,java.io.*,com.smsaware.model.*,com.smsaware.pservice.*,java.util.*,org.apache.commons.codec.binary.Base64"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,12 +50,9 @@
 </head>
 <body>
 
-
-
-
-
 	<%
 		java.util.List<Contacts> contacts = null;
+		java.util.List<com.smsaware.pservice.MessageHistory> smsHistory = null;
 		User userBean = (User) session.getAttribute("user");
 
 		if (userBean == null) {
@@ -64,12 +61,15 @@
 
 			String names = userBean.getRegistration().getName();
 			contacts = userBean.getContacts();
-
-			//out.print("str==>:"+str);	
+			smsHistory =userBean.getMessageHistory();
+			//out.print("smsHistory==>:"+smsHistory);
+						
 		}
 	%>
 	<c:set var="contactsList" value="<%=contacts%>" scope="request"></c:set>
+	<c:set var="smsHistoryList" value="<%=smsHistory%>" scope="request"></c:set>
 	<div class="wrapper">
+	
 		<div class="sidebar" data-color="#FFA534"
 			data-image="images/sidebar-5.jpg">
 			<!--
@@ -261,23 +261,52 @@
 									<p class="category">track any number in india</p>
 								</div>
 								<div class="content">
+								<form name="locationTrack" method="post"
+										action="LocationTrack.do">
 									<div class="regiSearch1">
 										<table>
 											<tr>
-
 												<th>
 													<div class="serLoc">
 														<img src="images/location.png" class="serLocId" alt="">
-														<input type="text" class="serLocInput"
-															placeholder="Find Mobile Location">
+														<input type="text" name="phoneValue" class="serLocInput"
+															placeholder="Find Mobile Location" maxlength="10">
 													</div>
 												</th>
-												<th><input class="message_submit" value="Locate"
-													onclick="javascript:showLocation();" type="button"></th>
+												<th><input class="message_submit" value="Locate" type="submit"></th>
 											</tr>
 										</table>
 									</div>
+									<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}"/>
+									</form>
 								</div>
+								
+								<c:if test="${not empty mobileLocator}">
+								<table class="table" >
+									<tbody style="background-color:#ADD8E6">
+									<td class="td-actions text-left" style="font-weight: bold; color:#008000">Provider</td>
+									<td class="td-actions text-left " style="font-weight: bold;color:#008000">State</td>
+										<tr>
+											<td style="font-weight: bold;color:#8B0000">${mobileLocator.provider}</td>
+											<td style="font-weight: bold;color:#8B0000">${mobileLocator.state}</td>
+											
+										</tr>
+									</tbody>
+								</table>
+								</c:if>
+							<c:if test="${not empty errorMessage}">
+								<table class="table">
+									<tbody style="background-color:#ADD8E6">
+									<td class="td-actions text-left" style="font-weight: bold;">Error Message</td>
+									<tr>
+											
+										<td style="font-weight: bold;color:#FF0000">${errorMessage}</td>
+											
+										</tr>
+									</tbody>
+								</table>
+								</c:if>
+								
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -290,23 +319,23 @@
 									<div class="table-full-width">
 										<table class="table">
 											<tbody>
-												<td class="td-actions text-left" style="font-weight: bold;">Number</td>
-												<td class="td-actions text-left " style="font-weight: bold;"">Message</td>
+											<td class="td-actions text-left" style="font-weight: bold;">Number</td>
+												<td class="td-actions text-left " style="font-weight: bold;">Message</td>
 												<td class="td-actions text-left" style="font-weight: bold;">Date</td>
+												<c:forEach items="${smsHistoryList}" var="smsObject">
+												<c:if test="${not empty smsObject}">
 												<tr>
-													<td>1234567890</td>
-													<td>10/10/2014</td>
+													<td>${smsObject.phone}</td>
+													<td>${smsObject.message}</td>
 													<td class="">
-														<p>how r you?</p>
+														<p>${smsObject.messageDate}</p>
 													</td>
 												</tr>
-												<tr>
-													<td>1234567890</td>
-													<td>10/10/2014</td>
-													<td class="">
-														<p>how r you?</p>
-													</td>
-												</tr>
+												
+												</c:if>
+
+											</c:forEach>
+												
 											</tbody>
 										</table>
 									</div>
@@ -707,10 +736,10 @@
 			<div class="container-fluid">
 				<nav class="pull-left">
 				<ul>
-					<li><a href="#"> Home </a></li>
-					<li><a href="#"> Company History </a></li>
-					<li><a href="#"> Portfolio </a></li>
-					<li><a href="#"> Blog </a></li>
+					<li><a href="index.jsp"> Home </a></li>
+					<li><a href="about.jsp"> Company History </a></li>
+					<li><a href="about.jsp"> Portfolio </a></li>
+					<li><a href="CommentRetrieveServlet.do"> Blog </a></li>
 				</ul>
 				</nav>
 				<div class="agileinfo_copy_right_left">
