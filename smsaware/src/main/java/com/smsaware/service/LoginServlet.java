@@ -41,7 +41,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String encryPassword = null;
-
+		String regex = "\\d+";
 		try {
 			if(password!=null){
 				encryPassword = com.smsaware.utils.AESCryptUtil.encrypt(password);
@@ -56,7 +56,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		Login login = new Login();
 		login.setPassword(encryPassword);
 
-		if (!username.contains("@")) {
+		if (!username.contains("@") && username.matches(regex) && username.length()==10) {
 			login.setPhone(Long.parseLong(username));
 		} else {
 			login.setEmail(username);

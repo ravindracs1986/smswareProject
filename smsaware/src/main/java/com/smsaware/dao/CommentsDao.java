@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 
 import com.smsaware.model.Comments;
 import com.smsaware.model.Registration;
+import com.smsaware.model.ReplyComments;
 import com.smsaware.utils.HibernateUtil;
 
 public class CommentsDao implements ICommentsDao{
@@ -69,6 +70,58 @@ public class CommentsDao implements ICommentsDao{
 			session.close();
 		}
 		return response;
+	}
+
+	@Override
+	public List<ReplyComments> submitReply(ReplyComments comments) {
+		List<ReplyComments>  response = null;
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.save(comments);
+			response = (List<ReplyComments>) session.createQuery("from ReplyComments").list();
+			/*for (Comments s : Registrations) {
+				System.out.println("comments @@@@");
+
+			}*/
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return response;
+	}
+
+	@Override
+	public List<ReplyComments> getReply(long comntId) {
+		List<ReplyComments> commentReply=null;
+		SessionFactory factory = HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			commentReply = (List<ReplyComments>) session.createQuery("from ReplyComments R WHERE R.commentsId = '" + comntId + "'").list();
+			
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return commentReply;
 	}
 
 }

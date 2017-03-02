@@ -123,7 +123,7 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#" class="tabStyle"> SMS Baleance(
+						<li><a href="#" class="tabStyle"> SMS Balance(
 								${user.getRegistration().getNo_Of_Sms()})</a></li>
 						<li><a href="#" class="tabStyle"> Buy Sms or Calls </a></li>
 						<li class="dropdown"><a href="#"
