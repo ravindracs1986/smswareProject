@@ -46,6 +46,25 @@
 	background: #F5F5DC;
 	background-color: #1DC7EA;
 }
+
+.cancleChangePassword {
+	padding: 10px 104px 8px 16px !important;
+	text-align: center !important;
+}
+
+.submitChangePassword {
+	padding: 10px 10px 8px 34px !important;
+	text-align: center !important;
+}
+
+.submitAnswer {
+	padding: 5px -8px 8px 34px !important;
+	text-align: center !important;
+}
+.paisa p{
+	padding: 0 0 10px 0!important;
+	margin: -29px -28px 0px 160px !important;
+}
 </style>
 </head>
 <body>
@@ -61,15 +80,15 @@
 
 			String names = userBean.getRegistration().getName();
 			contacts = userBean.getContacts();
-			smsHistory =userBean.getMessageHistory();
+			smsHistory = userBean.getMessageHistory();
 			//out.print("smsHistory==>:"+smsHistory);
-						
+
 		}
 	%>
 	<c:set var="contactsList" value="<%=contacts%>" scope="request"></c:set>
 	<c:set var="smsHistoryList" value="<%=smsHistory%>" scope="request"></c:set>
 	<div class="wrapper">
-	
+
 		<div class="sidebar" data-color="#FFA534"
 			data-image="images/sidebar-5.jpg">
 			<!--
@@ -125,14 +144,18 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#" class="tabStyle"> SMS Balance(
 								${user.getRegistration().getNo_Of_Sms()})</a></li>
-						<li><a href="#" class="tabStyle"> Buy Sms or Calls </a></li>
+						<li><a href="javascript:showonlyone('buyId');" class="tabStyle"> Buy It</a></li>
 						<li class="dropdown"><a href="#"
 							class="dropdown-toggle tabStyle" data-toggle="dropdown">
 								Account <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu" class="tabStyle">
-								<li><a href="#">Account setting</a></li>
-								<li><a href="#">Change Password</a></li>
+								<li><a class="accountSettingClass"
+									href="javascript:showonlyone('accountSettingId');">Account
+										setting</a></li>
+								<li><a class="changePasswordClass"
+									href="javascript:showonlyone('changePasswordId');">Change
+										Password</a></li>
 							</ul></li>
 						<li><a href="LogoutServlet.do" class="tabStyle"> Log out
 						</a></li>
@@ -261,52 +284,57 @@
 									<p class="category">track any number in india</p>
 								</div>
 								<div class="content">
-								<form name="locationTrack" method="post"
+									<form name="locationTrack" method="post"
 										action="LocationTrack.do">
-									<div class="regiSearch1">
-										<table>
-											<tr>
-												<th>
-													<div class="serLoc">
-														<img src="images/location.png" class="serLocId" alt="">
-														<input type="text" name="phoneValue" class="serLocInput"
-															placeholder="Find Mobile Location" maxlength="10">
-													</div>
-												</th>
-												<th><input class="message_submit" value="Locate" type="submit"></th>
-											</tr>
-										</table>
-									</div>
-									<input type="hidden" id="userId" name="userId" value="${user.getRegistration().getId()}"/>
+										<div class="regiSearch1">
+											<table>
+												<tr>
+													<th>
+														<div class="serLoc">
+															<img src="images/location.png" class="serLocId" alt="">
+															<input type="text" name="phoneValue" class="serLocInput"
+																placeholder="Find Mobile Location" maxlength="10">
+														</div>
+													</th>
+													<th><input class="message_submit" value="Locate"
+														type="submit"></th>
+												</tr>
+											</table>
+										</div>
+										<input type="hidden" id="userId" name="userId"
+											value="${user.getRegistration().getId()}" />
 									</form>
 								</div>
-								
+
 								<c:if test="${not empty mobileLocator}">
-								<table class="table" >
-									<tbody style="background-color:#ADD8E6">
-									<td class="td-actions text-left" style="font-weight: bold; color:#008000">Provider</td>
-									<td class="td-actions text-left " style="font-weight: bold;color:#008000">State</td>
-										<tr>
-											<td style="font-weight: bold;color:#8B0000">${mobileLocator.provider}</td>
-											<td style="font-weight: bold;color:#8B0000">${mobileLocator.state}</td>
-											
-										</tr>
-									</tbody>
-								</table>
+									<table class="table">
+										<tbody style="background-color: #ADD8E6">
+											<td class="td-actions text-left"
+												style="font-weight: bold; color: #008000">Provider</td>
+											<td class="td-actions text-left "
+												style="font-weight: bold; color: #008000">State</td>
+											<tr>
+												<td style="font-weight: bold; color: #8B0000">${mobileLocator.provider}</td>
+												<td style="font-weight: bold; color: #8B0000">${mobileLocator.state}</td>
+
+											</tr>
+										</tbody>
+									</table>
 								</c:if>
-							<c:if test="${not empty errorMessage}">
-								<table class="table">
-									<tbody style="background-color:#ADD8E6">
-									<td class="td-actions text-left" style="font-weight: bold;">Error Message</td>
-									<tr>
-											
-										<td style="font-weight: bold;color:#FF0000">${errorMessage}</td>
-											
-										</tr>
-									</tbody>
-								</table>
+								<c:if test="${not empty errorMessage}">
+									<table class="table">
+										<tbody style="background-color: #ADD8E6">
+											<td class="td-actions text-left" style="font-weight: bold;">Error
+												Message</td>
+											<tr>
+
+												<td style="font-weight: bold; color: #FF0000">${errorMessage}</td>
+
+											</tr>
+										</tbody>
+									</table>
 								</c:if>
-								
+
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -319,23 +347,23 @@
 									<div class="table-full-width">
 										<table class="table">
 											<tbody>
-											<td class="td-actions text-left" style="font-weight: bold;">Number</td>
+												<td class="td-actions text-left" style="font-weight: bold;">Number</td>
 												<td class="td-actions text-left " style="font-weight: bold;">Message</td>
 												<td class="td-actions text-left" style="font-weight: bold;">Date</td>
 												<c:forEach items="${smsHistoryList}" var="smsObject">
-												<c:if test="${not empty smsObject}">
-												<tr>
-													<td>${smsObject.phone}</td>
-													<td>${smsObject.message}</td>
-													<td class="">
-														<p>${smsObject.messageDate}</p>
-													</td>
-												</tr>
-												
-												</c:if>
+													<c:if test="${not empty smsObject}">
+														<tr>
+															<td>${smsObject.phone}</td>
+															<td>${smsObject.message}</td>
+															<td class="">
+																<p>${smsObject.messageDate}</p>
+															</td>
+														</tr>
 
-											</c:forEach>
-												
+													</c:if>
+
+												</c:forEach>
+
 											</tbody>
 										</table>
 									</div>
@@ -729,6 +757,252 @@
 					</div>
 				</div>
 			</div>
+
+			<!--change password starts -->
+
+
+			<div class="content commonClass" id="changePasswordId"
+				style="display: none;">
+				<div class="container-fluid">
+					<div class="card">
+						<div class="header">
+							<h4 class="title">Change Password</h4>
+
+						</div>
+						<div class="content">
+							<form name="changePasswordForm" method="post"
+								action="ChangePassword.do">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Old Password</label> <input type="text"
+												class="form-control" name="oldPassword" id="oldPassword"
+												placeholder="OldPassword">
+										</div>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>New Password</label> <input type="text"
+												class="form-control" name="newPassword" id="newPassword"
+												placeholder="NewPassword">
+										</div>
+									</div>
+									<div class="col-md-6"></div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Confirmed Password</label> <input type="text"
+												class="form-control" name="confirmPassword"
+												id="confirmPassword" placeholder="Confirmed Password">
+										</div>
+									</div>
+									<div class="col-md-6"></div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-3">
+										<button type="submit"
+											class="btn btn-info btn-fill cancleChangePassword"
+											id="CanclePass">Cancel</button>
+									</div>
+									<div class="col-md-3">
+										<button type="submit"
+											class="btn btn-info btn-fill submitChangePassword"
+											id="changePass">Change Password</button>
+									</div>
+
+								</div>
+
+								<div class="places-buttons"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--change password ends -->
+
+			<!--Account Setting  starts -->
+			<div class="content commonClass" id="accountSettingId"
+				style="display: none;">
+				<div class="container-fluid">
+					<div class="card">
+						<div class="header">
+							<h4 class="title">Account Setting</h4>
+
+						</div>
+						<div class="content">
+							<div class="row">
+								<div class="col-md-6">
+									<h4 class="title" style="text-decoration: underline;">Security
+										Setting</h4>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+									<form action="">
+										<select name="quasions" style="width: 214px; height: 30px;">
+											<option value="What is your pets Name?">What is your
+												pets Name?</option>
+											<option value="What is your school Name?">What is
+												your school Name?</option>
+											<option value="Mother's Middel Name?">Mother's
+												Middel Name?</option>
+											<option value="Favourite website name?">Favourite
+												website name?</option>
+										</select> <br>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" id="answer" name="answer"
+										style="width: 214px; height: 30px;">
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+									<button type="submit"
+										class="btn btn-info btn-fill submitAnswer" id="changePass">submit
+										Answer</button>
+								</div>
+							</div>
+
+							</form>
+
+
+
+							<div class="row">
+								<div class="col-md-6">
+									<h4 class="title" style="text-decoration: underline;">Deactivate
+										Account</h4>
+								</div>
+							</div>
+							<br> <br>
+
+
+							<p>Hope so you will be back you can deactivate Your account
+								while clicking Link</p>
+							<a class="deactivateAccount" href="#">
+								<p>deactivate Account</p>
+							</a>
+
+
+						</div>
+
+						<div class="places-buttons"></div>
+					</div>
+				</div>
+			</div>
+
+
+			<!--Account Setting  ends -->
+
+
+			<!--BUY SMS  starts -->
+			<div class="content commonClass" id="buyId"
+				style="display: none;">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card ">
+								<div class="header">
+									<h4 class="title" style="text-decoration: underline;">Buy SMS Service</h4>
+									
+								</div>
+								<div class="content">
+								<p>Price of each SMS is :</p><a class="paisa" href="#"><p>0.5 Paisa</p></a><p>Max SMS should 50 or less then 50</p>
+								</div>
+								
+								
+								<table class="table" >
+									<tbody>
+									<td class="td-actions text-left" >Provider Number of SMS:</td>
+									<td class="td-actions text-left " ><input type="number" id="smsNumber" name="smsNumber"
+										style="width: 214px; height: 30px;" min="1" max="50" onchange="updateRangeValue();"/></td>
+										<tr>
+											<td style="font-weight: bold;color:#8B0000">Price of SMS:</td>
+											<td style="font-weight: bold;color:#8B0000">INR<strong><output id="intNumberValue" style="text-decoration: underline;color:red">&nbsp; </output></strong></td>
+											
+										</tr>
+									</tbody>
+								</table>
+								<script type="text/javascript">
+								function updateRangeValue() {
+									intNumberValue.innerHTML = smsNumber.value;
+								  intNumberValue.innerHTML=intNumberValue.innerHTML*0.5;
+								  
+								}
+								var intNumber      = document.getElementById("smsNumber");
+								var intNumberValue = document.getElementById("intNumberValue");
+								
+								updateRangeValue();
+								</script>
+								
+								
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card ">
+								<div class="header">
+									<h4 class="title" style="text-decoration: underline;">Payment</h4>
+									
+								</div>
+								<div class="content">
+									<div class="table-full-width">
+										<table class="table">
+											<tbody>
+											<td class="td-actions text-left" style="font-weight: bold;">Number</td>
+												<td class="td-actions text-left " style="font-weight: bold;">Message</td>
+												<td class="td-actions text-left" style="font-weight: bold;">Date</td>
+												
+												<tr>
+													<td></td>
+													<td></td>
+													<td class="">
+														<p></p>
+													</td>
+												</tr>
+												
+												
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-md-8">
+							<div class="card ">
+								<div class="header">
+									<h4 class="title" style="text-decoration: underline;">Buy Call Service </h4>
+									
+								</div>
+								<div class="content">
+									<h3>This service is not available,Please try after some days</h3>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+			</div>
+
+
+			<!--BUY SMS ends -->
+			
+			
+
 
 
 			<!-- footer -->
