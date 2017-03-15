@@ -1249,7 +1249,6 @@ to {
 								timer : 4000
 							});
 						} else if (popupResponse == 'Password change successfully') {
-							alert(popupResponse);
 							var modal = document.getElementById('myModal');
 							var btn = document.getElementById("myBtn");
 							var span = document.getElementsByClassName("close")[0];
