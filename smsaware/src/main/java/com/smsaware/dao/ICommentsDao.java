@@ -12,4 +12,5 @@ public interface ICommentsDao {
 	public Map<Integer,List<Comments>> getComments(int pageid,int total);
 	public List<ReplyComments> submitReply(ReplyComments comments);
 	public List<ReplyComments> getReply(long comntId);
+	public int changePassword(String oldPassword,String newPassword,Long userId);
 }

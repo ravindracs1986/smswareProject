@@ -80,6 +80,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			dispatcher.forward(request, response);
 
 		} else {
+			request.setAttribute("loginErrorMessage", "UserName or Password is wrong");
 			request.getRequestDispatcher("login.jsp").include(request, response);
 		}
 

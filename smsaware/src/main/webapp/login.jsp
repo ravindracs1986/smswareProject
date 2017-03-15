@@ -293,7 +293,7 @@ to {
 				details to login here. Or <a href="sign-up.jsp"> Register</a> here.
 			</h3>
 			<h3>
-				<div class="message" id="message" style="color: #DC143C"></div>
+				<div class="message" id="message" style="color: #DC143C">${loginErrorMessage}</div>
 			</h3>
 			<form name="loginForm" method="post" action="LoginServlet.do"
 				id="login-form" class="loginClass" onsubmit="return(regvalidate())">

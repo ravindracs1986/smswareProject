@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -122,6 +123,34 @@ public class CommentsDao implements ICommentsDao{
 		}
 		
 		return commentReply;
+	}
+
+	@Override
+	public int changePassword(String oldPassword, String newPassword,Long userId) {
+		int result=0;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			Query query = session
+					.createQuery("update Registration set password= '" + newPassword + "' where id='" + userId + "'");
+			result = query.executeUpdate();
+			
+
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return result;
+		
 	}
 
 }

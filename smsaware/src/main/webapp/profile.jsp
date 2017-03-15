@@ -61,9 +61,137 @@
 	padding: 5px -8px 8px 34px !important;
 	text-align: center !important;
 }
-.paisa p{
-	padding: 0 0 10px 0!important;
+
+.paisa p {
+	padding: 0 0 10px 0 !important;
 	margin: -29px -28px 0px 160px !important;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal1 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: 179px auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 43%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+/* Add Animation */
+@
+-webkit-keyframes animatetop {
+	from {top: -300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+@
+keyframes animatetop {
+	from {top: -300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+
+/* The Close Button */
+.close {
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.close1 {
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close1:hover, .close1:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+.modal1-header {
+	padding: 2px 16px;
+	background-color: #ff9900;
+	color: white;
+}
+
+.modal-body {
+	padding: 2px 77px;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+.modal1-footer {
+	padding: 2px 16px;
+	background-color: #ff9900;
+	color: white;
+	text-align: right;
 }
 </style>
 </head>
@@ -128,6 +256,9 @@
 			</div>
 		</div>
 		<div class="main-panel">
+			<input type="hidden" name="reslt" id="reslt"
+				value="${changeErrorMessage}" />
+
 			<nav class="navbar navbar-default navbar-fixed">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -144,7 +275,8 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#" class="tabStyle"> SMS Balance(
 								${user.getRegistration().getNo_Of_Sms()})</a></li>
-						<li><a href="javascript:showonlyone('buyId');" class="tabStyle"> Buy It</a></li>
+						<li><a href="javascript:showonlyone('buyId');"
+							class="tabStyle"> Buy It</a></li>
 						<li class="dropdown"><a href="#"
 							class="dropdown-toggle tabStyle" data-toggle="dropdown">
 								Account <b class="caret"></b>
@@ -819,6 +951,8 @@
 								</div>
 
 								<div class="places-buttons"></div>
+								<input type="hidden" id="userId" name="userId"
+									value="${user.getRegistration().getId()}">
 							</form>
 						</div>
 					</div>
@@ -906,102 +1040,143 @@
 
 
 			<!--BUY SMS  starts -->
-			<div class="content commonClass" id="buyId"
-				style="display: none;">
+			<div class="content commonClass" id="buyId" style="display: none;">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="card ">
 								<div class="header">
-									<h4 class="title" style="text-decoration: underline;">Buy SMS Service</h4>
-									
+									<h4 class="title" style="text-decoration: underline;">Buy
+										SMS Service</h4>
+
 								</div>
 								<div class="content">
-								<p>Price of each SMS is :</p><a class="paisa" href="#"><p>0.5 Paisa</p></a><p>Max SMS should 50 or less then 50</p>
+									<p>Price of each SMS is :</p>
+									<a class="paisa" href="#"><p>0.5 Paisa</p></a>
+									<p>Max SMS should 50 or less then 50</p>
 								</div>
-								
-								
-								<table class="table" >
+
+
+								<table class="table">
 									<tbody>
-									<td class="td-actions text-left" >Provider Number of SMS:</td>
-									<td class="td-actions text-left " ><input type="number" id="smsNumber" name="smsNumber"
-										style="width: 214px; height: 30px;" min="1" max="50" onchange="updateRangeValue();"/></td>
+										<td class="td-actions text-left">Provider Number of SMS:</td>
+										<td class="td-actions text-left "><input type="number"
+											id="smsNumber" name="smsNumber"
+											style="width: 214px; height: 30px;" min="1" max="50"
+											onchange="updateRangeValue();" /></td>
 										<tr>
-											<td style="font-weight: bold;color:#8B0000">Price of SMS:</td>
-											<td style="font-weight: bold;color:#8B0000">INR<strong><output id="intNumberValue" style="text-decoration: underline;color:red">&nbsp; </output></strong></td>
-											
+											<td style="font-weight: bold; color: #8B0000">Price of
+												SMS:</td>
+											<td style="font-weight: bold; color: #8B0000">INR<strong><output
+														id="intNumberValue"
+														style="text-decoration: underline;color:red">&nbsp;
+													</output></strong></td>
+
 										</tr>
 									</tbody>
 								</table>
 								<script type="text/javascript">
-								function updateRangeValue() {
-									intNumberValue.innerHTML = smsNumber.value;
-								  intNumberValue.innerHTML=intNumberValue.innerHTML*0.5;
-								  
-								}
-								var intNumber      = document.getElementById("smsNumber");
-								var intNumberValue = document.getElementById("intNumberValue");
-								
-								updateRangeValue();
+									function updateRangeValue() {
+										intNumberValue.innerHTML = smsNumber.value;
+										intNumberValue.innerHTML = intNumberValue.innerHTML * 0.5;
+
+									}
+									var intNumber = document
+											.getElementById("smsNumber");
+									var intNumberValue = document
+											.getElementById("intNumberValue");
+
+									updateRangeValue();
 								</script>
-								
-								
+
+
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="card ">
 								<div class="header">
 									<h4 class="title" style="text-decoration: underline;">Payment</h4>
-									
+
 								</div>
 								<div class="content">
-									<div class="table-full-width">
-										<table class="table">
-											<tbody>
-											<td class="td-actions text-left" style="font-weight: bold;">Number</td>
-												<td class="td-actions text-left " style="font-weight: bold;">Message</td>
-												<td class="td-actions text-left" style="font-weight: bold;">Date</td>
-												
-												<tr>
-													<td></td>
-													<td></td>
-													<td class="">
-														<p></p>
-													</td>
-												</tr>
-												
-												
-												
-											</tbody>
-										</table>
-									</div>
+									<h5>
+										Currently payment system is not available please credit the
+										amount mannually and send mail to us payment Reciept
+										<h5>
+											<p>Name :</p>
+											<a class="paisa" href="#"><p>Ravindra kumar</p></a>
+											<p>Bank Name:</p>
+											<a class="paisa" href="#"><p>HDFC Bank</p></a>
+											<p>Account Number:</p>
+											<a class="paisa" href="#"><p>5241781000168941</p></a>
+											<p>IFSC Code:</p>
+											<a class="paisa" href="#"><p>HDFC0000323</p></a>
+											<p>Email:</p>
+											<a class="paisa" href="#"><p>ravindra.kumar@smsaware.in</p></a>
 								</div>
 							</div>
 						</div>
-						
-						
+
+
 						<div class="col-md-8">
 							<div class="card ">
 								<div class="header">
-									<h4 class="title" style="text-decoration: underline;">Buy Call Service </h4>
-									
+									<h4 class="title" style="text-decoration: underline;">Buy
+										Call Service</h4>
+
 								</div>
 								<div class="content">
-									<h3>This service is not available,Please try after some days</h3>
+									<h3>This service is not available,Please try after some
+										days</h3>
 								</div>
 							</div>
 						</div>
-						
-						
+
+
 					</div>
-					
+
 				</div>
 			</div>
 
 
 			<!--BUY SMS ends -->
-			
-			
+
+
+			<!-- The Modal -->
+			<div id="myModal" class="modal" style='display: none;'>
+				<!-- Modal content -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close">&times;</span>
+						<h2>Message</h2>
+					</div>
+					<div class="modal-body">
+						<p style="font-style: italic">${changeErrorMessage}</p>
+
+					</div>
+					<div class="modal-footer">
+						<h3>SMSAWARE.IN</h3>
+					</div>
+				</div>
+
+			</div>
+
+			<div id="myModal1" class="modal1" style='display: none;'>
+				<!-- Modal content -->
+				<div class="modal-content">
+					<div class="modal1-header">
+						<span class="close1">&times;</span>
+						<h2>Message</h2>
+					</div>
+					<div class="modal-body">
+						<p style="color: red; font-style: italic">${changeErrorMessage}</p>
+					</div>
+					<div class="modal1-footer">
+						<h3>SMSAWARE.IN</h3>
+					</div>
+				</div>
+
+			</div>
 
 
 
@@ -1053,7 +1228,7 @@
 						var cont = document.getElementById('smsmessage').value;
 						var sucessmsg = document
 								.getElementById('successMessage').value;
-
+						var popupResponse = document.getElementById("reslt").value;
 						if (cont !== '') {
 							$.notify({
 								icon : 'pe-7s-gift',
@@ -1073,6 +1248,38 @@
 								type : 'success',
 								timer : 4000
 							});
+						} else if (popupResponse == 'Password change successfully') {
+							alert(popupResponse);
+							var modal = document.getElementById('myModal');
+							var btn = document.getElementById("myBtn");
+							var span = document.getElementsByClassName("close")[0];
+							modal.style.display = "block";
+							// When the user clicks on <span> (x), close the modal
+							span.onclick = function() {
+								modal.style.display = "none";
+							}
+							// When the user clicks anywhere outside of the modal, close it
+							window.onclick = function(event) {
+								if (event.target == modal) {
+									modal.style.display = "none";
+								}
+							}
+						} else if (popupResponse == 'Old Password is not correct'
+								|| popupResponse == 'Something Wrong,Please try again') {
+							var modal = document.getElementById('myModal1');
+							var span = document
+									.getElementsByClassName("close1")[0];
+							modal.style.display = "block";
+							// When the user clicks on <span> (x), close the modal
+							span.onclick = function() {
+								modal.style.display = "none";
+							}
+							// When the user clicks anywhere outside of the modal, close it
+							window.onclick = function(event) {
+								if (event.target == modal) {
+									modal.style.display = "none";
+								}
+							}
 						} else {
 							$
 									.notify(
