@@ -153,4 +153,31 @@ public class CommentsDao implements ICommentsDao{
 		
 	}
 
+	@Override
+	public int updateSecurityQAns(String securityQuen, String securityAns, Long userId) {
+		int result=0;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			Query query = session
+					.createQuery("update Registration set securityQuen= '" + securityQuen + "',securityAns= '" + securityAns + "' where id='" + userId + "'");
+			result = query.executeUpdate();
+			
+
+			tx.commit();
+
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return result;
+	}
+
 }

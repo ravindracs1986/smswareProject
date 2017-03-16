@@ -258,7 +258,8 @@ to {
 		<div class="main-panel">
 			<input type="hidden" name="reslt" id="reslt"
 				value="${changeErrorMessage}" />
-
+			<input type="hidden" name="SecurityMessage" id="SecurityMessage"
+				value="${SecurityMessage}" />
 			<nav class="navbar navbar-default navbar-fixed">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -902,12 +903,13 @@ to {
 
 						</div>
 						<div class="content">
+						<font size="4"><div class="message" id="message" style="color:#DC143C"></div></h3> </font>
 							<form name="changePasswordForm" method="post"
-								action="ChangePassword.do">
+								action="ChangePassword.do" id="changePasswordForm" onsubmit="return(regvalidate())">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Old Password</label> <input type="text"
+											<label>Old Password</label> <input type="password"
 												class="form-control" name="oldPassword" id="oldPassword"
 												placeholder="OldPassword">
 										</div>
@@ -918,7 +920,7 @@ to {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>New Password</label> <input type="text"
+											<label>New Password</label> <input type="password"
 												class="form-control" name="newPassword" id="newPassword"
 												placeholder="NewPassword">
 										</div>
@@ -928,7 +930,7 @@ to {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label>Confirmed Password</label> <input type="text"
+											<label>Confirmed Password</label> <input type="password"
 												class="form-control" name="confirmPassword"
 												id="confirmPassword" placeholder="Confirmed Password">
 										</div>
@@ -937,11 +939,6 @@ to {
 								</div>
 								<br>
 								<div class="row">
-									<div class="col-md-3">
-										<button type="submit"
-											class="btn btn-info btn-fill cancleChangePassword"
-											id="CanclePass">Cancel</button>
-									</div>
 									<div class="col-md-3">
 										<button type="submit"
 											class="btn btn-info btn-fill submitChangePassword"
@@ -980,7 +977,8 @@ to {
 							<br>
 							<div class="row">
 								<div class="col-md-6">
-									<form action="">
+									<form name="AccountSettingForm" method="post"
+								action="SecurityServlet.do">
 										<select name="quasions" style="width: 214px; height: 30px;">
 											<option value="What is your pets Name?">What is your
 												pets Name?</option>
@@ -1007,7 +1005,8 @@ to {
 										Answer</button>
 								</div>
 							</div>
-
+								<input type="hidden" id="userId" name="userId"
+									value="${user.getRegistration().getId()}"/>
 							</form>
 
 
@@ -1229,6 +1228,7 @@ to {
 						var sucessmsg = document
 								.getElementById('successMessage').value;
 						var popupResponse = document.getElementById("reslt").value;
+						var securityResponse = document.getElementById("SecurityMessage").value;
 						if (cont !== '') {
 							$.notify({
 								icon : 'pe-7s-gift',
@@ -1279,6 +1279,24 @@ to {
 									modal.style.display = "none";
 								}
 							}
+						}else if (securityResponse == 'Security setting change successfully') {
+							$.notify({
+								icon : 'pe-7s-gift',
+								message : securityResponse
+
+							}, {
+								type : 'success',
+								timer : 4000
+							});
+						}else if (securityResponse == 'Something Wrong,Please try again') {
+							$.notify({
+								icon : 'pe-7s-gift',
+								message : securityResponse
+
+							}, {
+								type : 'danger',
+								timer : 4000
+							});
 						} else {
 							$
 									.notify(
@@ -1325,7 +1343,40 @@ to {
 		});
 
 	}
-
+	function regvalidate() {
+		
+		
+		         var illegalChars = /[\W_]/; // allow only letters and numbers
+				 var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$", "g");
+				 var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+				 var enoughRegex = new RegExp("(?=.{4,}).*", "g");
+		
+					if ((document.changePasswordForm.oldPassword.value == "")) {
+						document.getElementById('message').innerHTML = " *Old Password should not be Empty";
+						changePasswordForm.oldPassword.focus();
+						return (false);
+					}if ((document.changePasswordForm.newPassword.value == "")) {
+						document.getElementById('message').innerHTML = " *New Password should not be Empty";
+						changePasswordForm.newPassword.focus();
+						return (false);
+					}else if (false == enoughRegex.test(document.changePasswordForm.newPassword.value)) {
+						//strength.innerHTML = "More Characters";
+						document.getElementById('message').innerHTML = " *Password lenght minimum should 4 to 8 Character";
+						changePasswordForm.newPassword.focus();
+						return (false);
+						} 
+					if ((document.changePasswordForm.confirmPassword.value == "")) {
+						document.getElementById('message').innerHTML = " *Confirmed Password should not be Empty";
+						changePasswordForm.confirmPassword.focus();
+						return (false);
+					}
+					if ((document.changePasswordForm.newPassword.value != document.changePasswordForm.confirmPassword.value)) {
+						document.getElementById('message').innerHTML = " *Password and Confirmed password should be Same";
+						changePasswordForm.confirmPassword.focus();
+						return (false);
+					}
+		
+	}
 	(function($) {
 		window.numberArray = [], window.phoneNumber = '', window.updateDisplay,
 				window.numberDisplayEl, window.inCallModeActive,

@@ -13,4 +13,5 @@ public interface ICommentsDao {
 	public List<ReplyComments> submitReply(ReplyComments comments);
 	public List<ReplyComments> getReply(long comntId);
 	public int changePassword(String oldPassword,String newPassword,Long userId);
+	public int updateSecurityQAns(String securityQuen,String securityAns,Long userId);
 }

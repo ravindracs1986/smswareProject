@@ -31,6 +31,8 @@ public class Registration{
 	private String authenticated;
 	private String lastName;
 	private String aboutMe;
+	private String securityQuen;
+	private String securityAns;
 	//private Blob imageInByte;
 	/*@OneToOne
 	@JoinColumn(name="ADDRESS_ID")
@@ -40,7 +42,7 @@ public class Registration{
 	
 	public Registration(String name, String birth_date, String gender, String nationality, String website,
 			Integer no_Of_Sms, String email, String password, Long phone, Date creation_Date,
-			String authenticated,String lastName,String aboutMe) {
+			String authenticated,String lastName,String aboutMe,String securityQuen,String securityAns) {
 		this.name = name;
 		this.birth_date = birth_date;
 		this.gender = gender;
@@ -54,8 +56,8 @@ public class Registration{
 		this.authenticated = authenticated;
 		this.lastName = lastName;
 		this.aboutMe = aboutMe;
-		//this.imageInByte = imageInByte;
-		//this.address = address;
+		this.securityQuen = securityQuen;
+		this.securityAns = securityAns;
 	}
 	
 	@Id
@@ -150,7 +152,23 @@ public class Registration{
 	public void setAboutMe(String aboutMe) {
 		this.aboutMe = aboutMe;
 	}
+	public String getSecurityQuen() {
+		return securityQuen;
+	}
 
+	public void setSecurityQuen(String securityQuen) {
+		this.securityQuen = securityQuen;
+	}
+
+	public String getSecurityAns() {
+		return securityAns;
+	}
+
+	public void setSecurityAns(String securityAns) {
+		this.securityAns = securityAns;
+	}
+	
+	
 	/*public Blob getImageInByte() {
 		return imageInByte;
 	}
@@ -159,14 +177,18 @@ public class Registration{
 		this.imageInByte = imageInByte;
 	}*/
 
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Registration [id=" + id + ", name=" + name + ", birth_date=" + birth_date + ", gender=" + gender
 				+ ", nationality=" + nationality + ", website=" + website + ", no_Of_Sms=" + no_Of_Sms + ", email="
 				+ email + ", password=" + password + ", phone=" + phone + ", creation_Date=" + creation_Date
 				+ ", "
-				+ "authenticated=" + authenticated + ",lastName=" + lastName + ",aboutMe=" + aboutMe + "]";
+				+ "authenticated=" + authenticated + ",lastName=" + lastName + ",aboutMe=" + aboutMe + ",securityQuen=" + securityQuen + ",securityAns=" + securityAns + "]";
 	}
+
 	
 	
 	
