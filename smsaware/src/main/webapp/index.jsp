@@ -47,6 +47,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		});
 	});
 </script>
+
+<script>
+
+
+var disqus_config = function () {
+this.page.url = "http://smsaware.in/testimonials.html";  
+this.page.identifier = "smsawareComments"; 
+};
+
+(function() {
+var d = document, s = d.createElement('script');
+s.src = '//smsaware-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 <!-- //load-more -->
 <!-- <link
 	href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic'
@@ -367,57 +385,8 @@ boolean isLogin=false;
 	<!-- testimonials -->
 	<div class="testimonials">
 		<div class="container">
-			<h3>testimonials</h3>
-			<p class="quia">what our customers say</p>
-			<!-- <div class="w3_testimonials_grids">
-				<section class="slider">
-					<div class="flexslider">
-						<ul class="slides">
-							<li>	
-								<div class="w3_testimonials_grid">
-									<img src="images/1.png" alt=" " class="img-responsive" />
-									<h4><i>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil 
-										impedit quo minus id quod maxime placeat facere possimus, omnis voluptas.</i></h4>
-									<h5>John Frank</h5>
-									<p>Founder</p>
-								</div>
-							</li>
-							<li>	
-								<div class="w3_testimonials_grid">
-									<img src="images/2.png" alt=" " class="img-responsive" />
-									<h4><i>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil 
-										impedit quo minus id quod maxime placeat facere possimus, omnis voluptas.</i></h4>
-									<h5>Michael Doe</h5>
-									<p>Transport Agent</p>
-								</div>
-							</li>
-							<li>	
-								<div class="w3_testimonials_grid">
-									<img src="images/3.png" alt=" " class="img-responsive" />
-									<h4><i>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil 
-										impedit quo minus id quod maxime placeat facere possimus, omnis voluptas.</i></h4>
-									<h5>Thomas Carl</h5>
-									<p>Transport Agent</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</section>
-				flexSlider
-					<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
-					<script defer src="js/jquery.flexslider.js"></script>
-					<script type="text/javascript">
-					$(window).load(function(){
-					  $('.flexslider').flexslider({
-						animation: "slide",
-						start: function(slider){
-						  $('body').removeClass('loading');
-						}
-					  });
-					});
-				  </script>
-				//flexSlider
-			</div> -->
+			<div id="disqus_thread"></div>
+       <div class="smsawareComments"></div>
 		</div>
 	</div>
 	<!-- //testimonials -->
