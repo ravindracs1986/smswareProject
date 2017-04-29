@@ -100,7 +100,7 @@ boolean isLogin=false;
 			<div class="w3l_header_left">
 				<ul>
 					<li><span class="glyphicon glyphicon-earphone"
-						aria-hidden="true"></span>+ (123) 111 222 333</li>
+						aria-hidden="true"></span>+ (91)9972792068</li>
 					<li><span class="glyphicon glyphicon-envelope"
 						aria-hidden="true"></span><a href="mailto:info@smsaware.in">info@smsaware.in</a></li>
 				</ul>
