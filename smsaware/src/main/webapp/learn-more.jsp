@@ -138,6 +138,43 @@ to {
 	width: 90% !important;
 	margin: 3em auto 0 !important;
 }
+
+.modal1 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.close1 {
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close1:hover, .close1:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}.modal1-header {
+	padding: 2px 16px;
+	background-color: #ff9900;
+	color: white;
+}.modal1-footer {
+	padding: 2px 16px;
+	background-color: #ff9900;
+	color: white;
+	text-align: right;
+}
+
+
 </style>
 
 </head>
@@ -521,23 +558,18 @@ to {
 													<div class="replyDiv" id="replyDiv1" style="display: none;">
 														<div class="agileinfo_write_reply" id="replyDiv"
 															style="border-style: solid; border-color: #E6E6FA;">
-															<form action="Reply.do" method="post">
+															<form name="replyForm" id="replyForm" action="" method="post" onsubmit="return replyValidate();">
 																<div class="col-md-6 agileinfo_write_reply_left">
-																	<input type="text" name="Name" value="Name"
-																		onfocus="this.value = '';"
-																		onblur="if (this.value == '') {this.value = 'Name';}"
-																		required=""> <input type="email" name="Email"
-																		value="Email" onfocus="this.value = '';"
-																		onblur="if (this.value == '') {this.value = 'Email';}"
-																		required="">
-																	<textarea name="Comment" onfocus="this.value = '';"
-																		onblur="if (this.value == '') {this.value = 'Comment...';}"
-																		required="">Comment...</textarea>
+																	<input type="text" name="repName" id="repName" value="${user.getRegistration().getName()}" placeholder="Name"/> 
+																	
+																	<input type="text" name="repemail" id="repemail" value="${user.getRegistration().getEmail()}" placeholder="Email"/>
+																	
+																	<textarea name="replyComment" id="replyComment" placeholder="Comments..."></textarea>
 																</div>
 																<div class="clearfix"></div>
 																<input type="hidden" name="parentsId"
-																	value="${each.comments.commentsId}" /> <input
-																	type="submit" value="Reply">
+																	value="${each.comments.commentsId}" /> 
+																	<input type="submit" id="Reply" name="Reply"  value="Reply"/>
 															</form>
 														</div>
 													</div>
@@ -555,23 +587,16 @@ to {
 									<div class="replyDiv" id="replyDiv1" style="display: none;">
 										<div class="agileinfo_write_reply" id="replyDiv"
 											style="border-style: solid; border-color: #E6E6FA;">
-											<form action="Reply.do" method="post">
+											<form name="replyForm" id ="replyForm" action="" method="post" onsubmit="return replyValidate();">
 												<div class="col-md-6 agileinfo_write_reply_left">
-													<input type="text" name="Name" value="Name"
-														onfocus="this.value = '';"
-														onblur="if (this.value == '') {this.value = 'Name';}"
-														required=""> <input type="email" name="Email"
-														value="Email" onfocus="this.value = '';"
-														onblur="if (this.value == '') {this.value = 'Email';}"
-														required="">
-													<textarea name="Comment" onfocus="this.value = '';"
-														onblur="if (this.value == '') {this.value = 'Comment...';}"
-														required="">Comment...</textarea>
+													<input type="text" name="repName" id="repName" value="${user.getRegistration().getName()}" placeholder="Name"/> 
+													<input type="text" name="repemail" id="repemail" value="${user.getRegistration().getEmail()}" placeholder="Email"/>
+													<textarea name="replyComment" id="replyComment" placeholder="Comments..."></textarea>
 												</div>
 												<div class="clearfix"></div>
 												<input type="hidden" name="parentsId"
-													value="${each.comments.commentsId}" /> <input type="submit"
-													value="Reply">
+													value="${each.comments.commentsId}" /> 
+													<input type="submit" id="Reply" name="Reply" value="Reply"/>
 											</form>
 										</div>
 									</div>
@@ -586,6 +611,27 @@ to {
 
 			</div>
 
+			<div id="myModal1" class="modal1" style='display: none;'>
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal1-header">
+				<span class="close1">&times;</span>
+				<h2>Password Sent to your email or Phone</h2>
+			</div>
+			<div class="modal-body">
+				<p style="color: red; font-style: italic">Given Phone or Email
+					is not correct,Please try again</p>
+			</div>
+			<div class="modal1-footer">
+				<h3>SMSAWARE.IN</h3>
+			</div>
+		</div>
+
+	</div>
+			
+			
+			
+			
 
 			<%--For displaying Previous link except for the 1st page --%>
 			<c:if test="${currentPage != 1}">
@@ -614,6 +660,52 @@ to {
 				<td><a href="CommentRetrieveServlet.do?page=${currentPage + 1}">Next</a></td>
 			</c:if>
 
+			
+			<script type="text/javascript">
+
+			function replyValidate() {
+				
+				
+			alert("inside");
+			var nameee=$('#repName').val();
+
+					if (nameee =='') {
+						
+						var modal = document.getElementById('myModal');
+						var btn = document.getElementById("myBtn");
+						var span = document.getElementsByClassName("close")[0];
+						modal.style.display = "block";
+						// When the user clicks on <span> (x), close the modal
+						span.onclick = function() {
+							modal.style.display = "none";
+						}
+						// When the user clicks anywhere outside of the modal, close it
+						window.onclick = function(event) {
+							if (event.target == modal) {
+								modal.style.display = "none";
+							}
+						}
+						replyForm.repName.focus();
+						return (false);
+						
+					}
+			
+					
+			}
+				
+			
+	
+	</script>
+		
+
+
+
+
+
+		
+			
+			
+			
 			<!-- comments response start-->
 			<div class="agileinfo_write_reply">
 				<h3>Write a Comment</h3>
@@ -621,7 +713,7 @@ to {
 					<div class="cmntErrorMessage" id="cmntErrorMessage"
 						style="color: #DC143C"></div>
 				</h3>
-				<form action="" id="WriteCommentForm" name="WriteCommentForm"
+				<form action="CommentServlet.do" id="WriteCommentForm" name="WriteCommentForm"
 					method="post" onsubmit="return(commntvalidate())">
 					<div class="col-md-6 agileinfo_write_reply_left">
 						<input type="text" name="NameValue" id="NameValue"
@@ -772,11 +864,15 @@ to {
 			$parent_box.siblings().find('.replyDiv').hide();
 			$parent_box.find('.replyDiv').toggle();
 		});
+		
 
 	});
 </script>
 
 <script type="text/javascript">
+
+
+
 	function commntvalidate() {
 
 		if ((document.WriteCommentForm.NameValue.value == "")) {
@@ -794,7 +890,8 @@ to {
 					modal.style.display = "none";
 				}
 			}
-
+			WriteCommentForm.NameValue.focus();
+			return (false);
 		}
 
 		if ((document.WriteCommentForm.EmailValue.value == "")) {

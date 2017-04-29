@@ -121,6 +121,33 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			dispatcher.forward(request, response);
 
 		} else {
+			
+			Map<Integer,List<Comments>> result =dao.getComments((page-1)*recordsPerPage,recordsPerPage);
+	    	for ( Map.Entry<Integer,List<Comments>> entry : result.entrySet()) {
+	    		noOfRecords = entry.getKey();
+				if(noOfRecords!=0){
+					commentsList=entry.getValue();
+				}
+				
+			}
+	    	
+	    	if(commentsList!=null && commentsList.size()!=0){
+	    		for (Comments commnt : commentsList) {
+	    			CommentsVO commntVO = new CommentsVO();
+					long comntId=commnt.getCommentsId();
+					List<ReplyComments> replyObj=dao.getReply(comntId);
+					commntVO.setComments(commnt);
+					commntVO.setReply(replyObj);
+					resultObject.add(commntVO);
+				}
+	    	}
+			
+			
+	    	int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+	    	request.setAttribute("comments", resultObject);
+	    	request.setAttribute("noOfPages", noOfPages);
+	    	request.setAttribute("currentPage", page);
+	    	request.setAttribute("totalComments", noOfRecords);
 			request.setAttribute("popUpError", "UserName and password not found");
 			request.getRequestDispatcher("learn-more.jsp").include(request, response);
 		}
