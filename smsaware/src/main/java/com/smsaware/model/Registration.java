@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_REGISTRATION")
+@Table(name = "user_registration")
 public class Registration{
 	/**
 	 * SMSAWARE
