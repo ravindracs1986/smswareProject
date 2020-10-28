@@ -14,8 +14,8 @@ public class SendMail {
 		final String user;
 		final String pass;
 		try {
-			host = "mail.smsaware.in";// com.smsaware.utils.AESCryptUtil.decrypt(PropertiesManager.getInstance().getValue("host"));
-			user = com.smsaware.utils.AESCryptUtil.decrypt(PropertiesManager.getInstance().getValue("userMail"));
+			host = "mail.smsaware.com";// com.smsaware.utils.AESCryptUtil.decrypt(PropertiesManager.getInstance().getValue("host"));
+			user = PropertiesManager.getInstance().getValue("userMail");//com.smsaware.utils.AESCryptUtil.decrypt(PropertiesManager.getInstance().getValue("userMail"));
 			pass = com.smsaware.utils.AESCryptUtil.decrypt(PropertiesManager.getInstance().getValue("passMail"));
 			String to = toAddress;// change accordingly
 
